@@ -1,0 +1,918 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>2996-async-iterator - The Rust RFC Book</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="0001-private-fields.html">0001-private-fields</a></li><li class="chapter-item expanded "><a href="0002-rfc-process.html">0002-rfc-process</a></li><li class="chapter-item expanded "><a href="0003-attribute-usage.html">0003-attribute-usage</a></li><li class="chapter-item expanded "><a href="0008-new-intrinsics.html">0008-new-intrinsics</a></li><li class="chapter-item expanded "><a href="0016-more-attributes.html">0016-more-attributes</a></li><li class="chapter-item expanded "><a href="0019-opt-in-builtin-traits.html">0019-opt-in-builtin-traits</a></li><li class="chapter-item expanded "><a href="0026-remove-priv.html">0026-remove-priv</a></li><li class="chapter-item expanded "><a href="0034-bounded-type-parameters.html">0034-bounded-type-parameters</a></li><li class="chapter-item expanded "><a href="0040-libstd-facade.html">0040-libstd-facade</a></li><li class="chapter-item expanded "><a href="0042-regexps.html">0042-regexps</a></li><li class="chapter-item expanded "><a href="0048-traits.html">0048-traits</a></li><li class="chapter-item expanded "><a href="0049-match-arm-attributes.html">0049-match-arm-attributes</a></li><li class="chapter-item expanded "><a href="0050-assert.html">0050-assert</a></li><li class="chapter-item expanded "><a href="0059-remove-tilde.html">0059-remove-tilde</a></li><li class="chapter-item expanded "><a href="0060-rename-strbuf.html">0060-rename-strbuf</a></li><li class="chapter-item expanded "><a href="0063-module-file-system-hierarchy.html">0063-module-file-system-hierarchy</a></li><li class="chapter-item expanded "><a href="0066-better-temporary-lifetimes.html">0066-better-temporary-lifetimes</a></li><li class="chapter-item expanded "><a href="0068-const-unsafe-pointers.html">0068-const-unsafe-pointers</a></li><li class="chapter-item expanded "><a href="0069-ascii-literals.html">0069-ascii-literals</a></li><li class="chapter-item expanded "><a href="0071-const-block-expr.html">0071-const-block-expr</a></li><li class="chapter-item expanded "><a href="0079-undefined-struct-layout.html">0079-undefined-struct-layout</a></li><li class="chapter-item expanded "><a href="0085-pattern-macros.html">0085-pattern-macros</a></li><li class="chapter-item expanded "><a href="0086-plugin-registrar.html">0086-plugin-registrar</a></li><li class="chapter-item expanded "><a href="0087-trait-bounds-with-plus.html">0087-trait-bounds-with-plus</a></li><li class="chapter-item expanded "><a href="0089-loadable-lints.html">0089-loadable-lints</a></li><li class="chapter-item expanded "><a href="0090-lexical-syntax-simplification.html">0090-lexical-syntax-simplification</a></li><li class="chapter-item expanded "><a href="0092-struct-grammar.html">0092-struct-grammar</a></li><li class="chapter-item expanded "><a href="0093-remove-format-intl.html">0093-remove-format-intl</a></li><li class="chapter-item expanded "><a href="0100-partial-cmp.html">0100-partial-cmp</a></li><li class="chapter-item expanded "><a href="0107-pattern-guards-with-bind-by-move.html">0107-pattern-guards-with-bind-by-move</a></li><li class="chapter-item expanded "><a href="0109-remove-crate-id.html">0109-remove-crate-id</a></li><li class="chapter-item expanded "><a href="0111-index-traits.html">0111-index-traits</a></li><li class="chapter-item expanded "><a href="0112-remove-cross-borrowing.html">0112-remove-cross-borrowing</a></li><li class="chapter-item expanded "><a href="0114-closures.html">0114-closures</a></li><li class="chapter-item expanded "><a href="0115-rm-integer-fallback.html">0115-rm-integer-fallback</a></li><li class="chapter-item expanded "><a href="0116-no-module-shadowing.html">0116-no-module-shadowing</a></li><li class="chapter-item expanded "><a href="0123-share-to-threadsafe.html">0123-share-to-threadsafe</a></li><li class="chapter-item expanded "><a href="0130-box-not-special.html">0130-box-not-special</a></li><li class="chapter-item expanded "><a href="0131-target-specification.html">0131-target-specification</a></li><li class="chapter-item expanded "><a href="0132-ufcs.html">0132-ufcs</a></li><li class="chapter-item expanded "><a href="0135-where.html">0135-where</a></li><li class="chapter-item expanded "><a href="0136-no-privates-in-public.html">0136-no-privates-in-public</a></li><li class="chapter-item expanded "><a href="0139-remove-cross-borrowing-entirely.html">0139-remove-cross-borrowing-entirely</a></li><li class="chapter-item expanded "><a href="0141-lifetime-elision.html">0141-lifetime-elision</a></li><li class="chapter-item expanded "><a href="0151-capture-by-value.html">0151-capture-by-value</a></li><li class="chapter-item expanded "><a href="0155-anonymous-impl-only-in-same-module.html">0155-anonymous-impl-only-in-same-module</a></li><li class="chapter-item expanded "><a href="0160-if-let.html">0160-if-let</a></li><li class="chapter-item expanded "><a href="0164-feature-gate-slice-pats.html">0164-feature-gate-slice-pats</a></li><li class="chapter-item expanded "><a href="0168-mod.html">0168-mod</a></li><li class="chapter-item expanded "><a href="0169-use-path-as-id.html">0169-use-path-as-id</a></li><li class="chapter-item expanded "><a href="0179-and-mut-patterns.html">0179-and-mut-patterns</a></li><li class="chapter-item expanded "><a href="0184-tuple-accessors.html">0184-tuple-accessors</a></li><li class="chapter-item expanded "><a href="0192-bounds-on-object-and-generic-types.html">0192-bounds-on-object-and-generic-types</a></li><li class="chapter-item expanded "><a href="0194-cfg-syntax.html">0194-cfg-syntax</a></li><li class="chapter-item expanded "><a href="0195-associated-items.html">0195-associated-items</a></li><li class="chapter-item expanded "><a href="0198-slice-notation.html">0198-slice-notation</a></li><li class="chapter-item expanded "><a href="0199-ownership-variants.html">0199-ownership-variants</a></li><li class="chapter-item expanded "><a href="0201-error-chaining.html">0201-error-chaining</a></li><li class="chapter-item expanded "><a href="0202-subslice-syntax-change.html">0202-subslice-syntax-change</a></li><li class="chapter-item expanded "><a href="0212-restore-int-fallback.html">0212-restore-int-fallback</a></li><li class="chapter-item expanded "><a href="0213-defaulted-type-params.html">0213-defaulted-type-params</a></li><li class="chapter-item expanded "><a href="0214-while-let.html">0214-while-let</a></li><li class="chapter-item expanded "><a href="0216-collection-views.html">0216-collection-views</a></li><li class="chapter-item expanded "><a href="0218-empty-struct-with-braces.html">0218-empty-struct-with-braces</a></li><li class="chapter-item expanded "><a href="0221-panic.html">0221-panic</a></li><li class="chapter-item expanded "><a href="0230-remove-runtime.html">0230-remove-runtime</a></li><li class="chapter-item expanded "><a href="0231-upvar-capture-inference.html">0231-upvar-capture-inference</a></li><li class="chapter-item expanded "><a href="0234-variants-namespace.html">0234-variants-namespace</a></li><li class="chapter-item expanded "><a href="0235-collections-conventions.html">0235-collections-conventions</a></li><li class="chapter-item expanded "><a href="0236-error-conventions.html">0236-error-conventions</a></li><li class="chapter-item expanded "><a href="0240-unsafe-api-location.html">0240-unsafe-api-location</a></li><li class="chapter-item expanded "><a href="0241-deref-conversions.html">0241-deref-conversions</a></li><li class="chapter-item expanded "><a href="0243-trait-based-exception-handling.html">0243-trait-based-exception-handling</a></li><li class="chapter-item expanded "><a href="0246-const-vs-static.html">0246-const-vs-static</a></li><li class="chapter-item expanded "><a href="0255-object-safety.html">0255-object-safety</a></li><li class="chapter-item expanded "><a href="0256-remove-refcounting-gc-of-t.html">0256-remove-refcounting-gc-of-t</a></li><li class="chapter-item expanded "><a href="0320-nonzeroing-dynamic-drop.html">0320-nonzeroing-dynamic-drop</a></li><li class="chapter-item expanded "><a href="0326-restrict-xXX-to-ascii.html">0326-restrict-xXX-to-ascii</a></li><li class="chapter-item expanded "><a href="0339-statically-sized-literals.html">0339-statically-sized-literals</a></li><li class="chapter-item expanded "><a href="0341-remove-virtual-structs.html">0341-remove-virtual-structs</a></li><li class="chapter-item expanded "><a href="0342-keywords.html">0342-keywords</a></li><li class="chapter-item expanded "><a href="0344-conventions-galore.html">0344-conventions-galore</a></li><li class="chapter-item expanded "><a href="0356-no-module-prefixes.html">0356-no-module-prefixes</a></li><li class="chapter-item expanded "><a href="0369-num-reform.html">0369-num-reform</a></li><li class="chapter-item expanded "><a href="0378-expr-macros.html">0378-expr-macros</a></li><li class="chapter-item expanded "><a href="0379-remove-reflection.html">0379-remove-reflection</a></li><li class="chapter-item expanded "><a href="0380-stabilize-std-fmt.html">0380-stabilize-std-fmt</a></li><li class="chapter-item expanded "><a href="0385-module-system-cleanup.html">0385-module-system-cleanup</a></li><li class="chapter-item expanded "><a href="0387-higher-ranked-trait-bounds.html">0387-higher-ranked-trait-bounds</a></li><li class="chapter-item expanded "><a href="0390-enum-namespacing.html">0390-enum-namespacing</a></li><li class="chapter-item expanded "><a href="0401-coercions.html">0401-coercions</a></li><li class="chapter-item expanded "><a href="0403-cargo-build-command.html">0403-cargo-build-command</a></li><li class="chapter-item expanded "><a href="0404-change-prefer-dynamic.html">0404-change-prefer-dynamic</a></li><li class="chapter-item expanded "><a href="0418-struct-variants.html">0418-struct-variants</a></li><li class="chapter-item expanded "><a href="0430-finalizing-naming-conventions.html">0430-finalizing-naming-conventions</a></li><li class="chapter-item expanded "><a href="0438-precedence-of-plus.html">0438-precedence-of-plus</a></li><li class="chapter-item expanded "><a href="0439-cmp-ops-reform.html">0439-cmp-ops-reform</a></li><li class="chapter-item expanded "><a href="0445-extension-trait-conventions.html">0445-extension-trait-conventions</a></li><li class="chapter-item expanded "><a href="0446-es6-unicode-escapes.html">0446-es6-unicode-escapes</a></li><li class="chapter-item expanded "><a href="0447-no-unused-impl-parameters.html">0447-no-unused-impl-parameters</a></li><li class="chapter-item expanded "><a href="0450-un-feature-gate-some-more-gates.html">0450-un-feature-gate-some-more-gates</a></li><li class="chapter-item expanded "><a href="0453-macro-reform.html">0453-macro-reform</a></li><li class="chapter-item expanded "><a href="0458-send-improvements.html">0458-send-improvements</a></li><li class="chapter-item expanded "><a href="0459-disallow-shadowing.html">0459-disallow-shadowing</a></li><li class="chapter-item expanded "><a href="0461-tls-overhaul.html">0461-tls-overhaul</a></li><li class="chapter-item expanded "><a href="0463-future-proof-literal-suffixes.html">0463-future-proof-literal-suffixes</a></li><li class="chapter-item expanded "><a href="0469-feature-gate-box-patterns.html">0469-feature-gate-box-patterns</a></li><li class="chapter-item expanded "><a href="0474-path-reform.html">0474-path-reform</a></li><li class="chapter-item expanded "><a href="0486-std-ascii-reform.html">0486-std-ascii-reform</a></li><li class="chapter-item expanded "><a href="0490-dst-syntax.html">0490-dst-syntax</a></li><li class="chapter-item expanded "><a href="0494-c_str-and-c_vec-stability.html">0494-c_str-and-c_vec-stability</a></li><li class="chapter-item expanded "><a href="0495-array-pattern-changes.html">0495-array-pattern-changes</a></li><li class="chapter-item expanded "><a href="0501-consistent_no_prelude_attributes.html">0501-consistent_no_prelude_attributes</a></li><li class="chapter-item expanded "><a href="0503-prelude-stabilization.html">0503-prelude-stabilization</a></li><li class="chapter-item expanded "><a href="0504-show-stabilization.html">0504-show-stabilization</a></li><li class="chapter-item expanded "><a href="0505-api-comment-conventions.html">0505-api-comment-conventions</a></li><li class="chapter-item expanded "><a href="0507-release-channels.html">0507-release-channels</a></li><li class="chapter-item expanded "><a href="0509-collections-reform-part-2.html">0509-collections-reform-part-2</a></li><li class="chapter-item expanded "><a href="0517-io-os-reform.html">0517-io-os-reform</a></li><li class="chapter-item expanded "><a href="0520-new-array-repeat-syntax.html">0520-new-array-repeat-syntax</a></li><li class="chapter-item expanded "><a href="0522-self-impl.html">0522-self-impl</a></li><li class="chapter-item expanded "><a href="0526-fmt-text-writer.html">0526-fmt-text-writer</a></li><li class="chapter-item expanded "><a href="0528-string-patterns.html">0528-string-patterns</a></li><li class="chapter-item expanded "><a href="0529-conversion-traits.html">0529-conversion-traits</a></li><li class="chapter-item expanded "><a href="0531-define-rfc-scope.html">0531-define-rfc-scope</a></li><li class="chapter-item expanded "><a href="0532-self-in-use.html">0532-self-in-use</a></li><li class="chapter-item expanded "><a href="0533-no-array-elem-moves.html">0533-no-array-elem-moves</a></li><li class="chapter-item expanded "><a href="0534-deriving2derive.html">0534-deriving2derive</a></li><li class="chapter-item expanded "><a href="0544-rename-int-uint.html">0544-rename-int-uint</a></li><li class="chapter-item expanded "><a href="0546-Self-not-sized-by-default.html">0546-Self-not-sized-by-default</a></li><li class="chapter-item expanded "><a href="0550-macro-future-proofing.html">0550-macro-future-proofing</a></li><li class="chapter-item expanded "><a href="0556-raw-lifetime.html">0556-raw-lifetime</a></li><li class="chapter-item expanded "><a href="0558-require-parentheses-for-chained-comparisons.html">0558-require-parentheses-for-chained-comparisons</a></li><li class="chapter-item expanded "><a href="0560-integer-overflow.html">0560-integer-overflow</a></li><li class="chapter-item expanded "><a href="0563-remove-ndebug.html">0563-remove-ndebug</a></li><li class="chapter-item expanded "><a href="0565-show-string-guidelines.html">0565-show-string-guidelines</a></li><li class="chapter-item expanded "><a href="0572-rustc-attribute.html">0572-rustc-attribute</a></li><li class="chapter-item expanded "><a href="0574-drain-range.html">0574-drain-range</a></li><li class="chapter-item expanded "><a href="0580-rename-collections.html">0580-rename-collections</a></li><li class="chapter-item expanded "><a href="0587-fn-return-should-be-an-associated-type.html">0587-fn-return-should-be-an-associated-type</a></li><li class="chapter-item expanded "><a href="0592-c-str-deref.html">0592-c-str-deref</a></li><li class="chapter-item expanded "><a href="0593-forbid-Self-definitions.html">0593-forbid-Self-definitions</a></li><li class="chapter-item expanded "><a href="0599-default-object-bound.html">0599-default-object-bound</a></li><li class="chapter-item expanded "><a href="0601-replace-be-with-become.html">0601-replace-be-with-become</a></li><li class="chapter-item expanded "><a href="0639-discriminant-intrinsic.html">0639-discriminant-intrinsic</a></li><li class="chapter-item expanded "><a href="0640-debug-improvements.html">0640-debug-improvements</a></li><li class="chapter-item expanded "><a href="0702-rangefull-expression.html">0702-rangefull-expression</a></li><li class="chapter-item expanded "><a href="0735-allow-inherent-impls-anywhere.html">0735-allow-inherent-impls-anywhere</a></li><li class="chapter-item expanded "><a href="0736-privacy-respecting-fru.html">0736-privacy-respecting-fru</a></li><li class="chapter-item expanded "><a href="0738-variance.html">0738-variance</a></li><li class="chapter-item expanded "><a href="0769-sound-generic-drop.html">0769-sound-generic-drop</a></li><li class="chapter-item expanded "><a href="0771-std-iter-once.html">0771-std-iter-once</a></li><li class="chapter-item expanded "><a href="0803-type-ascription.html">0803-type-ascription</a></li><li class="chapter-item expanded "><a href="0809-box-and-in-for-stdlib.html">0809-box-and-in-for-stdlib</a></li><li class="chapter-item expanded "><a href="0823-hash-simplification.html">0823-hash-simplification</a></li><li class="chapter-item expanded "><a href="0832-from-elem-with-love.html">0832-from-elem-with-love</a></li><li class="chapter-item expanded "><a href="0839-embrace-extend-extinguish.html">0839-embrace-extend-extinguish</a></li><li class="chapter-item expanded "><a href="0840-no-panic-in-c-string.html">0840-no-panic-in-c-string</a></li><li class="chapter-item expanded "><a href="0873-type-macros.html">0873-type-macros</a></li><li class="chapter-item expanded "><a href="0879-small-base-lexing.html">0879-small-base-lexing</a></li><li class="chapter-item expanded "><a href="0888-compiler-fence-intrinsics.html">0888-compiler-fence-intrinsics</a></li><li class="chapter-item expanded "><a href="0909-move-thread-local-to-std-thread.html">0909-move-thread-local-to-std-thread</a></li><li class="chapter-item expanded "><a href="0911-const-fn.html">0911-const-fn</a></li><li class="chapter-item expanded "><a href="0921-entry_v3.html">0921-entry_v3</a></li><li class="chapter-item expanded "><a href="0940-hyphens-considered-harmful.html">0940-hyphens-considered-harmful</a></li><li class="chapter-item expanded "><a href="0953-op-assign.html">0953-op-assign</a></li><li class="chapter-item expanded "><a href="0968-closure-return-type-syntax.html">0968-closure-return-type-syntax</a></li><li class="chapter-item expanded "><a href="0979-align-splitn-with-other-languages.html">0979-align-splitn-with-other-languages</a></li><li class="chapter-item expanded "><a href="0980-read-exact.html">0980-read-exact</a></li><li class="chapter-item expanded "><a href="0982-dst-coercion.html">0982-dst-coercion</a></li><li class="chapter-item expanded "><a href="1011-process.exit.html">1011-process.exit</a></li><li class="chapter-item expanded "><a href="1014-stdout-existential-crisis.html">1014-stdout-existential-crisis</a></li><li class="chapter-item expanded "><a href="1023-rebalancing-coherence.html">1023-rebalancing-coherence</a></li><li class="chapter-item expanded "><a href="1030-prelude-additions.html">1030-prelude-additions</a></li><li class="chapter-item expanded "><a href="1040-duration-reform.html">1040-duration-reform</a></li><li class="chapter-item expanded "><a href="1044-io-fs-2.1.html">1044-io-fs-2.1</a></li><li class="chapter-item expanded "><a href="1047-socket-timeouts.html">1047-socket-timeouts</a></li><li class="chapter-item expanded "><a href="1048-rename-soft-link-to-symlink.html">1048-rename-soft-link-to-symlink</a></li><li class="chapter-item expanded "><a href="1054-str-words.html">1054-str-words</a></li><li class="chapter-item expanded "><a href="1057-io-error-sync.html">1057-io-error-sync</a></li><li class="chapter-item expanded "><a href="1058-slice-tail-redesign.html">1058-slice-tail-redesign</a></li><li class="chapter-item expanded "><a href="1066-safe-mem-forget.html">1066-safe-mem-forget</a></li><li class="chapter-item expanded "><a href="1068-rust-governance.html">1068-rust-governance</a></li><li class="chapter-item expanded "><a href="1096-remove-static-assert.html">1096-remove-static-assert</a></li><li class="chapter-item expanded "><a href="1102-rename-connect-to-join.html">1102-rename-connect-to-join</a></li><li class="chapter-item expanded "><a href="1105-api-evolution.html">1105-api-evolution</a></li><li class="chapter-item expanded "><a href="1119-result-expect.html">1119-result-expect</a></li><li class="chapter-item expanded "><a href="1122-language-semver.html">1122-language-semver</a></li><li class="chapter-item expanded "><a href="1123-str-split-at.html">1123-str-split-at</a></li><li class="chapter-item expanded "><a href="1131-likely-intrinsic.html">1131-likely-intrinsic</a></li><li class="chapter-item expanded "><a href="1135-raw-pointer-comparisons.html">1135-raw-pointer-comparisons</a></li><li class="chapter-item expanded "><a href="1152-slice-string-symmetry.html">1152-slice-string-symmetry</a></li><li class="chapter-item expanded "><a href="1156-adjust-default-object-bounds.html">1156-adjust-default-object-bounds</a></li><li class="chapter-item expanded "><a href="1174-into-raw-fd-socket-handle-traits.html">1174-into-raw-fd-socket-handle-traits</a></li><li class="chapter-item expanded "><a href="1183-swap-out-jemalloc.html">1183-swap-out-jemalloc</a></li><li class="chapter-item expanded "><a href="1184-stabilize-no_std.html">1184-stabilize-no_std</a></li><li class="chapter-item expanded "><a href="1191-hir.html">1191-hir</a></li><li class="chapter-item expanded "><a href="1192-inclusive-ranges.html">1192-inclusive-ranges</a></li><li class="chapter-item expanded "><a href="1193-cap-lints.html">1193-cap-lints</a></li><li class="chapter-item expanded "><a href="1194-set-recovery.html">1194-set-recovery</a></li><li class="chapter-item expanded "><a href="1199-simd-infrastructure.html">1199-simd-infrastructure</a></li><li class="chapter-item expanded "><a href="1200-cargo-install.html">1200-cargo-install</a></li><li class="chapter-item expanded "><a href="1201-naked-fns.html">1201-naked-fns</a></li><li class="chapter-item expanded "><a href="1210-impl-specialization.html">1210-impl-specialization</a></li><li class="chapter-item expanded "><a href="1211-mir.html">1211-mir</a></li><li class="chapter-item expanded "><a href="1212-line-endings.html">1212-line-endings</a></li><li class="chapter-item expanded "><a href="1214-projections-lifetimes-and-wf.html">1214-projections-lifetimes-and-wf</a></li><li class="chapter-item expanded "><a href="1216-bang-type.html">1216-bang-type</a></li><li class="chapter-item expanded "><a href="1219-use-group-as.html">1219-use-group-as</a></li><li class="chapter-item expanded "><a href="1228-placement-left-arrow.html">1228-placement-left-arrow</a></li><li class="chapter-item expanded "><a href="1229-compile-time-asserts.html">1229-compile-time-asserts</a></li><li class="chapter-item expanded "><a href="1236-stabilize-catch-panic.html">1236-stabilize-catch-panic</a></li><li class="chapter-item expanded "><a href="1238-nonparametric-dropck.html">1238-nonparametric-dropck</a></li><li class="chapter-item expanded "><a href="1240-repr-packed-unsafe-ref.html">1240-repr-packed-unsafe-ref</a></li><li class="chapter-item expanded "><a href="1241-no-wildcard-deps.html">1241-no-wildcard-deps</a></li><li class="chapter-item expanded "><a href="1242-rust-lang-crates.html">1242-rust-lang-crates</a></li><li class="chapter-item expanded "><a href="1252-open-options.html">1252-open-options</a></li><li class="chapter-item expanded "><a href="1257-drain-range-2.html">1257-drain-range-2</a></li><li class="chapter-item expanded "><a href="1260-main-reexport.html">1260-main-reexport</a></li><li class="chapter-item expanded "><a href="1268-allow-overlapping-impls-on-marker-traits.html">1268-allow-overlapping-impls-on-marker-traits</a></li><li class="chapter-item expanded "><a href="1270-deprecation.html">1270-deprecation</a></li><li class="chapter-item expanded "><a href="1288-time-improvements.html">1288-time-improvements</a></li><li class="chapter-item expanded "><a href="1291-promote-libc.html">1291-promote-libc</a></li><li class="chapter-item expanded "><a href="1298-incremental-compilation.html">1298-incremental-compilation</a></li><li class="chapter-item expanded "><a href="1300-intrinsic-semantics.html">1300-intrinsic-semantics</a></li><li class="chapter-item expanded "><a href="1307-osstring-methods.html">1307-osstring-methods</a></li><li class="chapter-item expanded "><a href="1317-ide.html">1317-ide</a></li><li class="chapter-item expanded "><a href="1327-dropck-param-eyepatch.html">1327-dropck-param-eyepatch</a></li><li class="chapter-item expanded "><a href="1328-global-panic-handler.html">1328-global-panic-handler</a></li><li class="chapter-item expanded "><a href="1331-grammar-is-canonical.html">1331-grammar-is-canonical</a></li><li class="chapter-item expanded "><a href="1358-repr-align.html">1358-repr-align</a></li><li class="chapter-item expanded "><a href="1359-process-ext-unix.html">1359-process-ext-unix</a></li><li class="chapter-item expanded "><a href="1361-cargo-cfg-dependencies.html">1361-cargo-cfg-dependencies</a></li><li class="chapter-item expanded "><a href="1398-kinds-of-allocators.html">1398-kinds-of-allocators</a></li><li class="chapter-item expanded "><a href="1399-repr-pack.html">1399-repr-pack</a></li><li class="chapter-item expanded "><a href="1414-rvalue_static_promotion.html">1414-rvalue_static_promotion</a></li><li class="chapter-item expanded "><a href="1415-trim-std-os.html">1415-trim-std-os</a></li><li class="chapter-item expanded "><a href="1419-slice-copy.html">1419-slice-copy</a></li><li class="chapter-item expanded "><a href="1422-pub-restricted.html">1422-pub-restricted</a></li><li class="chapter-item expanded "><a href="1432-replace-slice.html">1432-replace-slice</a></li><li class="chapter-item expanded "><a href="1434-contains-method-for-ranges.html">1434-contains-method-for-ranges</a></li><li class="chapter-item expanded "><a href="1440-drop-types-in-const.html">1440-drop-types-in-const</a></li><li class="chapter-item expanded "><a href="1443-extended-compare-and-swap.html">1443-extended-compare-and-swap</a></li><li class="chapter-item expanded "><a href="1444-union.html">1444-union</a></li><li class="chapter-item expanded "><a href="1445-restrict-constants-in-patterns.html">1445-restrict-constants-in-patterns</a></li><li class="chapter-item expanded "><a href="1461-net2-mutators.html">1461-net2-mutators</a></li><li class="chapter-item expanded "><a href="1467-volatile.html">1467-volatile</a></li><li class="chapter-item expanded "><a href="1479-unix-socket.html">1479-unix-socket</a></li><li class="chapter-item expanded "><a href="1492-dotdot-in-patterns.html">1492-dotdot-in-patterns</a></li><li class="chapter-item expanded "><a href="1498-ipv6addr-octets.html">1498-ipv6addr-octets</a></li><li class="chapter-item expanded "><a href="1504-int128.html">1504-int128</a></li><li class="chapter-item expanded "><a href="1506-adt-kinds.html">1506-adt-kinds</a></li><li class="chapter-item expanded "><a href="1510-cdylib.html">1510-cdylib</a></li><li class="chapter-item expanded "><a href="1513-less-unwinding.html">1513-less-unwinding</a></li><li class="chapter-item expanded "><a href="1521-copy-clone-semantics.html">1521-copy-clone-semantics</a></li><li class="chapter-item expanded "><a href="1522-conservative-impl-trait.html">1522-conservative-impl-trait</a></li><li class="chapter-item expanded "><a href="1525-cargo-workspace.html">1525-cargo-workspace</a></li><li class="chapter-item expanded "><a href="1535-stable-overflow-checks.html">1535-stable-overflow-checks</a></li><li class="chapter-item expanded "><a href="1542-try-from.html">1542-try-from</a></li><li class="chapter-item expanded "><a href="1543-integer_atomics.html">1543-integer_atomics</a></li><li class="chapter-item expanded "><a href="1548-global-asm.html">1548-global-asm</a></li><li class="chapter-item expanded "><a href="1552-contains-method-for-various-collections.html">1552-contains-method-for-various-collections</a></li><li class="chapter-item expanded "><a href="1558-closure-to-fn-coercion.html">1558-closure-to-fn-coercion</a></li><li class="chapter-item expanded "><a href="1559-attributes-with-literals.html">1559-attributes-with-literals</a></li><li class="chapter-item expanded "><a href="1560-name-resolution.html">1560-name-resolution</a></li><li class="chapter-item expanded "><a href="1561-macro-naming.html">1561-macro-naming</a></li><li class="chapter-item expanded "><a href="1566-proc-macros.html">1566-proc-macros</a></li><li class="chapter-item expanded "><a href="1567-long-error-codes-explanation-normalization.html">1567-long-error-codes-explanation-normalization</a></li><li class="chapter-item expanded "><a href="1574-more-api-documentation-conventions.html">1574-more-api-documentation-conventions</a></li><li class="chapter-item expanded "><a href="1576-macros-literal-matcher.html">1576-macros-literal-matcher</a></li><li class="chapter-item expanded "><a href="1581-fused-iterator.html">1581-fused-iterator</a></li><li class="chapter-item expanded "><a href="1584-macros.html">1584-macros</a></li><li class="chapter-item expanded "><a href="1589-rustc-bug-fix-procedure.html">1589-rustc-bug-fix-procedure</a></li><li class="chapter-item expanded "><a href="1590-macro-lifetimes.html">1590-macro-lifetimes</a></li><li class="chapter-item expanded "><a href="1598-generic_associated_types.html">1598-generic_associated_types</a></li><li class="chapter-item expanded "><a href="1607-style-rfcs.html">1607-style-rfcs</a></li><li class="chapter-item expanded "><a href="1618-ergonomic-format-args.html">1618-ergonomic-format-args</a></li><li class="chapter-item expanded "><a href="1620-regex-1.0.html">1620-regex-1.0</a></li><li class="chapter-item expanded "><a href="1623-static.html">1623-static</a></li><li class="chapter-item expanded "><a href="1624-loop-break-value.html">1624-loop-break-value</a></li><li class="chapter-item expanded "><a href="1636-document_all_features.html">1636-document_all_features</a></li><li class="chapter-item expanded "><a href="1640-duration-checked-sub.html">1640-duration-checked-sub</a></li><li class="chapter-item expanded "><a href="1643-memory-model-strike-team.html">1643-memory-model-strike-team</a></li><li class="chapter-item expanded "><a href="1644-default-and-expanded-rustc-errors.html">1644-default-and-expanded-rustc-errors</a></li><li class="chapter-item expanded "><a href="1647-allow-self-in-where-clauses.html">1647-allow-self-in-where-clauses</a></li><li class="chapter-item expanded "><a href="1649-atomic-access.html">1649-atomic-access</a></li><li class="chapter-item expanded "><a href="1651-movecell.html">1651-movecell</a></li><li class="chapter-item expanded "><a href="1653-assert_ne.html">1653-assert_ne</a></li><li class="chapter-item expanded "><a href="1660-try-borrow.html">1660-try-borrow</a></li><li class="chapter-item expanded "><a href="1665-windows-subsystem.html">1665-windows-subsystem</a></li><li class="chapter-item expanded "><a href="1679-panic-safe-slicing.html">1679-panic-safe-slicing</a></li><li class="chapter-item expanded "><a href="1681-macros-1.1.html">1681-macros-1.1</a></li><li class="chapter-item expanded "><a href="1682-field-init-shorthand.html">1682-field-init-shorthand</a></li><li class="chapter-item expanded "><a href="1683-docs-team.html">1683-docs-team</a></li><li class="chapter-item expanded "><a href="1685-deprecate-anonymous-parameters.html">1685-deprecate-anonymous-parameters</a></li><li class="chapter-item expanded "><a href="1695-add-error-macro.html">1695-add-error-macro</a></li><li class="chapter-item expanded "><a href="1696-discriminant.html">1696-discriminant</a></li><li class="chapter-item expanded "><a href="1717-dllimport.html">1717-dllimport</a></li><li class="chapter-item expanded "><a href="1721-crt-static.html">1721-crt-static</a></li><li class="chapter-item expanded "><a href="1725-unaligned-access.html">1725-unaligned-access</a></li><li class="chapter-item expanded "><a href="1728-north-star.html">1728-north-star</a></li><li class="chapter-item expanded "><a href="1733-trait-alias.html">1733-trait-alias</a></li><li class="chapter-item expanded "><a href="1758-repr-transparent.html">1758-repr-transparent</a></li><li class="chapter-item expanded "><a href="1774-roadmap-2017.html">1774-roadmap-2017</a></li><li class="chapter-item expanded "><a href="1789-as-cell.html">1789-as-cell</a></li><li class="chapter-item expanded "><a href="1824-crates.io-default-ranking.html">1824-crates.io-default-ranking</a></li><li class="chapter-item expanded "><a href="1826-change-doc-default-urls.html">1826-change-doc-default-urls</a></li><li class="chapter-item expanded "><a href="1828-rust-bookshelf.html">1828-rust-bookshelf</a></li><li class="chapter-item expanded "><a href="1845-shared-from-slice.html">1845-shared-from-slice</a></li><li class="chapter-item expanded "><a href="1849-non-static-type-id.html">1849-non-static-type-id</a></li><li class="chapter-item expanded "><a href="1857-stabilize-drop-order.html">1857-stabilize-drop-order</a></li><li class="chapter-item expanded "><a href="1859-try-trait.html">1859-try-trait</a></li><li class="chapter-item expanded "><a href="1860-manually-drop.html">1860-manually-drop</a></li><li class="chapter-item expanded "><a href="1861-extern-types.html">1861-extern-types</a></li><li class="chapter-item expanded "><a href="1866-more-readable-assert-eq.html">1866-more-readable-assert-eq</a></li><li class="chapter-item expanded "><a href="1868-portability-lint.html">1868-portability-lint</a></li><li class="chapter-item expanded "><a href="1869-eprintln.html">1869-eprintln</a></li><li class="chapter-item expanded "><a href="1884-unstable-sort.html">1884-unstable-sort</a></li><li class="chapter-item expanded "><a href="1892-uninitialized-uninhabited.html">1892-uninitialized-uninhabited</a></li><li class="chapter-item expanded "><a href="1909-unsized-rvalues.html">1909-unsized-rvalues</a></li><li class="chapter-item expanded "><a href="1925-optional-match-vert.html">1925-optional-match-vert</a></li><li class="chapter-item expanded "><a href="1937-ques-in-main.html">1937-ques-in-main</a></li><li class="chapter-item expanded "><a href="1940-must-use-functions.html">1940-must-use-functions</a></li><li class="chapter-item expanded "><a href="1946-intra-rustdoc-links.html">1946-intra-rustdoc-links</a></li><li class="chapter-item expanded "><a href="1951-expand-impl-trait.html">1951-expand-impl-trait</a></li><li class="chapter-item expanded "><a href="1961-clamp.html">1961-clamp</a></li><li class="chapter-item expanded "><a href="1966-unsafe-pointer-reform.html">1966-unsafe-pointer-reform</a></li><li class="chapter-item expanded "><a href="1969-cargo-prepublish.html">1969-cargo-prepublish</a></li><li class="chapter-item expanded "><a href="1974-global-allocators.html">1974-global-allocators</a></li><li class="chapter-item expanded "><a href="1977-public-private-dependencies.html">1977-public-private-dependencies</a></li><li class="chapter-item expanded "><a href="1983-nursery-deprecation.html">1983-nursery-deprecation</a></li><li class="chapter-item expanded "><a href="1985-tiered-browser-support.html">1985-tiered-browser-support</a></li><li class="chapter-item expanded "><a href="1990-external-doc-attribute.html">1990-external-doc-attribute</a></li><li class="chapter-item expanded "><a href="2000-const-generics.html">2000-const-generics</a></li><li class="chapter-item expanded "><a href="2005-match-ergonomics.html">2005-match-ergonomics</a></li><li class="chapter-item expanded "><a href="2008-non-exhaustive.html">2008-non-exhaustive</a></li><li class="chapter-item expanded "><a href="2011-generic-assert.html">2011-generic-assert</a></li><li class="chapter-item expanded "><a href="2025-nested-method-calls.html">2025-nested-method-calls</a></li><li class="chapter-item expanded "><a href="2027-object_safe_for_dispatch.html">2027-object_safe_for_dispatch</a></li><li class="chapter-item expanded "><a href="2033-experimental-coroutines.html">2033-experimental-coroutines</a></li><li class="chapter-item expanded "><a href="2043-is-aligned-intrinsic.html">2043-is-aligned-intrinsic</a></li><li class="chapter-item expanded "><a href="2044-license-rfcs.html">2044-license-rfcs</a></li><li class="chapter-item expanded "><a href="2045-target-feature.html">2045-target-feature</a></li><li class="chapter-item expanded "><a href="2046-label-break-value.html">2046-label-break-value</a></li><li class="chapter-item expanded "><a href="2052-epochs.html">2052-epochs</a></li><li class="chapter-item expanded "><a href="2056-allow-trivial-where-clause-constraints.html">2056-allow-trivial-where-clause-constraints</a></li><li class="chapter-item expanded "><a href="2057-refcell-replace.html">2057-refcell-replace</a></li><li class="chapter-item expanded "><a href="2070-panic-implementation.html">2070-panic-implementation</a></li><li class="chapter-item expanded "><a href="2071-impl-trait-existential-types.html">2071-impl-trait-existential-types</a></li><li class="chapter-item expanded "><a href="2071-impl-trait-type-alias.html">2071-impl-trait-type-alias</a></li><li class="chapter-item expanded "><a href="2086-allow-if-let-irrefutables.html">2086-allow-if-let-irrefutables</a></li><li class="chapter-item expanded "><a href="2089-implied-bounds.html">2089-implied-bounds</a></li><li class="chapter-item expanded "><a href="2091-inline-semantic.html">2091-inline-semantic</a></li><li class="chapter-item expanded "><a href="2093-infer-outlives.html">2093-infer-outlives</a></li><li class="chapter-item expanded "><a href="2094-nll.html">2094-nll</a></li><li class="chapter-item expanded "><a href="2102-unnamed-fields.html">2102-unnamed-fields</a></li><li class="chapter-item expanded "><a href="2103-tool-attributes.html">2103-tool-attributes</a></li><li class="chapter-item expanded "><a href="2113-dyn-trait-syntax.html">2113-dyn-trait-syntax</a></li><li class="chapter-item expanded "><a href="2115-argument-lifetimes.html">2115-argument-lifetimes</a></li><li class="chapter-item expanded "><a href="2116-alloc-me-maybe.html">2116-alloc-me-maybe</a></li><li class="chapter-item expanded "><a href="2124-option-filter.html">2124-option-filter</a></li><li class="chapter-item expanded "><a href="2126-path-clarity.html">2126-path-clarity</a></li><li class="chapter-item expanded "><a href="2128-use-nested-groups.html">2128-use-nested-groups</a></li><li class="chapter-item expanded "><a href="2132-copy-closures.html">2132-copy-closures</a></li><li class="chapter-item expanded "><a href="2133-all-the-clones.html">2133-all-the-clones</a></li><li class="chapter-item expanded "><a href="2136-build-systems.html">2136-build-systems</a></li><li class="chapter-item expanded "><a href="2137-variadic.html">2137-variadic</a></li><li class="chapter-item expanded "><a href="2141-alternative-registries.html">2141-alternative-registries</a></li><li class="chapter-item expanded "><a href="2145-type-privacy.html">2145-type-privacy</a></li><li class="chapter-item expanded "><a href="2151-raw-identifiers.html">2151-raw-identifiers</a></li><li class="chapter-item expanded "><a href="2166-impl-only-use.html">2166-impl-only-use</a></li><li class="chapter-item expanded "><a href="2169-euclidean-modulo.html">2169-euclidean-modulo</a></li><li class="chapter-item expanded "><a href="2175-if-while-or-patterns.html">2175-if-while-or-patterns</a></li><li class="chapter-item expanded "><a href="2195-really-tagged-unions.html">2195-really-tagged-unions</a></li><li class="chapter-item expanded "><a href="2196-metabuild.html">2196-metabuild</a></li><li class="chapter-item expanded "><a href="2203-const-repeat-expr.html">2203-const-repeat-expr</a></li><li class="chapter-item expanded "><a href="2226-fmt-debug-hex.html">2226-fmt-debug-hex</a></li><li class="chapter-item expanded "><a href="2229-capture-disjoint-fields.html">2229-capture-disjoint-fields</a></li><li class="chapter-item expanded "><a href="2230-bury-description.html">2230-bury-description</a></li><li class="chapter-item expanded "><a href="2235-libc-struct-traits.html">2235-libc-struct-traits</a></li><li class="chapter-item expanded "><a href="2250-finalize-impl-dyn-syntax.html">2250-finalize-impl-dyn-syntax</a></li><li class="chapter-item expanded "><a href="2282-profile-dependencies.html">2282-profile-dependencies</a></li><li class="chapter-item expanded "><a href="2289-associated-type-bounds.html">2289-associated-type-bounds</a></li><li class="chapter-item expanded "><a href="2294-if-let-guard.html">2294-if-let-guard</a></li><li class="chapter-item expanded "><a href="2295-os-str-pattern.html">2295-os-str-pattern</a></li><li class="chapter-item expanded "><a href="2296-option-replace.html">2296-option-replace</a></li><li class="chapter-item expanded "><a href="2298-macro-at-most-once-rep.html">2298-macro-at-most-once-rep</a></li><li class="chapter-item expanded "><a href="2300-self-in-typedefs.html">2300-self-in-typedefs</a></li><li class="chapter-item expanded "><a href="2302-tuple-struct-self-ctor.html">2302-tuple-struct-self-ctor</a></li><li class="chapter-item expanded "><a href="2306-convert-id.html">2306-convert-id</a></li><li class="chapter-item expanded "><a href="2307-concrete-nonzero-types.html">2307-concrete-nonzero-types</a></li><li class="chapter-item expanded "><a href="2314-roadmap-2018.html">2314-roadmap-2018</a></li><li class="chapter-item expanded "><a href="2316-safe-unsafe-trait-methods.html">2316-safe-unsafe-trait-methods</a></li><li class="chapter-item expanded "><a href="2318-custom-test-frameworks.html">2318-custom-test-frameworks</a></li><li class="chapter-item expanded "><a href="2325-stable-simd.html">2325-stable-simd</a></li><li class="chapter-item expanded "><a href="2333-prior-art.html">2333-prior-art</a></li><li class="chapter-item expanded "><a href="2338-type-alias-enum-variants.html">2338-type-alias-enum-variants</a></li><li class="chapter-item expanded "><a href="2341-const-locals.html">2341-const-locals</a></li><li class="chapter-item expanded "><a href="2342-const-control-flow.html">2342-const-control-flow</a></li><li class="chapter-item expanded "><a href="2344-const-looping.html">2344-const-looping</a></li><li class="chapter-item expanded "><a href="2345-const-panic.html">2345-const-panic</a></li><li class="chapter-item expanded "><a href="2349-pin.html">2349-pin</a></li><li class="chapter-item expanded "><a href="2351-is-sorted.html">2351-is-sorted</a></li><li class="chapter-item expanded "><a href="2359-subslice-pattern-syntax.html">2359-subslice-pattern-syntax</a></li><li class="chapter-item expanded "><a href="2360-bench-black-box.html">2360-bench-black-box</a></li><li class="chapter-item expanded "><a href="2361-dbg-macro.html">2361-dbg-macro</a></li><li class="chapter-item expanded "><a href="2363-arbitrary-enum-discriminant.html">2363-arbitrary-enum-discriminant</a></li><li class="chapter-item expanded "><a href="2383-lint-reasons.html">2383-lint-reasons</a></li><li class="chapter-item expanded "><a href="2386-used.html">2386-used</a></li><li class="chapter-item expanded "><a href="2388-try-expr.html">2388-try-expr</a></li><li class="chapter-item expanded "><a href="2394-async_await.html">2394-async_await</a></li><li class="chapter-item expanded "><a href="2396-target-feature-1.1.html">2396-target-feature-1.1</a></li><li class="chapter-item expanded "><a href="2397-do-not-recommend.html">2397-do-not-recommend</a></li><li class="chapter-item expanded "><a href="2412-optimize-attr.html">2412-optimize-attr</a></li><li class="chapter-item expanded "><a href="2420-unreserve-proc.html">2420-unreserve-proc</a></li><li class="chapter-item expanded "><a href="2421-unreservations-2018.html">2421-unreservations-2018</a></li><li class="chapter-item expanded "><a href="2436-style-guide.html">2436-style-guide</a></li><li class="chapter-item expanded "><a href="2437-rustfmt-stability.html">2437-rustfmt-stability</a></li><li class="chapter-item expanded "><a href="2438-deny-integer-literal-overflow-lint.html">2438-deny-integer-literal-overflow-lint</a></li><li class="chapter-item expanded "><a href="2451-re-rebalancing-coherence.html">2451-re-rebalancing-coherence</a></li><li class="chapter-item expanded "><a href="2457-non-ascii-idents.html">2457-non-ascii-idents</a></li><li class="chapter-item expanded "><a href="2471-lint-test-inner-function.html">2471-lint-test-inner-function</a></li><li class="chapter-item expanded "><a href="2476-clippy-uno.html">2476-clippy-uno</a></li><li class="chapter-item expanded "><a href="2480-liballoc.html">2480-liballoc</a></li><li class="chapter-item expanded "><a href="2495-min-rust-version.html">2495-min-rust-version</a></li><li class="chapter-item expanded "><a href="2497-if-let-chains.html">2497-if-let-chains</a></li><li class="chapter-item expanded "><a href="2500-needle.html">2500-needle</a></li><li class="chapter-item expanded "><a href="2504-fix-error.html">2504-fix-error</a></li><li class="chapter-item expanded "><a href="2509-byte-concat.html">2509-byte-concat</a></li><li class="chapter-item expanded "><a href="2514-union-initialization-and-drop.html">2514-union-initialization-and-drop</a></li><li class="chapter-item expanded "><a href="2515-type_alias_impl_trait.html">2515-type_alias_impl_trait</a></li><li class="chapter-item expanded "><a href="2521-c_void-reunification.html">2521-c_void-reunification</a></li><li class="chapter-item expanded "><a href="2523-cfg-path-version.html">2523-cfg-path-version</a></li><li class="chapter-item expanded "><a href="2526-const-wildcard.html">2526-const-wildcard</a></li><li class="chapter-item expanded "><a href="2528-type-changing-struct-update-syntax.html">2528-type-changing-struct-update-syntax</a></li><li class="chapter-item expanded "><a href="2532-associated-type-defaults.html">2532-associated-type-defaults</a></li><li class="chapter-item expanded "><a href="2535-or-patterns.html">2535-or-patterns</a></li><li class="chapter-item expanded "><a href="2539-cfg_attr-multiple-attrs.html">2539-cfg_attr-multiple-attrs</a></li><li class="chapter-item expanded "><a href="2561-future-possibilities.html">2561-future-possibilities</a></li><li class="chapter-item expanded "><a href="2565-formal-function-parameter-attributes.html">2565-formal-function-parameter-attributes</a></li><li class="chapter-item expanded "><a href="2570-linked-list-cursors.html">2570-linked-list-cursors</a></li><li class="chapter-item expanded "><a href="2574-simd-ffi.html">2574-simd-ffi</a></li><li class="chapter-item expanded "><a href="2580-ptr-meta.html">2580-ptr-meta</a></li><li class="chapter-item expanded "><a href="2582-raw-reference-mir-operator.html">2582-raw-reference-mir-operator</a></li><li class="chapter-item expanded "><a href="2585-unsafe-block-in-unsafe-fn.html">2585-unsafe-block-in-unsafe-fn</a></li><li class="chapter-item expanded "><a href="2591-exhaustive-integer-pattern-matching.html">2591-exhaustive-integer-pattern-matching</a></li><li class="chapter-item expanded "><a href="2592-futures.html">2592-futures</a></li><li class="chapter-item expanded "><a href="2603-rust-symbol-name-mangling-v0.html">2603-rust-symbol-name-mangling-v0</a></li><li class="chapter-item expanded "><a href="2627-raw-dylib-kind.html">2627-raw-dylib-kind</a></li><li class="chapter-item expanded "><a href="2645-transparent-unions.html">2645-transparent-unions</a></li><li class="chapter-item expanded "><a href="2657-roadmap-2019.html">2657-roadmap-2019</a></li><li class="chapter-item expanded "><a href="2678-named-custom-cargo-profiles.html">2678-named-custom-cargo-profiles</a></li><li class="chapter-item expanded "><a href="2689-compiler-team-contributors.html">2689-compiler-team-contributors</a></li><li class="chapter-item expanded "><a href="2696-debug-map-key-value.html">2696-debug-map-key-value</a></li><li class="chapter-item expanded "><a href="2700-associated-constants-on-ints.html">2700-associated-constants-on-ints</a></li><li class="chapter-item expanded "><a href="2707-dotdot-patterns.html">2707-dotdot-patterns</a></li><li class="chapter-item expanded "><a href="2730-cargo-token-from-process.html">2730-cargo-token-from-process</a></li><li class="chapter-item expanded "><a href="2789-sparse-index.html">2789-sparse-index</a></li><li class="chapter-item expanded "><a href="2795-format-args-implicit-identifiers.html">2795-format-args-implicit-identifiers</a></li><li class="chapter-item expanded "><a href="2797-project-ffi-unwind.html">2797-project-ffi-unwind</a></li><li class="chapter-item expanded "><a href="2803-target-tier-policy.html">2803-target-tier-policy</a></li><li class="chapter-item expanded "><a href="2834-cargo-report-future-incompat.html">2834-cargo-report-future-incompat</a></li><li class="chapter-item expanded "><a href="2835-project-safe-transmute.html">2835-project-safe-transmute</a></li><li class="chapter-item expanded "><a href="2836-project-asm.html">2836-project-asm</a></li><li class="chapter-item expanded "><a href="2837-demote-apple-32bit.html">2837-demote-apple-32bit</a></li><li class="chapter-item expanded "><a href="2841-export-executable-symbols.html">2841-export-executable-symbols</a></li><li class="chapter-item expanded "><a href="2843-llvm-asm.html">2843-llvm-asm</a></li><li class="chapter-item expanded "><a href="2845-supertrait-item-shadowing.html">2845-supertrait-item-shadowing</a></li><li class="chapter-item expanded "><a href="2856-project-groups.html">2856-project-groups</a></li><li class="chapter-item expanded "><a href="2857-roadmap-2020.html">2857-roadmap-2020</a></li><li class="chapter-item expanded "><a href="2867-isa-attribute.html">2867-isa-attribute</a></li><li class="chapter-item expanded "><a href="2873-inline-asm.html">2873-inline-asm</a></li><li class="chapter-item expanded "><a href="2904-compiler-major-change-process.html">2904-compiler-major-change-process</a></li><li class="chapter-item expanded "><a href="2906-cargo-workspace-deduplicate.html">2906-cargo-workspace-deduplicate</a></li><li class="chapter-item expanded "><a href="2909-destructuring-assignment.html">2909-destructuring-assignment</a></li><li class="chapter-item expanded "><a href="2912-rust-analyzer.html">2912-rust-analyzer</a></li><li class="chapter-item expanded "><a href="2920-inline-const.html">2920-inline-const</a></li><li class="chapter-item expanded "><a href="2930-read-buf.html">2930-read-buf</a></li><li class="chapter-item expanded "><a href="2945-c-unwind-abi.html">2945-c-unwind-abi</a></li><li class="chapter-item expanded "><a href="2951-native-link-modifiers.html">2951-native-link-modifiers</a></li><li class="chapter-item expanded "><a href="2957-cargo-features2.html">2957-cargo-features2</a></li><li class="chapter-item expanded "><a href="2959-promote-aarch64-unknown-linux-gnu-to-tier1.html">2959-promote-aarch64-unknown-linux-gnu-to-tier1</a></li><li class="chapter-item expanded "><a href="2963-rustdoc-json.html">2963-rustdoc-json</a></li><li class="chapter-item expanded "><a href="2965-project-error-handling.html">2965-project-error-handling</a></li><li class="chapter-item expanded "><a href="2972-constrained-naked.html">2972-constrained-naked</a></li><li class="chapter-item expanded "><a href="2977-stdsimd.html">2977-stdsimd</a></li><li class="chapter-item expanded "><a href="2992-cfg-target-abi.html">2992-cfg-target-abi</a></li><li class="chapter-item expanded "><a href="2996-async-iterator.html" class="active">2996-async-iterator</a></li><li class="chapter-item expanded "><a href="3007-panic-plan.html">3007-panic-plan</a></li><li class="chapter-item expanded "><a href="3013-conditional-compilation-checking.html">3013-conditional-compilation-checking</a></li><li class="chapter-item expanded "><a href="3014-must-not-suspend-lint.html">3014-must-not-suspend-lint</a></li><li class="chapter-item expanded "><a href="3016-const-ub.html">3016-const-ub</a></li><li class="chapter-item expanded "><a href="3027-infallible-promotion.html">3027-infallible-promotion</a></li><li class="chapter-item expanded "><a href="3028-cargo-binary-dependencies.html">3028-cargo-binary-dependencies</a></li><li class="chapter-item expanded "><a href="3037-roadmap-2021.html">3037-roadmap-2021</a></li><li class="chapter-item expanded "><a href="3052-optional-authors-field.html">3052-optional-authors-field</a></li><li class="chapter-item expanded "><a href="3058-try-trait-v2.html">3058-try-trait-v2</a></li><li class="chapter-item expanded "><a href="3085-edition-2021.html">3085-edition-2021</a></li><li class="chapter-item expanded "><a href="3086-macro-metavar-expr.html">3086-macro-metavar-expr</a></li><li class="chapter-item expanded "><a href="3101-reserved_prefixes.html">3101-reserved_prefixes</a></li><li class="chapter-item expanded "><a href="3107-derive-default-enum.html">3107-derive-default-enum</a></li><li class="chapter-item expanded "><a href="3114-prelude-2021.html">3114-prelude-2021</a></li><li class="chapter-item expanded "><a href="3119-rust-crate-ownership.html">3119-rust-crate-ownership</a></li><li class="chapter-item expanded "><a href="3123-rustdoc-scrape-examples.html">3123-rustdoc-scrape-examples</a></li><li class="chapter-item expanded "><a href="3128-io-safety.html">3128-io-safety</a></li><li class="chapter-item expanded "><a href="3137-let-else.html">3137-let-else</a></li><li class="chapter-item expanded "><a href="3139-cargo-alternative-registry-auth.html">3139-cargo-alternative-registry-auth</a></li><li class="chapter-item expanded "><a href="3143-cargo-weak-namespaced-features.html">3143-cargo-weak-namespaced-features</a></li><li class="chapter-item expanded "><a href="3151-scoped-threads.html">3151-scoped-threads</a></li><li class="chapter-item expanded "><a href="3173-float-next-up-down.html">3173-float-next-up-down</a></li><li class="chapter-item expanded "><a href="3176-cargo-multi-dep-artifacts.html">3176-cargo-multi-dep-artifacts</a></li><li class="chapter-item expanded "><a href="3180-cargo-cli-crate-type.html">3180-cargo-cli-crate-type</a></li><li class="chapter-item expanded "><a href="3184-thread-local-cell-methods.html">3184-thread-local-cell-methods</a></li><li class="chapter-item expanded "><a href="3185-static-async-fn-in-trait.html">3185-static-async-fn-in-trait</a></li><li class="chapter-item expanded "><a href="3231-cargo-asymmetric-tokens.html">3231-cargo-asymmetric-tokens</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust RFC Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/rfcs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <ul>
+<li>Feature Name: <code>async_iterator</code></li>
+<li>Start Date: 2020-09-29</li>
+<li>RFC PR: <a href="https://github.com/rust-lang/rfcs/pull/2996">rust-lang/rfcs#2996</a></li>
+<li>Rust Issue: <a href="https://github.com/rust-lang/rust/issues/79024">rust-lang/rust#79024</a></li>
+</ul>
+<h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
+<p>Introduce the <code>AsyncIterator</code> trait into the standard library, using the
+design from <code>futures</code>. Redirect the <code>Stream</code> trait definition in the 
+<code>futures-core</code> crate (which is &quot;pub-used&quot; by the <code>futures</code> crate) to the
+<code>AsyncIterator</code> trait in the standard library.</p>
+<h1 id="motivation"><a class="header" href="#motivation">Motivation</a></h1>
+<p>Async iterators are a core async abstraction. These behave similarly to <code>Iterator</code>,
+but rather than blocking between each item yield, it allows other
+tasks to run while it waits.</p>
+<p>People can do this currently using the <code>Stream</code> trait defined in the 
+<a href="https://crates.io/crates/futures">futures</a> crate. However, we would like
+to add <code>Stream</code> to the standard library as <code>AsyncIterator</code>. </p>
+<p>Including <code>AsyncIterator</code> in the standard library would clarify the stability guarantees of the trait. For example, if <a href="https://tokio.rs/">Tokio</a> 
+wishes to declare a <a href="http://smallcultfollowing.com/babysteps/blog/2020/02/11/async-interview-6-eliza-weisman/#communicating-stability">5 year stability period</a>, 
+having the <code>AsyncIterator</code> trait in the standard library means there are no concerns 
+about the trait changing during that time (<a href="http://smallcultfollowing.com/babysteps/blog/2019/12/23/async-interview-3-carl-lerche/#what-should-we-do-next-stabilize-stream">citation</a>).</p>
+<h2 id="examples-of-current-crates-that-are-consuming-async-iterators"><a class="header" href="#examples-of-current-crates-that-are-consuming-async-iterators">Examples of current crates that are consuming async iterators</a></h2>
+<h3 id="async-h1"><a class="header" href="#async-h1">async-h1</a></h3>
+<ul>
+<li><a href="https://docs.rs/async-h1">async-h1</a>'s server implementation takes <code>TcpStream</code> instances produced by a <code>TcpListener</code> in a loop.</li>
+</ul>
+<h3 id="async-sse"><a class="header" href="#async-sse">async-sse</a></h3>
+<ul>
+<li><a href="https://docs.rs/async-sse/">async-sse</a> parses incoming buffers into an async iterator of messages.</li>
+</ul>
+<h2 id="why-a-shared-trait"><a class="header" href="#why-a-shared-trait">Why a shared trait?</a></h2>
+<p>We eventually want dedicated syntax for working with async iterators, which will require a shared trait. 
+This includes a trait for producing async iterators and a trait for consuming async iterators.</p>
+<h1 id="guide-level-explanation"><a class="header" href="#guide-level-explanation">Guide-level explanation</a></h1>
+<p>An &quot;async iterator&quot; is the async version of an <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html">iterator</a>.</p>
+<p>The <code>Iterator</code> trait includes a <code>next</code> method, which computes and returns the next item in the sequence. The <code>AsyncIterator</code> trait includes the <code>poll_next</code> method to assist with defining a async iterator. In the future, we should add a <code>next</code> method for use when consuming and interacting with a async iterator (see the <a href="#future-possibilities">Future possiblilities</a> section later in this RFC).</p>
+<h2 id="poll_next-method"><a class="header" href="#poll_next-method">poll_next method</a></h2>
+<p>When implementing a <code>AsyncIterator</code>, users will define a <code>poll_next</code> method. 
+The <code>poll_next</code> method asks if the next item is ready. If so, it returns
+the item. Otherwise, <code>poll_next</code> will return <a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending"><code>Poll::Pending</code></a>. </p>
+<p>Just as with a <a href="https://doc.rust-lang.org/std/future/trait.Future.html"><code>Future</code></a>, returning <a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending"><code>Poll::Pending</code></a> 
+implies that the async iterator has arranged for the current task to be re-awoken when the data is ready.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Defined in std::async_iter module
+pub trait AsyncIterator {
+    // Core items:
+    type Item;
+    fn poll_next(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt;;
+    
+    // Optional optimization hint, just like with iterators:
+    #[inline]
+    fn size_hint(&amp;self) -&gt; (usize, Option&lt;usize&gt;) {
+        (0, None)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The arguments to <code>poll_next</code> match that of the <a href="https://doc.rust-lang.org/std/future/trait.Future.html#tymethod.poll"><code>Future::poll</code></a> method:</p>
+<ul>
+<li>The self must be a pinned reference, ensuring both unique access to
+the async iterator and that the async iterator value itself will not move. Pinning
+allows the async iterator to save pointers into itself when it suspends,
+which will be required to support generator syntax at some point.</li>
+<li>The <a href="https://doc.rust-lang.org/std/task/struct.Context.html">context</a> <code>cx</code> defines details of the current task. In particular,
+it gives access to the <a href="https://doc.rust-lang.org/std/task/struct.Waker.html"><code>Waker</code></a> for the task, which will allow the
+task to be re-awoken once data is ready.</li>
+</ul>
+<h3 id="usage"><a class="header" href="#usage">Usage</a></h3>
+<p>A user could create an async iterator as follows (Example taken from @yoshuawuyts' <a href="https://github.com/rust-lang/rust/pull/79023">implementation pull request</a>).</p>
+<p>Creating an async iterator involves two steps: creating a <code>struct</code> to
+hold the async iterator's state, and then implementing <code>AsyncIterator</code> for that
+<code>struct</code>.</p>
+<p>Let's make an async iterator named <code>Counter</code> which counts from <code>1</code> to <code>5</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span>#![feature(async_iterator)]
+<span class="boring">fn main() {
+</span><span class="boring">use core::async_iter::AsyncIterator;
+</span><span class="boring">use core::task::{Context, Poll};
+</span><span class="boring">use core::pin::Pin;
+</span>
+// First, the struct:
+
+/// An async iterator which counts from one to five
+struct Counter {
+    count: usize,
+}
+
+// we want our count to start at one, so let's add a new() method to help.
+// This isn't strictly necessary, but is convenient. Note that we start
+// `count` at zero, we'll see why in `poll_next()`'s implementation below.
+impl Counter {
+    fn new() -&gt; Counter {
+        Counter { count: 0 }
+    }
+}
+
+// Then, we implement `AsyncIterator` for our `Counter`:
+
+impl AsyncIterator for Counter {
+    // we will be counting with usize
+    type Item = usize;
+
+    // poll_next() is the only required method
+    fn poll_next(mut self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt; {
+        // Increment our count. This is why we started at zero.
+        self.count += 1;
+
+        // Check to see if we've finished counting or not.
+        if self.count &lt; 6 {
+            Poll::Ready(Some(self.count))
+        } else {
+            Poll::Ready(None)
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="initial-impls"><a class="header" href="#initial-impls">Initial impls</a></h2>
+<p>There are a number of simple &quot;bridge&quot; impls that are also provided:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;S&gt; AsyncIterator for Box&lt;S&gt;
+where
+    S: AsyncIterator + Unpin + ?Sized,
+{
+    type Item = &lt;S as AsyncIterator&gt;::Item
+}
+
+impl&lt;S&gt; AsyncIterator for &amp;mut S
+where
+    S: AsyncIterator + Unpin + ?Sized,
+{
+    type Item = &lt;S as AsyncIterator&gt;::Item;
+}
+
+impl&lt;S, T&gt; AsyncIterator for Pin&lt;P&gt;
+where
+    P: DerefMut&lt;Target=T&gt; + Unpin,
+    T: AsyncIterator,
+{
+    type Item = &lt;T as AsyncIterator&gt;::Item;
+}
+
+impl&lt;S&gt; AsyncIterator for AssertUnwindSafe&lt;S&gt;
+where
+    S: AsyncIterator, 
+{
+    type Item = &lt;S as AsyncIterator&gt;::Item;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h1 id="reference-level-explanation"><a class="header" href="#reference-level-explanation">Reference-level explanation</a></h1>
+<p>This section goes into details about various aspects of the design and
+why they ended up the way they did.</p>
+<h2 id="where-does-asynciterator-live-in-the-std-lib"><a class="header" href="#where-does-asynciterator-live-in-the-std-lib">Where does <code>AsyncIterator</code> live in the std lib?</a></h2>
+<p><code>AsyncIterator</code> will live in the <code>core::async_iter</code> module and be re-exported as <code>std::async_iter</code>.</p>
+<p>It is possible that it could live in another area as well, though this follows
+the pattern of <code>core::future</code>.</p>
+<h2 id="why-use-a-poll-method"><a class="header" href="#why-use-a-poll-method">Why use a <code>poll</code> method?</a></h2>
+<p>An alternative design for the async iterator trait would be to have a trait
+that defines an async <code>next</code> method:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait AsyncIterator {
+    type Item;
+    
+    async fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Unfortunately, async methods in traits are not currently supported,
+and there <a href="https://rust-lang.github.io/wg-async-foundations/design_notes/async_fn_in_traits.html">are a number of challenges to be
+resolved</a>
+before they can be added. </p>
+<p>Moreover, it is not clear yet how to make traits that contain async
+functions be <code>dyn</code> safe, and it is important to be able to pass around <code>dyn AsyncIterator</code> values without the need to monomorphize the functions that work
+with them.</p>
+<p>Unfortunately, the use of poll does mean that it is harder to write
+async iterator implementations. The long-term fix for this, discussed in the <a href="#future-possibilities">Future possiblilities</a> section, is dedicated <a href="#generator-syntax">generator syntax</a>.</p>
+<h1 id="rationale-and-alternatives"><a class="header" href="#rationale-and-alternatives">Rationale and alternatives</a></h1>
+<h2 id="where-should-async-iterator-live"><a class="header" href="#where-should-async-iterator-live">Where should async iterator live?</a></h2>
+<p>As mentioned above, <code>core::async_iter</code> is analogous to <code>core::future</code>. But, do we want to find 
+some other naming scheme that can scale up to other future additions, such as io traits or channels?</p>
+<h2 id="naming"><a class="header" href="#naming">Naming</a></h2>
+<p>When considering what to name the trait and concepts, there were two options:</p>
+<ul>
+<li><strong><code>Stream</code>:</strong> with prior art in <code>futures-rs</code>, runtimes, and much of the
+of the async ecosystem.</li>
+<li><strong><code>AsyncIterator</code>:</strong> which follows the pattern established of prefixing
+the async version of another trait with <code>Async</code> in the ecosystem. For example
+<a href="https://docs.rs/futures-io/latest/futures_io/trait.AsyncRead.html"><code>AsyncRead</code></a>
+is an async version of <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>.</li>
+</ul>
+<p>We ended up choosing <code>AsyncIterator</code> over <code>Stream</code> for a number of reasons:</p>
+<ol>
+<li>It provides consistency between async and non-async Rust. Prefixing the async
+version of an existing trait with <code>Async</code> helps with discoverability, and teaching
+how APIs relate to each other. For example in this RFC we describe
+<code>AsyncIterator</code> as &quot;an async version of <code>Iterator</code>&quot;.</li>
+<li>The word &quot;stream&quot; is fairly established terminology within computing: it
+commonly refers to a type which yields data repeatedly. Traits such as
+<code>Iterator</code>, <code>Read</code>, and <code>Write</code> are often referred to as &quot;streams&quot; or
+&quot;streaming&quot;.  Naming a single trait <code>Stream</code> can lead to confusion, as it is not
+the only trait which streams.</li>
+<li><code>std::net::TcpStream</code> does not in fact implement <code>Stream</code>, despite the name
+suggesting it might. In the ecosystem async versions of <code>TcpStream</code> don't either: 
+<code>Async{Read,Write}</code> are used instead. This can be confusing.</li>
+</ol>
+<p>Additionally, there is prior art in other languages for using an
+&quot;iterator&quot;/&quot;async iterator&quot; naming scheme:</p>
+<ul>
+<li>JavaScript: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator"><code>Symbol.Iterator</code></a>
+and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator"><code>Symbol.AsyncIterator</code></a></li>
+<li>C#: <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1?view=net-5.0"><code>IEnumerable</code></a>
+and <a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/november/csharp-iterating-with-async-enumerables-in-csharp-8"><code>IAsyncEnumerable</code></a></li>
+<li>Python: <a href="https://wiki.python.org/moin/Iterator"><code>__iter__</code></a>
+and <a href="https://www.python.org/dev/peps/pep-0525/"><code>__aiter__</code></a></li>
+<li>Swift: <a href="https://developer.apple.com/documentation/swift/sequence"><code>Sequence</code></a>
+and <a href="https://github.com/apple/swift-evolution/blob/main/proposals/0298-asyncsequence.md"><code>AsyncSequence</code></a></li>
+</ul>
+<p>Despite being a clearer in many regards, the name <code>AsyncIterator</code> loses to
+<code>Stream</code> in terms of brevity. <code>AsyncIterator</code> / <code>async_iter</code> / &quot;async iterator&quot;
+is longer to write than <code>stream</code> in every instance.</p>
+<p>Additionally the Rust ecosystem has a multi-year history of using <code>Stream</code> to
+describe the concept of &quot;async iterators&quot;. But we expect that as
+<code>AsyncIterator</code> becomes the agreed upon terminology to refer to &quot;async iterators&quot;,
+the historical benefit of using &quot;stream&quot; terminology will lessen over time.</p>
+<p>Overall we found that despite having some downsides, the name <code>AsyncIterator</code>
+is strongly preferable over <code>Stream</code>.</p>
+<h1 id="future-possibilities"><a class="header" href="#future-possibilities">Future possibilities</a></h1>
+<h2 id="next-method"><a class="header" href="#next-method">Next method</a></h2>
+<p>While users will be able to implement a <code>AsyncIterator</code> as defined in this RFC, they will not have a way to interact with it in the core library. As soon as we figure out a way to do it in an object safe manner, we should add a <code>next</code> method  either in the <code>AsyncIterator</code> trait or elsewhere.</p>
+<p>The <code>Iterator</code> trait includes a <code>next</code> method, which computes and returns the next item in the sequence. We should also implement a <code>next</code> method for <code>AsyncIterator</code>, similar to <a href="https://docs.rs/futures-util/0.3.5/src/futures_util/stream/stream/next.rs.html#10-12">the implementation in the futures-util crate</a>.</p>
+<p>The core <code>poll_next</code> method is unergonomic; it does not let you iterate 
+over the items coming out of the async iterator. Therefore, we include a few minimal 
+convenience methods that are not dependent on any unstable features, such as <code>next</code>.</p>
+<p>As @yoshuawuyts states in their <a href="https://github.com/rust-lang/rust/pull/79023">pull request which adds <code>core::stream::Stream</code> to the standard library</a>:</p>
+<p>Unlike <code>Iterator</code>, <code>AsyncIterator</code> makes a distinction between the <code>poll_next</code>
+method which is used when implementing a <code>AsyncIterator</code>, and the <code>next</code> method
+which is used when consuming an async iterator. Consumers of <code>AsyncIterator</code> only need to
+consider <code>next</code>, which when called, returns a future which yields
+<code>Option&lt;Item&gt;</code>.</p>
+<p>The future returned by <code>next</code> will yield <code>Some(Item)</code> as long as there are
+elements, and once they've all been exhausted, will yield <code>None</code> to indicate
+that iteration is finished. If we're waiting on something asynchronous to
+resolve, the future will wait until the async iterator is ready to yield again.</p>
+<p>As defined in the <a href="https://doc.rust-lang.org/stable/std/future/trait.Future.html"><code>Future</code> docs</a>:</p>
+<p>Once a future has completed (returned Ready from poll), calling its poll method again may panic, block forever, or cause other kinds of problems; the Future trait places no requirements on the effects of such a call. However, as the poll method is not marked unsafe, Rust's usual rules apply: calls must never cause undefined behavior (memory corruption, incorrect use of unsafe functions, or the like), regardless of the future's state.</p>
+<p>This is similar to the <code>Future</code> trait. The <code>Future::poll</code> method is rarely called 
+directly, it is almost always used to implement other Futures. Interacting
+with futures is done through <code>async/await</code>.</p>
+<p>We need something like the <code>next()</code> method in order to iterate over the async iterator directly in an <code>async</code> block or function. It is essentially an adapter from <code>AsyncIterator</code> to <code>Future</code>.</p>
+<p>This would allow a user to await on a future:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>while let Some(v) = async_iter.next().await {
+
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We could also consider adding a <code>try_next</code> method, allowing
+a user to write:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>while let Some(x) = s.try_next().await?
+<span class="boring">}
+</span></code></pre></pre>
+<p>But this could also be written as:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>while let Some(x) = s.next().await.transpose()?
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="more-usage-examples"><a class="header" href="#more-usage-examples">More Usage Examples</a></h3>
+<p>Using the example of <code>AsyncIterator</code> implemented on a struct called <code>Counter</code>, the user would interact with the async iterator like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut counter = Counter::new();
+
+let x = counter.next().await.unwrap();
+println!(&quot;{}&quot;, x);
+
+let x = counter.next().await.unwrap();
+println!(&quot;{}&quot;, x);
+
+let x = counter.next().await.unwrap();
+println!(&quot;{}&quot;, x);
+
+let x = counter.next().await.unwrap();
+println!(&quot;{}&quot;, x);
+
+let x = counter.next().await.unwrap();
+println!(&quot;{}&quot;, x);
+<span class="boring">
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This would print <code>1</code> through <code>5</code>, each on their own line.</p>
+<p>An earlier draft of the RFC prescribed an implementation of the <code>next</code> method on the <code>AsyncIterator</code> trait. Unfortunately, as detailed in <a href="https://github.com/rust-lang/rust/pull/79023#discussion_r547425181">this comment</a>, it made the async iterator non-object safe. More experimentation is required - and it may need to be an unstable language feature for more testing before it can be added to core.</p>
+<h2 id="more-convenience-methods"><a class="header" href="#more-convenience-methods">More Convenience methods</a></h2>
+<p>The <code>Iterator</code> trait also defines a number of useful combinators, like
+<code>map</code>.  The <code>AsyncIterator</code> trait being proposed here does not include any
+such conveniences.  Instead, they are available via extension traits,
+such as the <a href="https://docs.rs/futures/0.3.5/futures/stream/trait.AsyncIteratorExt.html"><code>AsyncIteratorExt</code></a> trait offered by the <a href="https://crates.io/crates/futures"><code>futures</code></a> crate.</p>
+<p>The reason that we have chosen to exclude combinators is that a number
+of them would require access to async closures. As of this writing,
+async closures are unstable and there are a number of <a href="https://rust-lang.github.io/wg-async-foundations/design_docs/async_closures.html">outstanding
+design issues</a> to be resolved before they are added. Therefore, we've
+decided to enable progress on the async iterator trait by stabilizing a core,
+and to come back to the problem of extending it with combinators.</p>
+<p>This path does carry some risk. Adding combinator methods can cause
+existing code to stop compiling due to the ambiguities in method
+resolution. We have had problems in the past with attempting to migrate
+iterator helper methods from <code>itertools</code> for this same reason.</p>
+<p>While such breakage is technically permitted by our semver guidelines,
+it would obviously be best to avoid it, or at least to go to great
+lengths to mitigate its effects. One option would be to extend the
+language to allow method resolution to &quot;favor&quot; the extension trait in
+existing code, perhaps as part of an edition migration.</p>
+<p>Designing such a migration feature is out of scope for this RFC.</p>
+<h2 id="intoasynciterator--fromasynciterator-traits"><a class="header" href="#intoasynciterator--fromasynciterator-traits">IntoAsyncIterator / FromAsyncIterator traits</a></h2>
+<h3 id="intoasynciterator"><a class="header" href="#intoasynciterator">IntoAsyncIterator</a></h3>
+<p><strong>Iterators</strong></p>
+<p>Iterators have an <code>IntoIterator</code> that is used with <code>for</code> loops to convert items of other types to an iterator.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait IntoIterator where
+    &lt;Self::IntoIter as Iterator&gt;::Item == Self::Item, 
+{
+    type Item;
+
+    type IntoIter: Iterator;
+
+    fn into_iter(self) -&gt; Self::IntoIter;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Examples are taken from the Rust docs on <a href="https://doc.rust-lang.org/std/iter/index.html#for-loops-and-intoiterator">for loops and into_iter</a></p>
+<ul>
+<li><code>for x in iter</code> uses <code>impl IntoIterator for T</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let values = vec![1, 2, 3, 4, 5];
+
+for x in values {
+    println!(&quot;{}&quot;, x);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Desugars to:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let values = vec![1, 2, 3, 4, 5];
+{
+    let result = match IntoIterator::into_iter(values) {
+        mut iter =&gt; loop {
+            let next;
+            match iter.next() {
+                Some(val) =&gt; next = val,
+                None =&gt; break,
+            };
+            let x = next;
+            let () = { println!(&quot;{}&quot;, x); };
+        },
+    };
+    result
+}
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>for x in &amp;iter</code> uses <code>impl IntoIterator for &amp;T</code></li>
+<li><code>for x in &amp;mut iter</code> uses <code>impl IntoIterator for &amp;mut T</code></li>
+</ul>
+<p><strong>AsyncIterators</strong></p>
+<p>We may want a trait similar to this for <code>AsyncIterator</code>. The <code>IntoAsyncIterator</code> trait would provide a way to convert something into a <code>AsyncIterator</code>.</p>
+<p>This trait could look like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait IntoAsyncIterator
+where 
+    &lt;Self::IntoAsyncIterator as AsyncIterator&gt;::Item == Self::Item,
+{
+    type Item;
+
+    type IntoAsyncIterator: AsyncIterator;
+
+    fn into_async_iter(self) -&gt; Self::IntoAsyncIterator;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This trait (as expressed by @taiki-e in <a href="https://github.com/rust-lang/wg-async-foundations/pull/15/files#r449880986">a comment on a draft of this RFC</a>) makes it easy to write streams in combination with <a href="https://github.com/taiki-e/futures-async-stream">async iterator</a>. For example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type S(usize);
+
+impl IntoAsyncIterator for S {
+    type Item = usize;
+    type IntoAsyncIterator: impl AsyncIterator&lt;Item = Self::Item&gt;;
+
+    fn into_async_iter(self) -&gt; Self::IntoAsyncIterator {
+        #[stream]
+        async move {
+            for i in 0..self.0 {
+                yield i;
+            }
+        }
+    }
+}   
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="fromasynciterator"><a class="header" href="#fromasynciterator">FromAsyncIterator</a></h3>
+<p><strong>Iterators</strong></p>
+<p>Iterators have an <code>FromIterator</code> that is used to convert iterators into another type.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait FromIterator&lt;A&gt; {
+
+    fn from_iter&lt;T&gt;(iter: T) -&gt; Self
+    where
+        T: IntoIterator&lt;Item = A&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It should be noted that this trait is rarely used directly, instead used through Iterator's collect method (<a href="https://doc.rust-lang.org/std/iter/trait.FromIterator.html">source</a>).</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator {
+    fn collect&lt;B&gt;(self) -&gt; B
+    where
+        B: FromIterator&lt;Self::Item&gt;,
+    { ... }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Examples are taken from the Rust docs on <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect">iter and collect</a></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [1, 2, 3];
+
+let doubled: Vec&lt;i32&gt; = a.iter()
+                         .map(|&amp;x| x * 2)
+                         .collect();
+
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Async Iterators</strong></p>
+<p>We may want a trait similar to this for <code>AsyncIterator</code>. The <code>FromAsyncIterator</code> trait would provide a way to convert a <code>AsyncIterator</code> into another type.</p>
+<p>This trait could look like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait FromAsyncIterator&lt;A&gt; {
+    async fn from_async_iter&lt;T&gt;(iter: T) -&gt; Self
+    where
+        T: IntoAsyncIterator&lt;Item = A&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We could potentially include a collect method for AsyncIterator as well.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait AsyncIterator {
+    async fn collect&lt;B&gt;(self) -&gt; B
+    where
+        B: FromAsyncIterator&lt;Self::Item&gt;,
+    { ... }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>When drafting this RFC, there was <a href="https://github.com/rust-lang/wg-async-foundations/pull/15#discussion_r451182595">discussion</a> 
+about whether to implement from_async_iter for all T where <code>T: FromIterator</code> as well.
+<code>FromAsyncIterator</code> is perhaps more general than <code>FromIterator</code> because the await point is allowed to suspend execution of the 
+current function, but doesn't have to. Therefore, many (if not all) existing impls of <code>FromIterator</code> would work
+for <code>FromAsyncIterator</code> as well. While this would be a good point for a future discussion, it is not in the scope of this RFC.</p>
+<h2 id="converting-an-iterator-to-a-asynciterator"><a class="header" href="#converting-an-iterator-to-a-asynciterator">Converting an Iterator to a AsyncIterator</a></h2>
+<p>If a user wishes to convert an Iterator to a AsyncIterator, they may not be able to use IntoAsyncIterator because a blanked impl for Iterator would conflict with more specific impls they may wish to write. Having a function that takes an <code>impl Iterator&lt;Item = T&gt;</code> and returns an <code>impl AsyncIterator&lt;Item = T&gt;</code> would be quite helpful. </p>
+<p>The <a href="https://github.com/async-rs/async-std">async-std</a> crate has <a href="https://docs.rs/async-std/1.6.5/async_std/stream/fn.from_iter.html">stream::from_iter</a>. The <a href="https://github.com/rust-lang/futures-rs">futures-rs</a> crate has <a href="https://docs.rs/futures/0.3.5/futures/stream/fn.iter.html">stream::iter</a>. Either of these approaches could work once we expose <code>AsyncIterator</code> in the standard library.</p>
+<p>Adding this functionality is out of the scope of this RFC, but is something we should revisit once <code>AsyncIterator</code> is in the standard library.</p>
+<h2 id="other-traits"><a class="header" href="#other-traits">Other Traits</a></h2>
+<p>Eventually, we may also want to add some (if not all) of the roster of traits we found useful for <code>Iterator</code>.</p>
+<p><a href="https://docs.rs/async-std/1.6.0/async_std/stream/index.html">async_std::stream</a> has created several async counterparts to the traits in <a href="https://doc.rust-lang.org/std/iter/">std::iter</a>. These include:</p>
+<ul>
+<li>DoubleEndedAsyncIterator: An async iterator able to yield elements from both ends.</li>
+<li>ExactSizeAsyncIterator: An async iterator that knows its exact length.</li>
+<li>Extend: Extends a collection with the contents of an async iterator.</li>
+<li>FromAsyncIterator: Conversion from a AsyncIterator.</li>
+<li>FusedAsyncIterator: An async iterator that always continues to yield None when exhausted.</li>
+<li>IntoAsyncIterator: Conversion into a AsyncIterator.</li>
+<li>Product: Trait to represent types that can be created by multiplying the elements of an async iterator.</li>
+<li>AsyncIterator: An asynchronous stream of values.</li>
+<li>Sum: Trait to represent types that can be created by summing up an async iterator.</li>
+</ul>
+<p>As detailed in previous sections, the migrations to add these traits are out of scope for this RFC.</p>
+<h2 id="async-iteration-syntax"><a class="header" href="#async-iteration-syntax">Async iteration syntax</a></h2>
+<p>Currently, if someone wishes to iterate over a <code>AsyncIterator</code> as defined in the <code>futures</code> crate,
+they are not able to use  <code>for</code> loops, they must use <code>while let</code> and <code>next/try_next</code> instead.</p>
+<p>We may wish to extend the <code>for</code> loop so that it works over async iterators as well. </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async]
+for elem in iter { ... }
+<span class="boring">}
+</span></code></pre></pre>
+<p>One of the complications of using <code>while let</code> syntax is the need to pin.
+A <code>for</code> loop syntax that takes ownership of the async iterator would be able to
+do the pinning for you. </p>
+<p>We may not want to make sequential processing &quot;too easy&quot; without also enabling
+parallel/concurrent processing, which people frequently want. One challenge is
+that parallel processing wouldn't naively permit early returns and other complex
+control flow. We could add a <code>par_async_iter()</code> method, similar to 
+<a href="https://github.com/rayon-rs/rayon">Rayon's</a> <code>par_iter()</code>.</p>
+<p>Designing this extension is out of scope for this RFC. However, it could be prototyped using procedural macros today.</p>
+<h2 id="lending-async-iterators"><a class="header" href="#lending-async-iterators">&quot;Lending&quot; async iterators</a></h2>
+<p>There has been much discussion around lending async iterators (also referred to as attached async iterators).</p>
+<h3 id="definitions"><a class="header" href="#definitions">Definitions</a></h3>
+<p><a href="https://smallcultfollowing.com/babysteps/blog/2019/12/10/async-interview-2-cramertj-part-2/#the-need-for-streaming-streams-and-iterators">Source</a></p>
+<p>In a <strong>lending</strong> async iterator (also known as an &quot;attached&quot; async iterator), the <code>Item</code> that gets 
+returned by <code>AsyncIterator</code> may be borrowed from <code>self</code>. It can only be used as long as 
+the <code>self</code> reference remains live.</p>
+<p>In a <strong>non-lending</strong> async iterator (also known as a &quot;detached&quot; async iterator), the <code>Item</code> that 
+gets returned by <code>AsyncIterator</code> is &quot;detached&quot; from self. This means it can be stored 
+and moved about independently from <code>self</code>.</p>
+<p>This RFC does not cover the addition of lending async iterators (async iterators as implemented through 
+this RFC are all non-lending async iterators). Lending async iterators depend on <a href="https://rust-lang.github.io/rfcs/1598-generic_associated_types.html">Generic Associated Types</a>, which are not (at the time of this RFC) stable.</p>
+<p>We can add the <code>AsyncIterator</code> trait to the standard library now and delay
+adding in this distinction between the two types of async iterators - lending and
+non-lending. The advantage of this is it would allow us to copy the <code>AsyncIterator</code>
+trait from <code>futures</code> largely 'as is'. </p>
+<p>The disadvantage of this is functions that consume async iterators would 
+first be written to work with <code>AsyncIterator</code>, and then potentially have 
+to be rewritten later to work with <code>LendingAsyncIterator</code>s.</p>
+<h3 id="current-asynciterator-trait"><a class="header" href="#current-asynciterator-trait">Current AsyncIterator Trait</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait AsyncIterator {
+    type Item;
+
+    fn poll_next(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt;;
+
+    #[inline]
+    fn size_hint(&amp;self) -&gt; (usize, Option&lt;usize&gt;) {
+        (0, None)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This trait, like <code>Iterator</code>, always gives ownership of each item back to its caller. This offers flexibility - 
+such as the ability to spawn off futures processing each item in parallel.</p>
+<h3 id="potential-lending-asynciterator-trait"><a class="header" href="#potential-lending-asynciterator-trait">Potential Lending AsyncIterator Trait</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait LendingAsyncIterator&lt;'s&gt; {
+    type Item&lt;'a&gt; where 's: 'a;
+
+    fn poll_next&lt;'a&gt;(
+        self: Pin&lt;&amp;'a mut Self&gt;,
+        cx: &amp;mut Context&lt;'_&gt;,
+    ) -&gt; Poll&lt;Option&lt;Self::Item&lt;'a&gt;&gt;&gt;;
+}
+
+impl&lt;S&gt; LendingAsyncIterator for S
+where
+    S: AsyncIterator,
+{
+    type Item&lt;'_&gt; = S::Item;
+    
+    fn poll_next&lt;'s&gt;(
+        self: Pin&lt;&amp;'s mut Self&gt;,
+        cx: &amp;mut Context&lt;'_&gt;,
+    ) -&gt; Poll&lt;Option&lt;Self::Item&lt;'s&gt;&gt;&gt; {
+        AsyncIterator::poll_next(self, cx)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This is a &quot;conversion&quot; trait such that anything which implements <code>AsyncIterator</code> can also implement 
+<code>LendingAsyncIterator</code>.</p>
+<p>This trait captures the case where we re-use internal buffers. This would be less flexible for 
+consumers, but potentially more efficient. Types could implement the <code>LendingAsyncIterator</code> 
+where they need to re-use an internal buffer and <code>AsyncIterator</code> if they do not. There is room for both.</p>
+<p>We would also need to pursue the same design for iterators - whether through adding two traits
+or one new trait with a &quot;conversion&quot; from the old trait.</p>
+<p>This also brings up the question of whether we should allow conversion in the opposite way - if
+every non-lending async iterator can become a lending one, should <em>some</em> lending async iterators be able to 
+become non-lending ones? </p>
+<p><strong>Coherence</strong></p>
+<p>The impl above has a problem. As the Rust language stands today, we cannot cleanly convert 
+impl AsyncIterator to impl LendingAsyncIterator due to a coherence conflict.</p>
+<p>If you have other impls like:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; AsyncIterator for Box&lt;T&gt; where T: AsyncIterator
+<span class="boring">}
+</span></code></pre></pre>
+<p>and</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; LendingAsyncIterator for Box&lt;T&gt; where T: LendingAsyncIterator
+<span class="boring">}
+</span></code></pre></pre>
+<p>There is a coherence conflict for <code>Box&lt;impl AsyncIterator&gt;</code>, so presumably it will fail the coherence rules. </p>
+<p><a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=a667a7560f8dc97ab82a780e27dfc9eb">More examples are available here</a>.</p>
+<p>Resolving this would require either an explicit “wrapper” step or else some form of language extension.</p>
+<p>It should be noted that the same applies to Iterator, it is not unique to AsyncIterator.</p>
+<p>We may eventually want a super trait relationship available in the Rust language</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait AsyncIterator: LendingAsyncIterator
+<span class="boring">}
+</span></code></pre></pre>
+<p>This would allow us to leverage <code>default impl</code>.</p>
+<p>These use cases for lending/non-lending async iterators need more thought, which is part of the reason it 
+is out of the scope of this particular RFC.</p>
+<h2 id="generator-syntax"><a class="header" href="#generator-syntax">Generator syntax</a></h2>
+<p>In the future, we may wish to introduce a new form of function - 
+<code>gen fn</code> in iterators and <code>async gen fn</code> in async code that
+can contain <code>yield</code> statements. Calling such a function would
+yield a <code>impl Iterator</code> or <code>impl AsyncIterator</code>, for sync and async 
+respectively. Given an &quot;attached&quot; or &quot;borrowed&quot; async iterator, the generator
+could yield references to local variables. Given a &quot;detached&quot;
+or &quot;owned&quot; async iterator, the generator could yield owned values
+or things that were borrowed from its caller.</p>
+<h3 id="in-iterators"><a class="header" href="#in-iterators">In Iterators</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>gen fn foo() -&gt; Value {
+    yield value;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>After desugaring, this would result in a function like:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo() -&gt; impl Iterator&lt;Item = Value&gt;
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="in-async-code"><a class="header" href="#in-async-code">In Async Code</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>async gen fn foo() -&gt; Value
+<span class="boring">}
+</span></code></pre></pre>
+<p>After desugaring would result in a function like:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo() -&gt; impl AsyncIterator&lt;Item = Value&gt;
+<span class="boring">}
+</span></code></pre></pre>
+<p>If we introduce <code>-&gt; impl AsyncIterator</code> first, we will have to permit <code>LendingAsyncIterator</code> in the future. 
+Additionally, if we introduce <code>LendingAsyncIterator</code> later, we'll have to figure out how
+to convert a <code>LendingAsyncIterator</code> into a <code>AsyncIterator</code> seamlessly.</p>
+<h3 id="differences-between-iterator-generators-and-async-generators"><a class="header" href="#differences-between-iterator-generators-and-async-generators">Differences between Iterator generators and Async generators</a></h3>
+<p>We want <code>AsyncIterator</code> and <code>Iterator</code> to work as analogously as possible, including when used with generators. However, in the current design, there are some crucial differences between the two. </p>
+<p>Consider Iterator's core <code>next</code> method:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator {
+    type Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Iterator does not require pinning its core next method. In order for a <code>gen fn</code> to operate with the Iterator ecosystem, there must be some kind of initial pinning step that converts its result into an iterator. This will be tricky, since you can't return a pinned value except by boxing. </p>
+<p>The general shape will be:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>gen_fn().pin_somehow().adapter1().adapter2()
+<span class="boring">}
+</span></code></pre></pre>
+<p>With async iterators, the core interface <em>is</em> pinned, so pinning occurs at the last moment.</p>
+<p>The general shape would be </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>async_gen_fn().adapter1().adapter2().pin_somehow()
+<span class="boring">}
+</span></code></pre></pre>
+<p>Pinning at the end, like with an async iterator, lets you build and return those adapters and then apply pinning at the end. This may be the more efficient setup and implies that, in order to have a <code>gen fn</code> that produces iterators, we will need to potentially disallow borrowing yields or implement some kind of <code>PinnedIterator</code> trait that can be &quot;adapted&quot; into an iterator by pinning.</p>
+<p>For example: </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait PinIterator {
+    type Item;
+}
+impl&lt;I: PinIterator, P: Deref&lt;Target = I&gt; + DerefMut&gt; Iterator for Pin&lt;P&gt; {
+    fn next(&amp;mut self) -&gt; Self::Item { self.as_mut().next() }
+}
+
+// this would be nice.. but would lead to name resolution ambiguity for our combinators 😬 
+default impl&lt;T: Iterator&gt; PinIterator for T { .. }
+<span class="boring">}
+</span></code></pre></pre>
+<p>Pinning also applies to the design of AsyncRead/AsyncWrite, which currently uses Pin even through there is no clear plan to make them implemented with generator type syntax. The asyncification of a signature is currently understood as pinned receiver + context arg + return poll.</p>
+<p>Another key difference between <code>Iterator</code>s and <code>AsyncIterator</code>s is that futures are ultimately passed to some executor API like spawn which expects a <code>'static</code> future. To achieve that, the futures contain all the state they need and references are internal to that state. Iterators are almost never required to be <code>'static</code> by the APIs that consume them.</p>
+<p>It is, admittedly, somewhat confusing to have Async generators require Pinning and Iterator generators to not require pinning, users may feel they are creating code in an unnatural way when using the Async generators. This will need to be discussed more when generators are proposed in the future.</p>
+<h3 id="disallowing-self-borrowing-generators-in-gen-fn"><a class="header" href="#disallowing-self-borrowing-generators-in-gen-fn">Disallowing self-borrowing generators in <code>gen fn</code></a></h3>
+<p>Another option is to make the generators returned by <code>gen fn</code> always be <code>Unpin</code> so that the user doesn't have to think about pinning unless they're already in an async context.</p>
+<p>In the spirit of experimentation, boats has written the <a href="https://github.com/withoutboats/propane">propane</a> 
+crate. This crate includes a <code>#[propane] fn</code> that changes the function signature
+to return <code>impl Iterator</code> and lets you <code>yield</code>. The non-async version uses 
+(nightly-only) generators which are non-<code>static</code>, disallowing self-borrowing.
+In other words, you can't hold a reference to something on the stack across a <code>yield</code>.</p>
+<p>This should still allow yielding from inside a for loop, as long as the for loop is
+over a borrowed input and not something owned by the stack frame.</p>
+<p>Further designing generator functions is out of the scope of this RFC.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="2992-cfg-target-abi.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="3007-panic-plan.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="2992-cfg-target-abi.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="3007-panic-plan.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

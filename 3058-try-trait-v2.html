@@ -1,0 +1,1292 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>3058-try-trait-v2 - The Rust RFC Book</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="0001-private-fields.html">0001-private-fields</a></li><li class="chapter-item expanded "><a href="0002-rfc-process.html">0002-rfc-process</a></li><li class="chapter-item expanded "><a href="0003-attribute-usage.html">0003-attribute-usage</a></li><li class="chapter-item expanded "><a href="0008-new-intrinsics.html">0008-new-intrinsics</a></li><li class="chapter-item expanded "><a href="0016-more-attributes.html">0016-more-attributes</a></li><li class="chapter-item expanded "><a href="0019-opt-in-builtin-traits.html">0019-opt-in-builtin-traits</a></li><li class="chapter-item expanded "><a href="0026-remove-priv.html">0026-remove-priv</a></li><li class="chapter-item expanded "><a href="0034-bounded-type-parameters.html">0034-bounded-type-parameters</a></li><li class="chapter-item expanded "><a href="0040-libstd-facade.html">0040-libstd-facade</a></li><li class="chapter-item expanded "><a href="0042-regexps.html">0042-regexps</a></li><li class="chapter-item expanded "><a href="0048-traits.html">0048-traits</a></li><li class="chapter-item expanded "><a href="0049-match-arm-attributes.html">0049-match-arm-attributes</a></li><li class="chapter-item expanded "><a href="0050-assert.html">0050-assert</a></li><li class="chapter-item expanded "><a href="0059-remove-tilde.html">0059-remove-tilde</a></li><li class="chapter-item expanded "><a href="0060-rename-strbuf.html">0060-rename-strbuf</a></li><li class="chapter-item expanded "><a href="0063-module-file-system-hierarchy.html">0063-module-file-system-hierarchy</a></li><li class="chapter-item expanded "><a href="0066-better-temporary-lifetimes.html">0066-better-temporary-lifetimes</a></li><li class="chapter-item expanded "><a href="0068-const-unsafe-pointers.html">0068-const-unsafe-pointers</a></li><li class="chapter-item expanded "><a href="0069-ascii-literals.html">0069-ascii-literals</a></li><li class="chapter-item expanded "><a href="0071-const-block-expr.html">0071-const-block-expr</a></li><li class="chapter-item expanded "><a href="0079-undefined-struct-layout.html">0079-undefined-struct-layout</a></li><li class="chapter-item expanded "><a href="0085-pattern-macros.html">0085-pattern-macros</a></li><li class="chapter-item expanded "><a href="0086-plugin-registrar.html">0086-plugin-registrar</a></li><li class="chapter-item expanded "><a href="0087-trait-bounds-with-plus.html">0087-trait-bounds-with-plus</a></li><li class="chapter-item expanded "><a href="0089-loadable-lints.html">0089-loadable-lints</a></li><li class="chapter-item expanded "><a href="0090-lexical-syntax-simplification.html">0090-lexical-syntax-simplification</a></li><li class="chapter-item expanded "><a href="0092-struct-grammar.html">0092-struct-grammar</a></li><li class="chapter-item expanded "><a href="0093-remove-format-intl.html">0093-remove-format-intl</a></li><li class="chapter-item expanded "><a href="0100-partial-cmp.html">0100-partial-cmp</a></li><li class="chapter-item expanded "><a href="0107-pattern-guards-with-bind-by-move.html">0107-pattern-guards-with-bind-by-move</a></li><li class="chapter-item expanded "><a href="0109-remove-crate-id.html">0109-remove-crate-id</a></li><li class="chapter-item expanded "><a href="0111-index-traits.html">0111-index-traits</a></li><li class="chapter-item expanded "><a href="0112-remove-cross-borrowing.html">0112-remove-cross-borrowing</a></li><li class="chapter-item expanded "><a href="0114-closures.html">0114-closures</a></li><li class="chapter-item expanded "><a href="0115-rm-integer-fallback.html">0115-rm-integer-fallback</a></li><li class="chapter-item expanded "><a href="0116-no-module-shadowing.html">0116-no-module-shadowing</a></li><li class="chapter-item expanded "><a href="0123-share-to-threadsafe.html">0123-share-to-threadsafe</a></li><li class="chapter-item expanded "><a href="0130-box-not-special.html">0130-box-not-special</a></li><li class="chapter-item expanded "><a href="0131-target-specification.html">0131-target-specification</a></li><li class="chapter-item expanded "><a href="0132-ufcs.html">0132-ufcs</a></li><li class="chapter-item expanded "><a href="0135-where.html">0135-where</a></li><li class="chapter-item expanded "><a href="0136-no-privates-in-public.html">0136-no-privates-in-public</a></li><li class="chapter-item expanded "><a href="0139-remove-cross-borrowing-entirely.html">0139-remove-cross-borrowing-entirely</a></li><li class="chapter-item expanded "><a href="0141-lifetime-elision.html">0141-lifetime-elision</a></li><li class="chapter-item expanded "><a href="0151-capture-by-value.html">0151-capture-by-value</a></li><li class="chapter-item expanded "><a href="0155-anonymous-impl-only-in-same-module.html">0155-anonymous-impl-only-in-same-module</a></li><li class="chapter-item expanded "><a href="0160-if-let.html">0160-if-let</a></li><li class="chapter-item expanded "><a href="0164-feature-gate-slice-pats.html">0164-feature-gate-slice-pats</a></li><li class="chapter-item expanded "><a href="0168-mod.html">0168-mod</a></li><li class="chapter-item expanded "><a href="0169-use-path-as-id.html">0169-use-path-as-id</a></li><li class="chapter-item expanded "><a href="0179-and-mut-patterns.html">0179-and-mut-patterns</a></li><li class="chapter-item expanded "><a href="0184-tuple-accessors.html">0184-tuple-accessors</a></li><li class="chapter-item expanded "><a href="0192-bounds-on-object-and-generic-types.html">0192-bounds-on-object-and-generic-types</a></li><li class="chapter-item expanded "><a href="0194-cfg-syntax.html">0194-cfg-syntax</a></li><li class="chapter-item expanded "><a href="0195-associated-items.html">0195-associated-items</a></li><li class="chapter-item expanded "><a href="0198-slice-notation.html">0198-slice-notation</a></li><li class="chapter-item expanded "><a href="0199-ownership-variants.html">0199-ownership-variants</a></li><li class="chapter-item expanded "><a href="0201-error-chaining.html">0201-error-chaining</a></li><li class="chapter-item expanded "><a href="0202-subslice-syntax-change.html">0202-subslice-syntax-change</a></li><li class="chapter-item expanded "><a href="0212-restore-int-fallback.html">0212-restore-int-fallback</a></li><li class="chapter-item expanded "><a href="0213-defaulted-type-params.html">0213-defaulted-type-params</a></li><li class="chapter-item expanded "><a href="0214-while-let.html">0214-while-let</a></li><li class="chapter-item expanded "><a href="0216-collection-views.html">0216-collection-views</a></li><li class="chapter-item expanded "><a href="0218-empty-struct-with-braces.html">0218-empty-struct-with-braces</a></li><li class="chapter-item expanded "><a href="0221-panic.html">0221-panic</a></li><li class="chapter-item expanded "><a href="0230-remove-runtime.html">0230-remove-runtime</a></li><li class="chapter-item expanded "><a href="0231-upvar-capture-inference.html">0231-upvar-capture-inference</a></li><li class="chapter-item expanded "><a href="0234-variants-namespace.html">0234-variants-namespace</a></li><li class="chapter-item expanded "><a href="0235-collections-conventions.html">0235-collections-conventions</a></li><li class="chapter-item expanded "><a href="0236-error-conventions.html">0236-error-conventions</a></li><li class="chapter-item expanded "><a href="0240-unsafe-api-location.html">0240-unsafe-api-location</a></li><li class="chapter-item expanded "><a href="0241-deref-conversions.html">0241-deref-conversions</a></li><li class="chapter-item expanded "><a href="0243-trait-based-exception-handling.html">0243-trait-based-exception-handling</a></li><li class="chapter-item expanded "><a href="0246-const-vs-static.html">0246-const-vs-static</a></li><li class="chapter-item expanded "><a href="0255-object-safety.html">0255-object-safety</a></li><li class="chapter-item expanded "><a href="0256-remove-refcounting-gc-of-t.html">0256-remove-refcounting-gc-of-t</a></li><li class="chapter-item expanded "><a href="0320-nonzeroing-dynamic-drop.html">0320-nonzeroing-dynamic-drop</a></li><li class="chapter-item expanded "><a href="0326-restrict-xXX-to-ascii.html">0326-restrict-xXX-to-ascii</a></li><li class="chapter-item expanded "><a href="0339-statically-sized-literals.html">0339-statically-sized-literals</a></li><li class="chapter-item expanded "><a href="0341-remove-virtual-structs.html">0341-remove-virtual-structs</a></li><li class="chapter-item expanded "><a href="0342-keywords.html">0342-keywords</a></li><li class="chapter-item expanded "><a href="0344-conventions-galore.html">0344-conventions-galore</a></li><li class="chapter-item expanded "><a href="0356-no-module-prefixes.html">0356-no-module-prefixes</a></li><li class="chapter-item expanded "><a href="0369-num-reform.html">0369-num-reform</a></li><li class="chapter-item expanded "><a href="0378-expr-macros.html">0378-expr-macros</a></li><li class="chapter-item expanded "><a href="0379-remove-reflection.html">0379-remove-reflection</a></li><li class="chapter-item expanded "><a href="0380-stabilize-std-fmt.html">0380-stabilize-std-fmt</a></li><li class="chapter-item expanded "><a href="0385-module-system-cleanup.html">0385-module-system-cleanup</a></li><li class="chapter-item expanded "><a href="0387-higher-ranked-trait-bounds.html">0387-higher-ranked-trait-bounds</a></li><li class="chapter-item expanded "><a href="0390-enum-namespacing.html">0390-enum-namespacing</a></li><li class="chapter-item expanded "><a href="0401-coercions.html">0401-coercions</a></li><li class="chapter-item expanded "><a href="0403-cargo-build-command.html">0403-cargo-build-command</a></li><li class="chapter-item expanded "><a href="0404-change-prefer-dynamic.html">0404-change-prefer-dynamic</a></li><li class="chapter-item expanded "><a href="0418-struct-variants.html">0418-struct-variants</a></li><li class="chapter-item expanded "><a href="0430-finalizing-naming-conventions.html">0430-finalizing-naming-conventions</a></li><li class="chapter-item expanded "><a href="0438-precedence-of-plus.html">0438-precedence-of-plus</a></li><li class="chapter-item expanded "><a href="0439-cmp-ops-reform.html">0439-cmp-ops-reform</a></li><li class="chapter-item expanded "><a href="0445-extension-trait-conventions.html">0445-extension-trait-conventions</a></li><li class="chapter-item expanded "><a href="0446-es6-unicode-escapes.html">0446-es6-unicode-escapes</a></li><li class="chapter-item expanded "><a href="0447-no-unused-impl-parameters.html">0447-no-unused-impl-parameters</a></li><li class="chapter-item expanded "><a href="0450-un-feature-gate-some-more-gates.html">0450-un-feature-gate-some-more-gates</a></li><li class="chapter-item expanded "><a href="0453-macro-reform.html">0453-macro-reform</a></li><li class="chapter-item expanded "><a href="0458-send-improvements.html">0458-send-improvements</a></li><li class="chapter-item expanded "><a href="0459-disallow-shadowing.html">0459-disallow-shadowing</a></li><li class="chapter-item expanded "><a href="0461-tls-overhaul.html">0461-tls-overhaul</a></li><li class="chapter-item expanded "><a href="0463-future-proof-literal-suffixes.html">0463-future-proof-literal-suffixes</a></li><li class="chapter-item expanded "><a href="0469-feature-gate-box-patterns.html">0469-feature-gate-box-patterns</a></li><li class="chapter-item expanded "><a href="0474-path-reform.html">0474-path-reform</a></li><li class="chapter-item expanded "><a href="0486-std-ascii-reform.html">0486-std-ascii-reform</a></li><li class="chapter-item expanded "><a href="0490-dst-syntax.html">0490-dst-syntax</a></li><li class="chapter-item expanded "><a href="0494-c_str-and-c_vec-stability.html">0494-c_str-and-c_vec-stability</a></li><li class="chapter-item expanded "><a href="0495-array-pattern-changes.html">0495-array-pattern-changes</a></li><li class="chapter-item expanded "><a href="0501-consistent_no_prelude_attributes.html">0501-consistent_no_prelude_attributes</a></li><li class="chapter-item expanded "><a href="0503-prelude-stabilization.html">0503-prelude-stabilization</a></li><li class="chapter-item expanded "><a href="0504-show-stabilization.html">0504-show-stabilization</a></li><li class="chapter-item expanded "><a href="0505-api-comment-conventions.html">0505-api-comment-conventions</a></li><li class="chapter-item expanded "><a href="0507-release-channels.html">0507-release-channels</a></li><li class="chapter-item expanded "><a href="0509-collections-reform-part-2.html">0509-collections-reform-part-2</a></li><li class="chapter-item expanded "><a href="0517-io-os-reform.html">0517-io-os-reform</a></li><li class="chapter-item expanded "><a href="0520-new-array-repeat-syntax.html">0520-new-array-repeat-syntax</a></li><li class="chapter-item expanded "><a href="0522-self-impl.html">0522-self-impl</a></li><li class="chapter-item expanded "><a href="0526-fmt-text-writer.html">0526-fmt-text-writer</a></li><li class="chapter-item expanded "><a href="0528-string-patterns.html">0528-string-patterns</a></li><li class="chapter-item expanded "><a href="0529-conversion-traits.html">0529-conversion-traits</a></li><li class="chapter-item expanded "><a href="0531-define-rfc-scope.html">0531-define-rfc-scope</a></li><li class="chapter-item expanded "><a href="0532-self-in-use.html">0532-self-in-use</a></li><li class="chapter-item expanded "><a href="0533-no-array-elem-moves.html">0533-no-array-elem-moves</a></li><li class="chapter-item expanded "><a href="0534-deriving2derive.html">0534-deriving2derive</a></li><li class="chapter-item expanded "><a href="0544-rename-int-uint.html">0544-rename-int-uint</a></li><li class="chapter-item expanded "><a href="0546-Self-not-sized-by-default.html">0546-Self-not-sized-by-default</a></li><li class="chapter-item expanded "><a href="0550-macro-future-proofing.html">0550-macro-future-proofing</a></li><li class="chapter-item expanded "><a href="0556-raw-lifetime.html">0556-raw-lifetime</a></li><li class="chapter-item expanded "><a href="0558-require-parentheses-for-chained-comparisons.html">0558-require-parentheses-for-chained-comparisons</a></li><li class="chapter-item expanded "><a href="0560-integer-overflow.html">0560-integer-overflow</a></li><li class="chapter-item expanded "><a href="0563-remove-ndebug.html">0563-remove-ndebug</a></li><li class="chapter-item expanded "><a href="0565-show-string-guidelines.html">0565-show-string-guidelines</a></li><li class="chapter-item expanded "><a href="0572-rustc-attribute.html">0572-rustc-attribute</a></li><li class="chapter-item expanded "><a href="0574-drain-range.html">0574-drain-range</a></li><li class="chapter-item expanded "><a href="0580-rename-collections.html">0580-rename-collections</a></li><li class="chapter-item expanded "><a href="0587-fn-return-should-be-an-associated-type.html">0587-fn-return-should-be-an-associated-type</a></li><li class="chapter-item expanded "><a href="0592-c-str-deref.html">0592-c-str-deref</a></li><li class="chapter-item expanded "><a href="0593-forbid-Self-definitions.html">0593-forbid-Self-definitions</a></li><li class="chapter-item expanded "><a href="0599-default-object-bound.html">0599-default-object-bound</a></li><li class="chapter-item expanded "><a href="0601-replace-be-with-become.html">0601-replace-be-with-become</a></li><li class="chapter-item expanded "><a href="0639-discriminant-intrinsic.html">0639-discriminant-intrinsic</a></li><li class="chapter-item expanded "><a href="0640-debug-improvements.html">0640-debug-improvements</a></li><li class="chapter-item expanded "><a href="0702-rangefull-expression.html">0702-rangefull-expression</a></li><li class="chapter-item expanded "><a href="0735-allow-inherent-impls-anywhere.html">0735-allow-inherent-impls-anywhere</a></li><li class="chapter-item expanded "><a href="0736-privacy-respecting-fru.html">0736-privacy-respecting-fru</a></li><li class="chapter-item expanded "><a href="0738-variance.html">0738-variance</a></li><li class="chapter-item expanded "><a href="0769-sound-generic-drop.html">0769-sound-generic-drop</a></li><li class="chapter-item expanded "><a href="0771-std-iter-once.html">0771-std-iter-once</a></li><li class="chapter-item expanded "><a href="0803-type-ascription.html">0803-type-ascription</a></li><li class="chapter-item expanded "><a href="0809-box-and-in-for-stdlib.html">0809-box-and-in-for-stdlib</a></li><li class="chapter-item expanded "><a href="0823-hash-simplification.html">0823-hash-simplification</a></li><li class="chapter-item expanded "><a href="0832-from-elem-with-love.html">0832-from-elem-with-love</a></li><li class="chapter-item expanded "><a href="0839-embrace-extend-extinguish.html">0839-embrace-extend-extinguish</a></li><li class="chapter-item expanded "><a href="0840-no-panic-in-c-string.html">0840-no-panic-in-c-string</a></li><li class="chapter-item expanded "><a href="0873-type-macros.html">0873-type-macros</a></li><li class="chapter-item expanded "><a href="0879-small-base-lexing.html">0879-small-base-lexing</a></li><li class="chapter-item expanded "><a href="0888-compiler-fence-intrinsics.html">0888-compiler-fence-intrinsics</a></li><li class="chapter-item expanded "><a href="0909-move-thread-local-to-std-thread.html">0909-move-thread-local-to-std-thread</a></li><li class="chapter-item expanded "><a href="0911-const-fn.html">0911-const-fn</a></li><li class="chapter-item expanded "><a href="0921-entry_v3.html">0921-entry_v3</a></li><li class="chapter-item expanded "><a href="0940-hyphens-considered-harmful.html">0940-hyphens-considered-harmful</a></li><li class="chapter-item expanded "><a href="0953-op-assign.html">0953-op-assign</a></li><li class="chapter-item expanded "><a href="0968-closure-return-type-syntax.html">0968-closure-return-type-syntax</a></li><li class="chapter-item expanded "><a href="0979-align-splitn-with-other-languages.html">0979-align-splitn-with-other-languages</a></li><li class="chapter-item expanded "><a href="0980-read-exact.html">0980-read-exact</a></li><li class="chapter-item expanded "><a href="0982-dst-coercion.html">0982-dst-coercion</a></li><li class="chapter-item expanded "><a href="1011-process.exit.html">1011-process.exit</a></li><li class="chapter-item expanded "><a href="1014-stdout-existential-crisis.html">1014-stdout-existential-crisis</a></li><li class="chapter-item expanded "><a href="1023-rebalancing-coherence.html">1023-rebalancing-coherence</a></li><li class="chapter-item expanded "><a href="1030-prelude-additions.html">1030-prelude-additions</a></li><li class="chapter-item expanded "><a href="1040-duration-reform.html">1040-duration-reform</a></li><li class="chapter-item expanded "><a href="1044-io-fs-2.1.html">1044-io-fs-2.1</a></li><li class="chapter-item expanded "><a href="1047-socket-timeouts.html">1047-socket-timeouts</a></li><li class="chapter-item expanded "><a href="1048-rename-soft-link-to-symlink.html">1048-rename-soft-link-to-symlink</a></li><li class="chapter-item expanded "><a href="1054-str-words.html">1054-str-words</a></li><li class="chapter-item expanded "><a href="1057-io-error-sync.html">1057-io-error-sync</a></li><li class="chapter-item expanded "><a href="1058-slice-tail-redesign.html">1058-slice-tail-redesign</a></li><li class="chapter-item expanded "><a href="1066-safe-mem-forget.html">1066-safe-mem-forget</a></li><li class="chapter-item expanded "><a href="1068-rust-governance.html">1068-rust-governance</a></li><li class="chapter-item expanded "><a href="1096-remove-static-assert.html">1096-remove-static-assert</a></li><li class="chapter-item expanded "><a href="1102-rename-connect-to-join.html">1102-rename-connect-to-join</a></li><li class="chapter-item expanded "><a href="1105-api-evolution.html">1105-api-evolution</a></li><li class="chapter-item expanded "><a href="1119-result-expect.html">1119-result-expect</a></li><li class="chapter-item expanded "><a href="1122-language-semver.html">1122-language-semver</a></li><li class="chapter-item expanded "><a href="1123-str-split-at.html">1123-str-split-at</a></li><li class="chapter-item expanded "><a href="1131-likely-intrinsic.html">1131-likely-intrinsic</a></li><li class="chapter-item expanded "><a href="1135-raw-pointer-comparisons.html">1135-raw-pointer-comparisons</a></li><li class="chapter-item expanded "><a href="1152-slice-string-symmetry.html">1152-slice-string-symmetry</a></li><li class="chapter-item expanded "><a href="1156-adjust-default-object-bounds.html">1156-adjust-default-object-bounds</a></li><li class="chapter-item expanded "><a href="1174-into-raw-fd-socket-handle-traits.html">1174-into-raw-fd-socket-handle-traits</a></li><li class="chapter-item expanded "><a href="1183-swap-out-jemalloc.html">1183-swap-out-jemalloc</a></li><li class="chapter-item expanded "><a href="1184-stabilize-no_std.html">1184-stabilize-no_std</a></li><li class="chapter-item expanded "><a href="1191-hir.html">1191-hir</a></li><li class="chapter-item expanded "><a href="1192-inclusive-ranges.html">1192-inclusive-ranges</a></li><li class="chapter-item expanded "><a href="1193-cap-lints.html">1193-cap-lints</a></li><li class="chapter-item expanded "><a href="1194-set-recovery.html">1194-set-recovery</a></li><li class="chapter-item expanded "><a href="1199-simd-infrastructure.html">1199-simd-infrastructure</a></li><li class="chapter-item expanded "><a href="1200-cargo-install.html">1200-cargo-install</a></li><li class="chapter-item expanded "><a href="1201-naked-fns.html">1201-naked-fns</a></li><li class="chapter-item expanded "><a href="1210-impl-specialization.html">1210-impl-specialization</a></li><li class="chapter-item expanded "><a href="1211-mir.html">1211-mir</a></li><li class="chapter-item expanded "><a href="1212-line-endings.html">1212-line-endings</a></li><li class="chapter-item expanded "><a href="1214-projections-lifetimes-and-wf.html">1214-projections-lifetimes-and-wf</a></li><li class="chapter-item expanded "><a href="1216-bang-type.html">1216-bang-type</a></li><li class="chapter-item expanded "><a href="1219-use-group-as.html">1219-use-group-as</a></li><li class="chapter-item expanded "><a href="1228-placement-left-arrow.html">1228-placement-left-arrow</a></li><li class="chapter-item expanded "><a href="1229-compile-time-asserts.html">1229-compile-time-asserts</a></li><li class="chapter-item expanded "><a href="1236-stabilize-catch-panic.html">1236-stabilize-catch-panic</a></li><li class="chapter-item expanded "><a href="1238-nonparametric-dropck.html">1238-nonparametric-dropck</a></li><li class="chapter-item expanded "><a href="1240-repr-packed-unsafe-ref.html">1240-repr-packed-unsafe-ref</a></li><li class="chapter-item expanded "><a href="1241-no-wildcard-deps.html">1241-no-wildcard-deps</a></li><li class="chapter-item expanded "><a href="1242-rust-lang-crates.html">1242-rust-lang-crates</a></li><li class="chapter-item expanded "><a href="1252-open-options.html">1252-open-options</a></li><li class="chapter-item expanded "><a href="1257-drain-range-2.html">1257-drain-range-2</a></li><li class="chapter-item expanded "><a href="1260-main-reexport.html">1260-main-reexport</a></li><li class="chapter-item expanded "><a href="1268-allow-overlapping-impls-on-marker-traits.html">1268-allow-overlapping-impls-on-marker-traits</a></li><li class="chapter-item expanded "><a href="1270-deprecation.html">1270-deprecation</a></li><li class="chapter-item expanded "><a href="1288-time-improvements.html">1288-time-improvements</a></li><li class="chapter-item expanded "><a href="1291-promote-libc.html">1291-promote-libc</a></li><li class="chapter-item expanded "><a href="1298-incremental-compilation.html">1298-incremental-compilation</a></li><li class="chapter-item expanded "><a href="1300-intrinsic-semantics.html">1300-intrinsic-semantics</a></li><li class="chapter-item expanded "><a href="1307-osstring-methods.html">1307-osstring-methods</a></li><li class="chapter-item expanded "><a href="1317-ide.html">1317-ide</a></li><li class="chapter-item expanded "><a href="1327-dropck-param-eyepatch.html">1327-dropck-param-eyepatch</a></li><li class="chapter-item expanded "><a href="1328-global-panic-handler.html">1328-global-panic-handler</a></li><li class="chapter-item expanded "><a href="1331-grammar-is-canonical.html">1331-grammar-is-canonical</a></li><li class="chapter-item expanded "><a href="1358-repr-align.html">1358-repr-align</a></li><li class="chapter-item expanded "><a href="1359-process-ext-unix.html">1359-process-ext-unix</a></li><li class="chapter-item expanded "><a href="1361-cargo-cfg-dependencies.html">1361-cargo-cfg-dependencies</a></li><li class="chapter-item expanded "><a href="1398-kinds-of-allocators.html">1398-kinds-of-allocators</a></li><li class="chapter-item expanded "><a href="1399-repr-pack.html">1399-repr-pack</a></li><li class="chapter-item expanded "><a href="1414-rvalue_static_promotion.html">1414-rvalue_static_promotion</a></li><li class="chapter-item expanded "><a href="1415-trim-std-os.html">1415-trim-std-os</a></li><li class="chapter-item expanded "><a href="1419-slice-copy.html">1419-slice-copy</a></li><li class="chapter-item expanded "><a href="1422-pub-restricted.html">1422-pub-restricted</a></li><li class="chapter-item expanded "><a href="1432-replace-slice.html">1432-replace-slice</a></li><li class="chapter-item expanded "><a href="1434-contains-method-for-ranges.html">1434-contains-method-for-ranges</a></li><li class="chapter-item expanded "><a href="1440-drop-types-in-const.html">1440-drop-types-in-const</a></li><li class="chapter-item expanded "><a href="1443-extended-compare-and-swap.html">1443-extended-compare-and-swap</a></li><li class="chapter-item expanded "><a href="1444-union.html">1444-union</a></li><li class="chapter-item expanded "><a href="1445-restrict-constants-in-patterns.html">1445-restrict-constants-in-patterns</a></li><li class="chapter-item expanded "><a href="1461-net2-mutators.html">1461-net2-mutators</a></li><li class="chapter-item expanded "><a href="1467-volatile.html">1467-volatile</a></li><li class="chapter-item expanded "><a href="1479-unix-socket.html">1479-unix-socket</a></li><li class="chapter-item expanded "><a href="1492-dotdot-in-patterns.html">1492-dotdot-in-patterns</a></li><li class="chapter-item expanded "><a href="1498-ipv6addr-octets.html">1498-ipv6addr-octets</a></li><li class="chapter-item expanded "><a href="1504-int128.html">1504-int128</a></li><li class="chapter-item expanded "><a href="1506-adt-kinds.html">1506-adt-kinds</a></li><li class="chapter-item expanded "><a href="1510-cdylib.html">1510-cdylib</a></li><li class="chapter-item expanded "><a href="1513-less-unwinding.html">1513-less-unwinding</a></li><li class="chapter-item expanded "><a href="1521-copy-clone-semantics.html">1521-copy-clone-semantics</a></li><li class="chapter-item expanded "><a href="1522-conservative-impl-trait.html">1522-conservative-impl-trait</a></li><li class="chapter-item expanded "><a href="1525-cargo-workspace.html">1525-cargo-workspace</a></li><li class="chapter-item expanded "><a href="1535-stable-overflow-checks.html">1535-stable-overflow-checks</a></li><li class="chapter-item expanded "><a href="1542-try-from.html">1542-try-from</a></li><li class="chapter-item expanded "><a href="1543-integer_atomics.html">1543-integer_atomics</a></li><li class="chapter-item expanded "><a href="1548-global-asm.html">1548-global-asm</a></li><li class="chapter-item expanded "><a href="1552-contains-method-for-various-collections.html">1552-contains-method-for-various-collections</a></li><li class="chapter-item expanded "><a href="1558-closure-to-fn-coercion.html">1558-closure-to-fn-coercion</a></li><li class="chapter-item expanded "><a href="1559-attributes-with-literals.html">1559-attributes-with-literals</a></li><li class="chapter-item expanded "><a href="1560-name-resolution.html">1560-name-resolution</a></li><li class="chapter-item expanded "><a href="1561-macro-naming.html">1561-macro-naming</a></li><li class="chapter-item expanded "><a href="1566-proc-macros.html">1566-proc-macros</a></li><li class="chapter-item expanded "><a href="1567-long-error-codes-explanation-normalization.html">1567-long-error-codes-explanation-normalization</a></li><li class="chapter-item expanded "><a href="1574-more-api-documentation-conventions.html">1574-more-api-documentation-conventions</a></li><li class="chapter-item expanded "><a href="1576-macros-literal-matcher.html">1576-macros-literal-matcher</a></li><li class="chapter-item expanded "><a href="1581-fused-iterator.html">1581-fused-iterator</a></li><li class="chapter-item expanded "><a href="1584-macros.html">1584-macros</a></li><li class="chapter-item expanded "><a href="1589-rustc-bug-fix-procedure.html">1589-rustc-bug-fix-procedure</a></li><li class="chapter-item expanded "><a href="1590-macro-lifetimes.html">1590-macro-lifetimes</a></li><li class="chapter-item expanded "><a href="1598-generic_associated_types.html">1598-generic_associated_types</a></li><li class="chapter-item expanded "><a href="1607-style-rfcs.html">1607-style-rfcs</a></li><li class="chapter-item expanded "><a href="1618-ergonomic-format-args.html">1618-ergonomic-format-args</a></li><li class="chapter-item expanded "><a href="1620-regex-1.0.html">1620-regex-1.0</a></li><li class="chapter-item expanded "><a href="1623-static.html">1623-static</a></li><li class="chapter-item expanded "><a href="1624-loop-break-value.html">1624-loop-break-value</a></li><li class="chapter-item expanded "><a href="1636-document_all_features.html">1636-document_all_features</a></li><li class="chapter-item expanded "><a href="1640-duration-checked-sub.html">1640-duration-checked-sub</a></li><li class="chapter-item expanded "><a href="1643-memory-model-strike-team.html">1643-memory-model-strike-team</a></li><li class="chapter-item expanded "><a href="1644-default-and-expanded-rustc-errors.html">1644-default-and-expanded-rustc-errors</a></li><li class="chapter-item expanded "><a href="1647-allow-self-in-where-clauses.html">1647-allow-self-in-where-clauses</a></li><li class="chapter-item expanded "><a href="1649-atomic-access.html">1649-atomic-access</a></li><li class="chapter-item expanded "><a href="1651-movecell.html">1651-movecell</a></li><li class="chapter-item expanded "><a href="1653-assert_ne.html">1653-assert_ne</a></li><li class="chapter-item expanded "><a href="1660-try-borrow.html">1660-try-borrow</a></li><li class="chapter-item expanded "><a href="1665-windows-subsystem.html">1665-windows-subsystem</a></li><li class="chapter-item expanded "><a href="1679-panic-safe-slicing.html">1679-panic-safe-slicing</a></li><li class="chapter-item expanded "><a href="1681-macros-1.1.html">1681-macros-1.1</a></li><li class="chapter-item expanded "><a href="1682-field-init-shorthand.html">1682-field-init-shorthand</a></li><li class="chapter-item expanded "><a href="1683-docs-team.html">1683-docs-team</a></li><li class="chapter-item expanded "><a href="1685-deprecate-anonymous-parameters.html">1685-deprecate-anonymous-parameters</a></li><li class="chapter-item expanded "><a href="1695-add-error-macro.html">1695-add-error-macro</a></li><li class="chapter-item expanded "><a href="1696-discriminant.html">1696-discriminant</a></li><li class="chapter-item expanded "><a href="1717-dllimport.html">1717-dllimport</a></li><li class="chapter-item expanded "><a href="1721-crt-static.html">1721-crt-static</a></li><li class="chapter-item expanded "><a href="1725-unaligned-access.html">1725-unaligned-access</a></li><li class="chapter-item expanded "><a href="1728-north-star.html">1728-north-star</a></li><li class="chapter-item expanded "><a href="1733-trait-alias.html">1733-trait-alias</a></li><li class="chapter-item expanded "><a href="1758-repr-transparent.html">1758-repr-transparent</a></li><li class="chapter-item expanded "><a href="1774-roadmap-2017.html">1774-roadmap-2017</a></li><li class="chapter-item expanded "><a href="1789-as-cell.html">1789-as-cell</a></li><li class="chapter-item expanded "><a href="1824-crates.io-default-ranking.html">1824-crates.io-default-ranking</a></li><li class="chapter-item expanded "><a href="1826-change-doc-default-urls.html">1826-change-doc-default-urls</a></li><li class="chapter-item expanded "><a href="1828-rust-bookshelf.html">1828-rust-bookshelf</a></li><li class="chapter-item expanded "><a href="1845-shared-from-slice.html">1845-shared-from-slice</a></li><li class="chapter-item expanded "><a href="1849-non-static-type-id.html">1849-non-static-type-id</a></li><li class="chapter-item expanded "><a href="1857-stabilize-drop-order.html">1857-stabilize-drop-order</a></li><li class="chapter-item expanded "><a href="1859-try-trait.html">1859-try-trait</a></li><li class="chapter-item expanded "><a href="1860-manually-drop.html">1860-manually-drop</a></li><li class="chapter-item expanded "><a href="1861-extern-types.html">1861-extern-types</a></li><li class="chapter-item expanded "><a href="1866-more-readable-assert-eq.html">1866-more-readable-assert-eq</a></li><li class="chapter-item expanded "><a href="1868-portability-lint.html">1868-portability-lint</a></li><li class="chapter-item expanded "><a href="1869-eprintln.html">1869-eprintln</a></li><li class="chapter-item expanded "><a href="1884-unstable-sort.html">1884-unstable-sort</a></li><li class="chapter-item expanded "><a href="1892-uninitialized-uninhabited.html">1892-uninitialized-uninhabited</a></li><li class="chapter-item expanded "><a href="1909-unsized-rvalues.html">1909-unsized-rvalues</a></li><li class="chapter-item expanded "><a href="1925-optional-match-vert.html">1925-optional-match-vert</a></li><li class="chapter-item expanded "><a href="1937-ques-in-main.html">1937-ques-in-main</a></li><li class="chapter-item expanded "><a href="1940-must-use-functions.html">1940-must-use-functions</a></li><li class="chapter-item expanded "><a href="1946-intra-rustdoc-links.html">1946-intra-rustdoc-links</a></li><li class="chapter-item expanded "><a href="1951-expand-impl-trait.html">1951-expand-impl-trait</a></li><li class="chapter-item expanded "><a href="1961-clamp.html">1961-clamp</a></li><li class="chapter-item expanded "><a href="1966-unsafe-pointer-reform.html">1966-unsafe-pointer-reform</a></li><li class="chapter-item expanded "><a href="1969-cargo-prepublish.html">1969-cargo-prepublish</a></li><li class="chapter-item expanded "><a href="1974-global-allocators.html">1974-global-allocators</a></li><li class="chapter-item expanded "><a href="1977-public-private-dependencies.html">1977-public-private-dependencies</a></li><li class="chapter-item expanded "><a href="1983-nursery-deprecation.html">1983-nursery-deprecation</a></li><li class="chapter-item expanded "><a href="1985-tiered-browser-support.html">1985-tiered-browser-support</a></li><li class="chapter-item expanded "><a href="1990-external-doc-attribute.html">1990-external-doc-attribute</a></li><li class="chapter-item expanded "><a href="2000-const-generics.html">2000-const-generics</a></li><li class="chapter-item expanded "><a href="2005-match-ergonomics.html">2005-match-ergonomics</a></li><li class="chapter-item expanded "><a href="2008-non-exhaustive.html">2008-non-exhaustive</a></li><li class="chapter-item expanded "><a href="2011-generic-assert.html">2011-generic-assert</a></li><li class="chapter-item expanded "><a href="2025-nested-method-calls.html">2025-nested-method-calls</a></li><li class="chapter-item expanded "><a href="2027-object_safe_for_dispatch.html">2027-object_safe_for_dispatch</a></li><li class="chapter-item expanded "><a href="2033-experimental-coroutines.html">2033-experimental-coroutines</a></li><li class="chapter-item expanded "><a href="2043-is-aligned-intrinsic.html">2043-is-aligned-intrinsic</a></li><li class="chapter-item expanded "><a href="2044-license-rfcs.html">2044-license-rfcs</a></li><li class="chapter-item expanded "><a href="2045-target-feature.html">2045-target-feature</a></li><li class="chapter-item expanded "><a href="2046-label-break-value.html">2046-label-break-value</a></li><li class="chapter-item expanded "><a href="2052-epochs.html">2052-epochs</a></li><li class="chapter-item expanded "><a href="2056-allow-trivial-where-clause-constraints.html">2056-allow-trivial-where-clause-constraints</a></li><li class="chapter-item expanded "><a href="2057-refcell-replace.html">2057-refcell-replace</a></li><li class="chapter-item expanded "><a href="2070-panic-implementation.html">2070-panic-implementation</a></li><li class="chapter-item expanded "><a href="2071-impl-trait-existential-types.html">2071-impl-trait-existential-types</a></li><li class="chapter-item expanded "><a href="2071-impl-trait-type-alias.html">2071-impl-trait-type-alias</a></li><li class="chapter-item expanded "><a href="2086-allow-if-let-irrefutables.html">2086-allow-if-let-irrefutables</a></li><li class="chapter-item expanded "><a href="2089-implied-bounds.html">2089-implied-bounds</a></li><li class="chapter-item expanded "><a href="2091-inline-semantic.html">2091-inline-semantic</a></li><li class="chapter-item expanded "><a href="2093-infer-outlives.html">2093-infer-outlives</a></li><li class="chapter-item expanded "><a href="2094-nll.html">2094-nll</a></li><li class="chapter-item expanded "><a href="2102-unnamed-fields.html">2102-unnamed-fields</a></li><li class="chapter-item expanded "><a href="2103-tool-attributes.html">2103-tool-attributes</a></li><li class="chapter-item expanded "><a href="2113-dyn-trait-syntax.html">2113-dyn-trait-syntax</a></li><li class="chapter-item expanded "><a href="2115-argument-lifetimes.html">2115-argument-lifetimes</a></li><li class="chapter-item expanded "><a href="2116-alloc-me-maybe.html">2116-alloc-me-maybe</a></li><li class="chapter-item expanded "><a href="2124-option-filter.html">2124-option-filter</a></li><li class="chapter-item expanded "><a href="2126-path-clarity.html">2126-path-clarity</a></li><li class="chapter-item expanded "><a href="2128-use-nested-groups.html">2128-use-nested-groups</a></li><li class="chapter-item expanded "><a href="2132-copy-closures.html">2132-copy-closures</a></li><li class="chapter-item expanded "><a href="2133-all-the-clones.html">2133-all-the-clones</a></li><li class="chapter-item expanded "><a href="2136-build-systems.html">2136-build-systems</a></li><li class="chapter-item expanded "><a href="2137-variadic.html">2137-variadic</a></li><li class="chapter-item expanded "><a href="2141-alternative-registries.html">2141-alternative-registries</a></li><li class="chapter-item expanded "><a href="2145-type-privacy.html">2145-type-privacy</a></li><li class="chapter-item expanded "><a href="2151-raw-identifiers.html">2151-raw-identifiers</a></li><li class="chapter-item expanded "><a href="2166-impl-only-use.html">2166-impl-only-use</a></li><li class="chapter-item expanded "><a href="2169-euclidean-modulo.html">2169-euclidean-modulo</a></li><li class="chapter-item expanded "><a href="2175-if-while-or-patterns.html">2175-if-while-or-patterns</a></li><li class="chapter-item expanded "><a href="2195-really-tagged-unions.html">2195-really-tagged-unions</a></li><li class="chapter-item expanded "><a href="2196-metabuild.html">2196-metabuild</a></li><li class="chapter-item expanded "><a href="2203-const-repeat-expr.html">2203-const-repeat-expr</a></li><li class="chapter-item expanded "><a href="2226-fmt-debug-hex.html">2226-fmt-debug-hex</a></li><li class="chapter-item expanded "><a href="2229-capture-disjoint-fields.html">2229-capture-disjoint-fields</a></li><li class="chapter-item expanded "><a href="2230-bury-description.html">2230-bury-description</a></li><li class="chapter-item expanded "><a href="2235-libc-struct-traits.html">2235-libc-struct-traits</a></li><li class="chapter-item expanded "><a href="2250-finalize-impl-dyn-syntax.html">2250-finalize-impl-dyn-syntax</a></li><li class="chapter-item expanded "><a href="2282-profile-dependencies.html">2282-profile-dependencies</a></li><li class="chapter-item expanded "><a href="2289-associated-type-bounds.html">2289-associated-type-bounds</a></li><li class="chapter-item expanded "><a href="2294-if-let-guard.html">2294-if-let-guard</a></li><li class="chapter-item expanded "><a href="2295-os-str-pattern.html">2295-os-str-pattern</a></li><li class="chapter-item expanded "><a href="2296-option-replace.html">2296-option-replace</a></li><li class="chapter-item expanded "><a href="2298-macro-at-most-once-rep.html">2298-macro-at-most-once-rep</a></li><li class="chapter-item expanded "><a href="2300-self-in-typedefs.html">2300-self-in-typedefs</a></li><li class="chapter-item expanded "><a href="2302-tuple-struct-self-ctor.html">2302-tuple-struct-self-ctor</a></li><li class="chapter-item expanded "><a href="2306-convert-id.html">2306-convert-id</a></li><li class="chapter-item expanded "><a href="2307-concrete-nonzero-types.html">2307-concrete-nonzero-types</a></li><li class="chapter-item expanded "><a href="2314-roadmap-2018.html">2314-roadmap-2018</a></li><li class="chapter-item expanded "><a href="2316-safe-unsafe-trait-methods.html">2316-safe-unsafe-trait-methods</a></li><li class="chapter-item expanded "><a href="2318-custom-test-frameworks.html">2318-custom-test-frameworks</a></li><li class="chapter-item expanded "><a href="2325-stable-simd.html">2325-stable-simd</a></li><li class="chapter-item expanded "><a href="2333-prior-art.html">2333-prior-art</a></li><li class="chapter-item expanded "><a href="2338-type-alias-enum-variants.html">2338-type-alias-enum-variants</a></li><li class="chapter-item expanded "><a href="2341-const-locals.html">2341-const-locals</a></li><li class="chapter-item expanded "><a href="2342-const-control-flow.html">2342-const-control-flow</a></li><li class="chapter-item expanded "><a href="2344-const-looping.html">2344-const-looping</a></li><li class="chapter-item expanded "><a href="2345-const-panic.html">2345-const-panic</a></li><li class="chapter-item expanded "><a href="2349-pin.html">2349-pin</a></li><li class="chapter-item expanded "><a href="2351-is-sorted.html">2351-is-sorted</a></li><li class="chapter-item expanded "><a href="2359-subslice-pattern-syntax.html">2359-subslice-pattern-syntax</a></li><li class="chapter-item expanded "><a href="2360-bench-black-box.html">2360-bench-black-box</a></li><li class="chapter-item expanded "><a href="2361-dbg-macro.html">2361-dbg-macro</a></li><li class="chapter-item expanded "><a href="2363-arbitrary-enum-discriminant.html">2363-arbitrary-enum-discriminant</a></li><li class="chapter-item expanded "><a href="2383-lint-reasons.html">2383-lint-reasons</a></li><li class="chapter-item expanded "><a href="2386-used.html">2386-used</a></li><li class="chapter-item expanded "><a href="2388-try-expr.html">2388-try-expr</a></li><li class="chapter-item expanded "><a href="2394-async_await.html">2394-async_await</a></li><li class="chapter-item expanded "><a href="2396-target-feature-1.1.html">2396-target-feature-1.1</a></li><li class="chapter-item expanded "><a href="2397-do-not-recommend.html">2397-do-not-recommend</a></li><li class="chapter-item expanded "><a href="2412-optimize-attr.html">2412-optimize-attr</a></li><li class="chapter-item expanded "><a href="2420-unreserve-proc.html">2420-unreserve-proc</a></li><li class="chapter-item expanded "><a href="2421-unreservations-2018.html">2421-unreservations-2018</a></li><li class="chapter-item expanded "><a href="2436-style-guide.html">2436-style-guide</a></li><li class="chapter-item expanded "><a href="2437-rustfmt-stability.html">2437-rustfmt-stability</a></li><li class="chapter-item expanded "><a href="2438-deny-integer-literal-overflow-lint.html">2438-deny-integer-literal-overflow-lint</a></li><li class="chapter-item expanded "><a href="2451-re-rebalancing-coherence.html">2451-re-rebalancing-coherence</a></li><li class="chapter-item expanded "><a href="2457-non-ascii-idents.html">2457-non-ascii-idents</a></li><li class="chapter-item expanded "><a href="2471-lint-test-inner-function.html">2471-lint-test-inner-function</a></li><li class="chapter-item expanded "><a href="2476-clippy-uno.html">2476-clippy-uno</a></li><li class="chapter-item expanded "><a href="2480-liballoc.html">2480-liballoc</a></li><li class="chapter-item expanded "><a href="2495-min-rust-version.html">2495-min-rust-version</a></li><li class="chapter-item expanded "><a href="2497-if-let-chains.html">2497-if-let-chains</a></li><li class="chapter-item expanded "><a href="2500-needle.html">2500-needle</a></li><li class="chapter-item expanded "><a href="2504-fix-error.html">2504-fix-error</a></li><li class="chapter-item expanded "><a href="2509-byte-concat.html">2509-byte-concat</a></li><li class="chapter-item expanded "><a href="2514-union-initialization-and-drop.html">2514-union-initialization-and-drop</a></li><li class="chapter-item expanded "><a href="2515-type_alias_impl_trait.html">2515-type_alias_impl_trait</a></li><li class="chapter-item expanded "><a href="2521-c_void-reunification.html">2521-c_void-reunification</a></li><li class="chapter-item expanded "><a href="2523-cfg-path-version.html">2523-cfg-path-version</a></li><li class="chapter-item expanded "><a href="2526-const-wildcard.html">2526-const-wildcard</a></li><li class="chapter-item expanded "><a href="2528-type-changing-struct-update-syntax.html">2528-type-changing-struct-update-syntax</a></li><li class="chapter-item expanded "><a href="2532-associated-type-defaults.html">2532-associated-type-defaults</a></li><li class="chapter-item expanded "><a href="2535-or-patterns.html">2535-or-patterns</a></li><li class="chapter-item expanded "><a href="2539-cfg_attr-multiple-attrs.html">2539-cfg_attr-multiple-attrs</a></li><li class="chapter-item expanded "><a href="2561-future-possibilities.html">2561-future-possibilities</a></li><li class="chapter-item expanded "><a href="2565-formal-function-parameter-attributes.html">2565-formal-function-parameter-attributes</a></li><li class="chapter-item expanded "><a href="2570-linked-list-cursors.html">2570-linked-list-cursors</a></li><li class="chapter-item expanded "><a href="2574-simd-ffi.html">2574-simd-ffi</a></li><li class="chapter-item expanded "><a href="2580-ptr-meta.html">2580-ptr-meta</a></li><li class="chapter-item expanded "><a href="2582-raw-reference-mir-operator.html">2582-raw-reference-mir-operator</a></li><li class="chapter-item expanded "><a href="2585-unsafe-block-in-unsafe-fn.html">2585-unsafe-block-in-unsafe-fn</a></li><li class="chapter-item expanded "><a href="2591-exhaustive-integer-pattern-matching.html">2591-exhaustive-integer-pattern-matching</a></li><li class="chapter-item expanded "><a href="2592-futures.html">2592-futures</a></li><li class="chapter-item expanded "><a href="2603-rust-symbol-name-mangling-v0.html">2603-rust-symbol-name-mangling-v0</a></li><li class="chapter-item expanded "><a href="2627-raw-dylib-kind.html">2627-raw-dylib-kind</a></li><li class="chapter-item expanded "><a href="2645-transparent-unions.html">2645-transparent-unions</a></li><li class="chapter-item expanded "><a href="2657-roadmap-2019.html">2657-roadmap-2019</a></li><li class="chapter-item expanded "><a href="2678-named-custom-cargo-profiles.html">2678-named-custom-cargo-profiles</a></li><li class="chapter-item expanded "><a href="2689-compiler-team-contributors.html">2689-compiler-team-contributors</a></li><li class="chapter-item expanded "><a href="2696-debug-map-key-value.html">2696-debug-map-key-value</a></li><li class="chapter-item expanded "><a href="2700-associated-constants-on-ints.html">2700-associated-constants-on-ints</a></li><li class="chapter-item expanded "><a href="2707-dotdot-patterns.html">2707-dotdot-patterns</a></li><li class="chapter-item expanded "><a href="2730-cargo-token-from-process.html">2730-cargo-token-from-process</a></li><li class="chapter-item expanded "><a href="2789-sparse-index.html">2789-sparse-index</a></li><li class="chapter-item expanded "><a href="2795-format-args-implicit-identifiers.html">2795-format-args-implicit-identifiers</a></li><li class="chapter-item expanded "><a href="2797-project-ffi-unwind.html">2797-project-ffi-unwind</a></li><li class="chapter-item expanded "><a href="2803-target-tier-policy.html">2803-target-tier-policy</a></li><li class="chapter-item expanded "><a href="2834-cargo-report-future-incompat.html">2834-cargo-report-future-incompat</a></li><li class="chapter-item expanded "><a href="2835-project-safe-transmute.html">2835-project-safe-transmute</a></li><li class="chapter-item expanded "><a href="2836-project-asm.html">2836-project-asm</a></li><li class="chapter-item expanded "><a href="2837-demote-apple-32bit.html">2837-demote-apple-32bit</a></li><li class="chapter-item expanded "><a href="2841-export-executable-symbols.html">2841-export-executable-symbols</a></li><li class="chapter-item expanded "><a href="2843-llvm-asm.html">2843-llvm-asm</a></li><li class="chapter-item expanded "><a href="2845-supertrait-item-shadowing.html">2845-supertrait-item-shadowing</a></li><li class="chapter-item expanded "><a href="2856-project-groups.html">2856-project-groups</a></li><li class="chapter-item expanded "><a href="2857-roadmap-2020.html">2857-roadmap-2020</a></li><li class="chapter-item expanded "><a href="2867-isa-attribute.html">2867-isa-attribute</a></li><li class="chapter-item expanded "><a href="2873-inline-asm.html">2873-inline-asm</a></li><li class="chapter-item expanded "><a href="2904-compiler-major-change-process.html">2904-compiler-major-change-process</a></li><li class="chapter-item expanded "><a href="2906-cargo-workspace-deduplicate.html">2906-cargo-workspace-deduplicate</a></li><li class="chapter-item expanded "><a href="2909-destructuring-assignment.html">2909-destructuring-assignment</a></li><li class="chapter-item expanded "><a href="2912-rust-analyzer.html">2912-rust-analyzer</a></li><li class="chapter-item expanded "><a href="2920-inline-const.html">2920-inline-const</a></li><li class="chapter-item expanded "><a href="2930-read-buf.html">2930-read-buf</a></li><li class="chapter-item expanded "><a href="2945-c-unwind-abi.html">2945-c-unwind-abi</a></li><li class="chapter-item expanded "><a href="2951-native-link-modifiers.html">2951-native-link-modifiers</a></li><li class="chapter-item expanded "><a href="2957-cargo-features2.html">2957-cargo-features2</a></li><li class="chapter-item expanded "><a href="2959-promote-aarch64-unknown-linux-gnu-to-tier1.html">2959-promote-aarch64-unknown-linux-gnu-to-tier1</a></li><li class="chapter-item expanded "><a href="2963-rustdoc-json.html">2963-rustdoc-json</a></li><li class="chapter-item expanded "><a href="2965-project-error-handling.html">2965-project-error-handling</a></li><li class="chapter-item expanded "><a href="2972-constrained-naked.html">2972-constrained-naked</a></li><li class="chapter-item expanded "><a href="2977-stdsimd.html">2977-stdsimd</a></li><li class="chapter-item expanded "><a href="2992-cfg-target-abi.html">2992-cfg-target-abi</a></li><li class="chapter-item expanded "><a href="2996-async-iterator.html">2996-async-iterator</a></li><li class="chapter-item expanded "><a href="3007-panic-plan.html">3007-panic-plan</a></li><li class="chapter-item expanded "><a href="3013-conditional-compilation-checking.html">3013-conditional-compilation-checking</a></li><li class="chapter-item expanded "><a href="3014-must-not-suspend-lint.html">3014-must-not-suspend-lint</a></li><li class="chapter-item expanded "><a href="3016-const-ub.html">3016-const-ub</a></li><li class="chapter-item expanded "><a href="3027-infallible-promotion.html">3027-infallible-promotion</a></li><li class="chapter-item expanded "><a href="3028-cargo-binary-dependencies.html">3028-cargo-binary-dependencies</a></li><li class="chapter-item expanded "><a href="3037-roadmap-2021.html">3037-roadmap-2021</a></li><li class="chapter-item expanded "><a href="3052-optional-authors-field.html">3052-optional-authors-field</a></li><li class="chapter-item expanded "><a href="3058-try-trait-v2.html" class="active">3058-try-trait-v2</a></li><li class="chapter-item expanded "><a href="3085-edition-2021.html">3085-edition-2021</a></li><li class="chapter-item expanded "><a href="3086-macro-metavar-expr.html">3086-macro-metavar-expr</a></li><li class="chapter-item expanded "><a href="3101-reserved_prefixes.html">3101-reserved_prefixes</a></li><li class="chapter-item expanded "><a href="3107-derive-default-enum.html">3107-derive-default-enum</a></li><li class="chapter-item expanded "><a href="3114-prelude-2021.html">3114-prelude-2021</a></li><li class="chapter-item expanded "><a href="3119-rust-crate-ownership.html">3119-rust-crate-ownership</a></li><li class="chapter-item expanded "><a href="3123-rustdoc-scrape-examples.html">3123-rustdoc-scrape-examples</a></li><li class="chapter-item expanded "><a href="3128-io-safety.html">3128-io-safety</a></li><li class="chapter-item expanded "><a href="3137-let-else.html">3137-let-else</a></li><li class="chapter-item expanded "><a href="3139-cargo-alternative-registry-auth.html">3139-cargo-alternative-registry-auth</a></li><li class="chapter-item expanded "><a href="3143-cargo-weak-namespaced-features.html">3143-cargo-weak-namespaced-features</a></li><li class="chapter-item expanded "><a href="3151-scoped-threads.html">3151-scoped-threads</a></li><li class="chapter-item expanded "><a href="3173-float-next-up-down.html">3173-float-next-up-down</a></li><li class="chapter-item expanded "><a href="3176-cargo-multi-dep-artifacts.html">3176-cargo-multi-dep-artifacts</a></li><li class="chapter-item expanded "><a href="3180-cargo-cli-crate-type.html">3180-cargo-cli-crate-type</a></li><li class="chapter-item expanded "><a href="3184-thread-local-cell-methods.html">3184-thread-local-cell-methods</a></li><li class="chapter-item expanded "><a href="3185-static-async-fn-in-trait.html">3185-static-async-fn-in-trait</a></li><li class="chapter-item expanded "><a href="3231-cargo-asymmetric-tokens.html">3231-cargo-asymmetric-tokens</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust RFC Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/rfcs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <ul>
+<li>Feature Name: try_trait_v2</li>
+<li>Start Date: 2020-12-12</li>
+<li>RFC PR: <a href="https://github.com/rust-lang/rfcs/pull/3058">rust-lang/rfcs#3058</a></li>
+<li>Rust Issue: <a href="https://github.com/rust-lang/rust/issues/84277">rust-lang/rust#84277</a></li>
+</ul>
+<h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
+<p>Replace <a href="https://rust-lang.github.io/rfcs/1859-try-trait.html">RFC #1859, <code>try_trait</code></a>,
+with a new design for the currently-unstable <a href="https://doc.rust-lang.org/nightly/std/ops/trait.Try.html"><code>Try</code> trait</a>
+and corresponding desugaring for the <code>?</code> operator.</p>
+<p>The new design includes support for all <em>intentional</em> interconversions.
+It proposes removing the <em>accidental</em> interconversions, as a crater run
+demonstrated that would be feasible, however includes an alternative system
+that can support them as a low-support-cost edition mechanism if needed.</p>
+<p><em>This is <a href="#future-possibilities">forward-looking</a> to be compatible with other features,
+like <a href="https://doc.rust-lang.org/nightly/unstable-book/language-features/try-blocks.html"><code>try {}</code></a> blocks
+or <a href="https://twitter.com/josh_triplett/status/1248658754976927750"><code>yeet e</code></a> expressions
+or <a href="https://github.com/rust-lang/rust/issues/63178"><code>Iterator::try_find</code></a>,
+but the statuses of those features are <strong>not</strong> themselves impacted by this RFC.</em></p>
+<h1 id="motivation"><a class="header" href="#motivation">Motivation</a></h1>
+<p>The motivations from the previous RFC still apply (supporting more types, and restricted interconversion).
+However, new information has come in since the previous RFC, making people wish for a different approach.</p>
+<ul>
+<li>Using the &quot;error&quot; terminology is a poor fit for other potential implementations of the trait.</li>
+<li>The previous RFC's mechanism for controlling interconversions proved ineffective, with inference meaning that people did it unintentionally.</li>
+<li>It's no longer clear that <code>From</code> should be part of the <code>?</code> desugaring for <em>all</em> types.  It's both more flexible -- making inference difficult -- and more restrictive -- especially without specialization -- than is always desired.</li>
+<li>An <a href="https://github.com/rust-lang/rust/issues/42327#issuecomment-366840247">experience report</a> in the tracking issue mentioned that it's annoying to need to make a residual type in common cases.</li>
+</ul>
+<p>This RFC proposes a solution that <em>mixes</em> the two major options considered last time.</p>
+<ul>
+<li>Like the <em>reductionist</em> approach, this RFC proposes an unparameterized trait with an <em>associated</em> type for the &quot;ok&quot; part, so that the type produced from the <code>?</code> operator on a value is always the same.</li>
+<li>Like the <a href="https://github.com/rust-lang/rfcs/blob/master/text/1859-try-trait.md#the-essentialist-approach"><em>essentialist</em> approach</a>, this RFC proposes a trait with a <em>generic</em> parameter for &quot;error&quot; part, so that different types can be consumed.</li>
+</ul>
+<!--
+Why are we doing this? What use cases does it support? What is the expected outcome?
+-->
+<h1 id="guide-level-explanation"><a class="header" href="#guide-level-explanation">Guide-level explanation</a></h1>
+<h2 id="the-opscontrolflow-type"><a class="header" href="#the-opscontrolflow-type">The <code>ops::ControlFlow</code> type</a></h2>
+<p>This is a simple enum:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum ControlFlow&lt;B, C = ()&gt; {
+    /// Exit the operation without running subsequent phases.
+    Break(B),
+    /// Move on to the next phase of the operation as normal.
+    Continue(C),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It's intended for exposing things (like graph traversals or visitor) where you want the user to be able to choose whether to exit early.  Using an enum is clearer than just using a bool -- what did <code>false</code> mean again? -- as well as <a href="https://github.com/rust-lang/rust/pull/78779#pullrequestreview-524885131">allows it to carry a value</a>, if desired.</p>
+<p>For example, you could use it to expose a simple tree traversal in a way that lets the caller exit early if they want:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; TreeNode&lt;T&gt; {
+    fn traverse_inorder&lt;B&gt;(&amp;self, mut f: impl FnMut(&amp;T) -&gt; ControlFlow&lt;B&gt;) -&gt; ControlFlow&lt;B&gt; {
+        if let Some(left) = &amp;self.left {
+            left.traverse_inorder(&amp;mut f)?;
+        }
+        f(&amp;self.value)?;
+        if let Some(right) = &amp;self.right {
+            right.traverse_inorder(&amp;mut f)?;
+        }
+        ControlFlow::Continue(())
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!-- https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=286ac85c43e5bf242b5431b4f6f63386 -->
+<p>Now, you <em>could</em> write the same thing with <code>Result&lt;(), B&gt;</code> instead.  But that would require that the passed-in closure use <code>Err(value)</code> to early-exit the traversal, which can cause mental dissonance when that exit is because it successfully found the value for which it was looking.  Using <code>ControlFlow::Break(value)</code> instead avoids that prejudice, the same way that <code>break val</code> in a <code>loop</code> doesn't inherently mean success nor failure.</p>
+<h2 id="the-try-trait"><a class="header" href="#the-try-trait">The <code>Try</code> trait</a></h2>
+<p>The <code>ops::Try</code> trait describes a type's behavior when used with the <code>?</code> operator, like how the <code>ops::Add</code> trait describes its behavior when used with the <code>+</code> operator.</p>
+<p>At its core, the <code>?</code> operator is about splitting a type into its two parts:</p>
+<ul>
+<li>The <em>output</em> that will be returned from the <code>?</code> expression, with which the program will continue, and</li>
+<li>The <em>residual</em> that will be returned to the calling code, as an early exit from the normal flow.</li>
+</ul>
+<p>(Oxford's definition for a residual is &quot;a quantity remaining after other things have been subtracted or allowed for&quot;, thus the use here.)</p>
+<p>The <code>Try</code> trait also has facilities for rebuilding a type from either of its parts.  This is needed to build the final return value from a function, both in <code>?</code> and in methods generic over multiple types implementing <code>Try</code>.</p>
+<p>Here's a quick overview of a few standard types which implement <code>Try</code>, their corresponding output and residual types, and the functions which convert between them.
+(Full details will come later; the goal for now is just to get the general idea.)</p>
+<pre><code class="language-text">+-------------+                             +-------------------+                          +-------------------+
+| Try::Output |                             |      Try Type     |                          |   Try::Residual   |
++-------------+   Try::branch is Continue   +-------------------+   Try::branch is Break   +-------------------+
+|      T      |  &lt;------------------------  |   Result&lt;T, E&gt;    |  ---------------------&gt;  |   Result&lt;!, E&gt;    |
+|      T      |                             |     Option&lt;T&gt;     |                          |     Option&lt;!&gt;     |
+|      C      |  ------------------------&gt;  | ControlFlow&lt;B, C&gt; |  &lt;---------------------  | ControlFlow&lt;B, !&gt; |
++-------------+      Try::from_output       +-------------------+    Try::from_residual    +-------------------+
+</code></pre>
+<p>If you've used <code>?</code>-on-<code>Result</code> before, that output type is likely unsurprising.  Since it's given out directly from the operator, there's not much of a choice.</p>
+<p>The residual types, however, are somewhat more interesting.  Code using <code>?</code> doesn't see them directly -- their usage is hidden inside the desugaring -- so there are more possibilities available.  So why are we using these ones specifically?</p>
+<p>Most importantly, this gives each family of types (<code>Result</code>s, <code>Option</code>s, <code>ControlFlow</code>s) their own <em>distinct</em> residual type.  That avoids unrestricted <em>interconversion</em> between the different types, the ability to arbitrarily mix them in the same method.  For example, like in the traversal example earlier, just because a <code>ControlFlow::Break</code> is also an early exit, that doesn't mean that it should be allowed to consider it a <code>Result::Err</code> -- it might be a success, conceptually.  So by giving <code>ControlFlow&lt;X, _&gt;</code> and <code>Result&lt;_, X&gt;</code> different residual types, it becomes a compilation error to use the <code>?</code> operator on a <code>ControlFlow</code> in a method which returns a <code>Result</code>, and vice versa.  (There are also ways to allow interconversion where it's desirable between a particular pair of types.)</p>
+<blockquote>
+<p>🏗️ Note for those familiar with the previous RFC 🏗️</p>
+<p>This is the most critical semantic difference.  Structurally this definition of the trait is very similar to the previous -- there's still a method splitting the type into a discriminated union between two associated types, and constructors to rebuild it from them.  But by keeping the &quot;result-ness&quot; or &quot;option-ness&quot; in the residual type, it gives extra control over interconversion that wasn't possible before.  The changes other than this are comparatively minor, typically either rearrangements to work with that or renamings to change the vocabulary used in the trait.</p>
+</blockquote>
+<p>Using <code>!</code> is then just a convenient yet efficient way to create those residual types.  It's nice as a user, too, not to need to understand an additional type.  Just the same &quot;it can't be that one&quot; pattern that's also used in <code>TryFrom</code>, where for example <code>i32::try_from(10_u8)</code> gives a <code>Result&lt;i32, !&gt;</code>, since it's a widening conversion which cannot fail.  Note that there's nothing special going on with <code>!</code> here -- any uninhabited <code>enum</code> would work fine.</p>
+<h2 id="how-error-conversion-works"><a class="header" href="#how-error-conversion-works">How error conversion works</a></h2>
+<p>One thing <a href="https://doc.rust-lang.org/stable/book/ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator">The Book mentions</a>,
+if you recall, is that error values in <code>?</code> have <code>From::from</code> called on them, to convert from one error type to another.</p>
+<p>The previous section actually lied to you slightly: there are <em>two</em> traits involved, not just one.  The <code>from_residual</code> method is on <code>FromResidual</code>, which is generic so that the implementation on <code>Result</code> can add that extra conversion.  Specifically, the trait looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait FromResidual&lt;Residual = &lt;Self as Try&gt;::Residual&gt; {
+    fn from_residual(r: Residual) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>And while we're showing code, here's the exact definition of the <code>Try</code> trait:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Try: FromResidual {
+    type Output;
+    type Residual;
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt;;
+    fn from_output(o: Self::Output) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The fact that it's a super-trait like that is why I don't feel bad about the slight lie: Every <code>T: Try</code> <em>always</em> has a <code>from_residual</code> function from <code>T::Residual</code> to <code>T</code>.  It's just that some types might offer more.</p>
+<p>Here's how <code>Result</code> implements <code>FromResidual</code> to do error-conversions:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T, E, F: From&lt;E&gt;&gt; FromResidual&lt;Result&lt;!, E&gt;&gt; for Result&lt;T, F&gt; {
+    fn from_residual(x: Result&lt;!, E&gt;) -&gt; Self {
+        match x {
+            Err(e) =&gt; Err(From::from(e)),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>But <code>Option</code> doesn't need to do anything exciting, so just has a simple implementation, taking advantage of the default parameter:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; FromResidual for Option&lt;T&gt; {
+    fn from_residual(x: Self::Residual) -&gt; Self {
+        match x {
+            None =&gt; None,
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>In your own types, it's up to you to decide how much freedom is appropriate.  You can even enable interconversion by defining implementations from the residual types of other families if you'd like.  But just supporting your one residual type is ok too.</p>
+<blockquote>
+<p>🏗️ Note for those familiar with the previous RFC 🏗️</p>
+<p>This is another notable difference: The <code>From::from</code> is up to the trait implementation, not part of the desugaring.</p>
+</blockquote>
+<h2 id="implementing-try-for-a-non-generic-type"><a class="header" href="#implementing-try-for-a-non-generic-type">Implementing <code>Try</code> for a non-generic type</a></h2>
+<p>The examples in the standard library are all generic, so serve as good examples of that, but non-generic implementations are also possible.</p>
+<p>Suppose we're working on migrating some C code to Rust, and it's still using the common &quot;zero is success; non-zero is an error&quot; pattern.  Maybe we're using a simple type like this to stay ABI-compatible:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[repr(transparent)]
+pub struct ResultCode(pub i32);
+impl ResultCode {
+    const SUCCESS: Self = ResultCode(0);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We can implement <code>Try</code> for that type to simplify the code without changing the error model.</p>
+<p>First, we'll need a residual type.  We can make this a simple newtype, and conveniently there's a type with a niche for exactly the value that this can't hold.  This is only used inside the desugaring, so we can leave it opaque -- nobody but us will need to create or inspect it.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::num::NonZeroI32;
+pub struct ResultCodeResidual(NonZeroI32);
+<span class="boring">}
+</span></code></pre></pre>
+<p>With that, it's straight-forward to implement the traits.  <code>NonZeroI32</code>'s constructor even does exactly the check we need in <code>Try::branch</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Try for ResultCode {
+    type Output = ();
+    type Residual = ResultCodeResidual;
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual&gt; {
+        match NonZeroI32::new(self.0) {
+            Some(r) =&gt; ControlFlow::Break(ResultCodeResidual(r)),
+            None =&gt; ControlFlow::Continue(()),
+        }
+    }
+    fn from_output((): ()) -&gt; Self {
+        ResultCode::SUCCESS
+    }
+}
+
+impl FromResidual for ResultCode {
+    fn from_residual(r: ResultCodeResidual) -&gt; Self {
+        ResultCode(r.0.into())
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Aside: As a nice bonus, the use of a <code>NonZero</code> type in the residual means that <code>&lt;ResultCode as Try&gt;::branch</code> <a href="https://rust.godbolt.org/z/GxeYax">compiles down to a nop</a> on the current nightly.  Thanks, enum layout optimizations!</p>
+<p>Now, this is all great for keeping the interface that the other unmigrated C code expects, and can even work in <code>no_std</code> if we want.  But it might also be nice to give other <em>Rust</em> code that uses it the option to convert things into a <code>Result</code> with a more detailed error.</p>
+<p>For expository purposes, we'll use this error type:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Debug, Clone)]
+pub struct FancyError(String);
+<span class="boring">}
+</span></code></pre></pre>
+<p>(A real one would probably be more complicated and have a better name, but this will work for what we need here -- it's bigger and needs non-core things to work.)</p>
+<p>We can allow <code>?</code> on a <code>ResultCode</code> in a method returning <code>Result</code> with an implementation like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T, E: From&lt;FancyError&gt;&gt; FromResidual&lt;ResultCodeResidual&gt; for Result&lt;T, E&gt; {
+    fn from_residual(r: ResultCodeResidual) -&gt; Self {
+        Err(FancyError(format!(&quot;Something fancy about {} at {:?}&quot;, r.0, std::time::SystemTime::now())).into())
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><em>The split between different error strategies in this section is inspired by <a href="https://github.com/microsoft/windows-rs"><code>windows-rs</code></a>, which has both <a href="https://microsoft.github.io/windows-docs-rs/doc/bindings/windows/struct.ErrorCode.html"><code>ErrorCode</code></a> -- a simple newtype over <code>u32</code> -- and <a href="https://microsoft.github.io/windows-docs-rs/doc/bindings/windows/struct.Error.html"><code>Error</code></a> -- a richer type that can capture a stack trace, has an <code>Error</code> trait implementation, and can carry additional debugging information -- where the former can be converted into the latter.</em></p>
+<h2 id="using-these-traits-in-generic-code"><a class="header" href="#using-these-traits-in-generic-code">Using these traits in generic code</a></h2>
+<p><code>Iterator::try_fold</code> has been stable to call (but not to implement) for a while now.  To illustrate the flow through the traits in this RFC, let's implement our own version.</p>
+<p>As a reminder, an infallible version of a fold looks something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn simple_fold&lt;A, T&gt;(
+    iter: impl Iterator&lt;Item = T&gt;,
+    mut accum: A,
+    mut f: impl FnMut(A, T) -&gt; A,
+) -&gt; A {
+    for x in iter {
+        accum = f(accum, x);
+    }
+    accum
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>So instead of <code>f</code> returning just an <code>A</code>, we'll need it to return some other type that produces an <code>A</code> in the &quot;don't short circuit&quot; path.  Conveniently, that's also the type we need to return from the function.</p>
+<p>Let's add a new generic parameter <code>R</code> for that type, and bound it to the output type that we want:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn simple_try_fold_1&lt;A, T, R: Try&lt;Output = A&gt;&gt;(
+    iter: impl Iterator&lt;Item = T&gt;,
+    mut accum: A,
+    mut f: impl FnMut(A, T) -&gt; R,
+) -&gt; R {
+    todo!()
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>Try</code> is also the trait we need to get the updated accumulator from <code>f</code>'s return value and return the result if we manage to get through the entire iterator:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn simple_try_fold_2&lt;A, T, R: Try&lt;Output = A&gt;&gt;(
+    iter: impl Iterator&lt;Item = T&gt;,
+    mut accum: A,
+    mut f: impl FnMut(A, T) -&gt; R,
+) -&gt; R {
+    for x in iter {
+        let cf = f(accum, x).branch();
+        match cf {
+            ControlFlow::Continue(a) =&gt; accum = a,
+            ControlFlow::Break(_) =&gt; todo!(),
+        }
+    }
+    R::from_output(accum)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We'll also need <code>FromResidual::from_residual</code> to turn the residual back into the original type.  But because it's a supertrait of <code>Try</code>, we don't need to mention it in the bounds.  All types which implement <code>Try</code> can always be recreated from their corresponding residual, so we'll just call it:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn simple_try_fold_3&lt;A, T, R: Try&lt;Output = A&gt;&gt;(
+    iter: impl Iterator&lt;Item = T&gt;,
+    mut accum: A,
+    mut f: impl FnMut(A, T) -&gt; R,
+) -&gt; R {
+    for x in iter {
+        let cf = f(accum, x).branch();
+        match cf {
+            ControlFlow::Continue(a) =&gt; accum = a,
+            ControlFlow::Break(r) =&gt; return R::from_residual(r),
+        }
+    }
+    R::from_output(accum)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>But this &quot;call <code>branch</code>, then <code>match</code> on it, and <code>return</code> if it was a <code>Break</code>&quot; is exactly what happens inside the <code>?</code> operator.  So rather than do all this manually, we can just use <code>?</code> instead:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn simple_try_fold&lt;A, T, R: Try&lt;Output = A&gt;&gt;(
+    iter: impl Iterator&lt;Item = T&gt;,
+    mut accum: A,
+    mut f: impl FnMut(A, T) -&gt; R,
+) -&gt; R {
+    for x in iter {
+        accum = f(accum, x)?;
+    }
+    R::from_output(accum)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Explain the proposal as if it was already included in the language and you were teaching it to another Rust programmer. That generally means:
+
+- Introducing new named concepts.
+- Explaining the feature largely in terms of examples.
+- Explaining how Rust programmers should *think* about the feature, and how it should impact the way they use Rust. It should explain the impact as concretely as possible.
+- If applicable, provide sample error messages, deprecation warnings, or migration guidance.
+- If applicable, describe the differences between teaching this to existing Rust programmers and new Rust programmers.
+
+For implementation-oriented RFCs (e.g. for compiler internals), this section should focus on how compiler contributors should think about the change, and give examples of its concrete impact. For policy RFCs, this section should provide an example-driven introduction to the policy, and explain its impact in concrete terms.
+-->
+<h1 id="reference-level-explanation"><a class="header" href="#reference-level-explanation">Reference-level explanation</a></h1>
+<h2 id="opscontrolflow"><a class="header" href="#opscontrolflow"><code>ops::ControlFlow</code></a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ControlFlow&lt;B, C = ()&gt; {
+    /// Exit the operation without running subsequent phases.
+    Break(B),
+    /// Move on to the next phase of the operation as normal.
+    Continue(C),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="the-traits"><a class="header" href="#the-traits">The traits</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Try: FromResidual {
+    /// The type of the value consumed or produced when not short-circuiting.
+    type Output;
+
+    /// A type that &quot;colours&quot; the short-circuit value so it can stay associated
+    /// with the type constructor from which it came.
+    type Residual;
+
+    /// Used in `try{}` blocks to wrap the result of the block.
+    fn from_output(x: Self::Output) -&gt; Self;
+
+    /// Determine whether to short-circuit (by returning `ControlFlow::Break`)
+    /// or continue executing (by returning `ControlFlow::Continue`).
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt;;
+}
+
+pub trait FromResidual&lt;Residual = &lt;Self as Try&gt;::Residual&gt; {
+    /// Recreate the type implementing `Try` from a related residual
+    fn from_residual(x: Residual) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="expected-laws"><a class="header" href="#expected-laws">Expected laws</a></h2>
+<p>What comes out is what you put in:</p>
+<ul>
+<li><code>&lt;T as Try&gt;::from_output(x).branch()</code> ⇒ <code>ControlFlow::Continue(x)</code> (aka <code>try { x }?</code> ⇒ <code>x</code>)</li>
+<li><code>&lt;T as Try&gt;::from_residual(x).branch()</code> ⇒ <code>ControlFlow::Break(x)</code> (maybe aka something like <code>try { yeet e }</code> ⇒ <code>Err(e)</code>, see the future possibilities)</li>
+</ul>
+<p>You can recreate what you split up:</p>
+<ul>
+<li><code>match x.branch() { ControlFlow::Break(r) =&gt; Try::from_residual(r), ControlFlow::Continue(v) =&gt; Try::from_output(v) }</code> ⇒ <code>x</code> (aka <code>try { x? }</code> ⇒ <code>x</code>)</li>
+</ul>
+<h2 id="desugaring-"><a class="header" href="#desugaring-">Desugaring <code>?</code></a></h2>
+<p>The previous desugaring of <code>x?</code> was</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match Try::into_result(x) {
+    Ok(v) =&gt; v,
+    Err(e) =&gt; return Try::from_error(From::from(e)),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The new one is very similar:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match Try::branch(x) {
+    ControlFlow::Continue(v) =&gt; v,
+    ControlFlow::Break(r) =&gt; return FromResidual::from_residual(r),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The critical difference is that conversion (such as <code>From::from</code>) is left up to the implementation instead of forcing it in the desugar.</p>
+<h2 id="standard-implementations"><a class="header" href="#standard-implementations">Standard implementations</a></h2>
+<h3 id="result"><a class="header" href="#result"><code>Result</code></a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T, E&gt; ops::Try for Result&lt;T, E&gt; {
+    type Output = T;
+    type Residual = Result&lt;!, E&gt;;
+
+    #[inline]
+    fn from_output(c: T) -&gt; Self {
+        Ok(c)
+    }
+
+    #[inline]
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, T&gt; {
+        match self {
+            Ok(c) =&gt; ControlFlow::Continue(c),
+            Err(e) =&gt; ControlFlow::Break(Err(e)),
+        }
+    }
+}
+
+impl&lt;T, E, F: From&lt;E&gt;&gt; ops::FromResidual&lt;Result&lt;!, E&gt;&gt; for Result&lt;T, F&gt; {
+    fn from_residual(x: Result&lt;!, E&gt;) -&gt; Self {
+        match x {
+            Err(e) =&gt; Err(From::from(e)),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="option"><a class="header" href="#option"><code>Option</code></a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; ops::Try for Option&lt;T&gt; {
+    type Output = T;
+    type Residual = Option&lt;!&gt;;
+
+    #[inline]
+    fn from_output(c: T) -&gt; Self {
+        Some(c)
+    }
+
+    #[inline]
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, T&gt; {
+        match self {
+            Some(c) =&gt; ControlFlow::Continue(c),
+            None =&gt; ControlFlow::Break(None),
+        }
+    }
+}
+
+impl&lt;T&gt; ops::FromResidual for Option&lt;T&gt; {
+    fn from_residual(x: &lt;Self as ops::Try&gt;::Residual) -&gt; Self {
+        match x {
+            None =&gt; None,
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="poll"><a class="header" href="#poll"><code>Poll</code></a></h3>
+<p>These reuse <code>Result</code>'s residual type, and thus interconversion between <code>Poll</code> and <code>Result</code> is allowed without needing additional <code>FromResidual</code> implementations on <code>Result</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T, E&gt; ops::Try for Poll&lt;Result&lt;T, E&gt;&gt; {
+    type Output = Poll&lt;T&gt;;
+    type Residual = &lt;Result&lt;T, E&gt; as ops::Try&gt;::Residual;
+
+    fn from_output(c: Self::Output) -&gt; Self {
+        c.map(Ok)
+    }
+
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt; {
+        match self {
+            Poll::Ready(Ok(x)) =&gt; ControlFlow::Continue(Poll::Ready(x)),
+            Poll::Ready(Err(e)) =&gt; ControlFlow::Break(Err(e)),
+            Poll::Pending =&gt; ControlFlow::Continue(Poll::Pending),
+        }
+    }
+}
+
+impl&lt;T, E, F: From&lt;E&gt;&gt; ops::FromResidual&lt;Result&lt;!, E&gt;&gt; for Poll&lt;Result&lt;T, F&gt;&gt; {
+    fn from_residual(x: Result&lt;!, E&gt;) -&gt; Self {
+        match x {
+            Err(e) =&gt; Poll::Ready(Err(From::from(e))),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T, E&gt; ops::Try for Poll&lt;Option&lt;Result&lt;T, E&gt;&gt;&gt; {
+    type Output = Poll&lt;Option&lt;T&gt;&gt;;
+    type Residual = &lt;Result&lt;T, E&gt; as ops::Try&gt;::Residual;
+
+    fn from_output(c: Self::Output) -&gt; Self {
+        c.map(|x| x.map(Ok))
+    }
+
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt; {
+        match self {
+            Poll::Ready(Some(Ok(x))) =&gt; ControlFlow::Continue(Poll::Ready(Some(x))),
+            Poll::Ready(Some(Err(e))) =&gt; ControlFlow::Break(Err(e)),
+            Poll::Ready(None) =&gt; ControlFlow::Continue(Poll::Ready(None)),
+            Poll::Pending =&gt; ControlFlow::Continue(Poll::Pending),
+        }
+    }
+}
+
+impl&lt;T, E, F: From&lt;E&gt;&gt; ops::FromResidual&lt;Result&lt;!, E&gt;&gt; for Poll&lt;Option&lt;Result&lt;T, F&gt;&gt;&gt; {
+    fn from_residual(x: Result&lt;!, E&gt;) -&gt; Self {
+        match x {
+            Err(e) =&gt; Poll::Ready(Some(Err(From::from(e)))),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="controlflow"><a class="header" href="#controlflow"><code>ControlFlow</code></a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;B, C&gt; ops::Try for ControlFlow&lt;B, C&gt; {
+    type Output = C;
+    type Residual = ControlFlow&lt;B, !&gt;;
+
+    fn from_output(c: C) -&gt; Self {
+        ControlFlow::Continue(c)
+    }
+
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, C&gt; {
+        match self {
+            ControlFlow::Continue(c) =&gt; ControlFlow::Continue(c),
+            ControlFlow::Break(b) =&gt; ControlFlow::Break(ControlFlow::Break(b)),
+        }
+    }
+}
+
+impl&lt;B, C&gt; ops::FromResidual for ControlFlow&lt;B, C&gt; {
+    fn from_residual(x: &lt;Self as ops::Try&gt;::Residual) -&gt; Self {
+        match x {
+            ControlFlow::Break(r) =&gt; ControlFlow::Break(r),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="use-in-iterator"><a class="header" href="#use-in-iterator">Use in <code>Iterator</code></a></h2>
+<p>The provided implementation of <code>try_fold</code> is already just using <code>?</code> and <code>try{}</code>, so doesn't change.  The only difference is the name of the associated type in the bound:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn try_fold&lt;B, F, R&gt;(&amp;mut self, init: B, mut f: F) -&gt; R
+where
+    Self: Sized,
+    F: FnMut(B, Self::Item) -&gt; R,
+    R: Try&lt;Output = B&gt;,
+{
+    let mut accum = init;
+    while let Some(x) = self.next() {
+        accum = f(accum, x)?;
+    }
+    try { accum }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This is the technical portion of the RFC. Explain the design in sufficient detail that:
+
+- Its interaction with other features is clear.
+- It is reasonably clear how the feature would be implemented.
+- Corner cases are dissected by example.
+
+The section should return to the examples given in the previous section, and explain more fully how the detailed proposal makes those examples work.
+-->
+<h1 id="drawbacks"><a class="header" href="#drawbacks">Drawbacks</a></h1>
+<ul>
+<li>While this handles a known accidental stabilization, it's possible that there's something else unknown that will keep this from being doable while meeting Rust's stringent stability guarantees.</li>
+<li>The extra complexity of this approach, compared to either of the alternatives considered the last time around, might not be worth it.</li>
+<li>This is the fourth attempt at a design in this space, so it might not be the right one either.</li>
+<li>As with all overloadable operators, users might implement this to do something weird.</li>
+<li>In situations where extensive interconversion is desired, this requires more implementations.</li>
+<li>Moving <code>From::from</code> from the desugaring to the implementations means that implementations which do want it are more complicated.</li>
+</ul>
+<!--
+Why should we *not* do this?
+-->
+<h1 id="rationale-and-alternatives"><a class="header" href="#rationale-and-alternatives">Rationale and alternatives</a></h1>
+<h2 id="why-controlflow-pulls-its-weight"><a class="header" href="#why-controlflow-pulls-its-weight">Why <code>ControlFlow</code> pulls its weight</a></h2>
+<p>The previous RFC discussed having such a type, but ended up deciding that defining a new type for the desugar wasn't worth it, and just used <code>Result</code>.</p>
+<p>This RFC does use a new type because one already <a href="https://doc.rust-lang.org/nightly/std/ops/enum.ControlFlow.html">exists in nightly</a> under <a href="https://github.com/rust-lang/rust/issues/75744">the <code>control_flow_enum</code> feature gate</a>.
+It's being used in <a href="https://github.com/rust-lang/rust/blob/fd34606ddf02d1e9364e459b373a6ad665c3d8a4/library/core/src/iter/traits/iterator.rs#L2239-L2252">the library</a> and <a href="https://github.com/rust-lang/rust/blob/c609b2eaf323186a1167ec1a9ffa69a7d4a5b1b9/compiler/rustc_middle/src/ty/fold.rs#L184-L206">the compiler</a>, demonstrating that it's useful beyond just this desugaring, so the desugar might as well use it too for extra clarity.
+There are also <a href="https://github.com/rust-itertools/itertools/issues/469#issuecomment-677729589">ecosystem changes waiting on something like it</a>, so it's not just a compiler-internal need.</p>
+<h2 id="methods-on-controlflow"><a class="header" href="#methods-on-controlflow">Methods on <code>ControlFlow</code></a></h2>
+<p>On nightly there are a <a href="https://doc.rust-lang.org/nightly/std/ops/enum.ControlFlow.html#implementations">variety of methods</a> available on <code>ControlFlow</code>.  However, none of them are needed for the stabilization of the traits, so they left out of this RFC.  They can be considered by libs at a later point.</p>
+<p>There's a basic set of simple ones that could be included if desired, though:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;B, C&gt; ControlFlow&lt;B, C&gt; {
+    fn is_break(&amp;self) -&gt; bool;
+    fn is_continue(&amp;self) -&gt; bool;
+    fn break_value(self) -&gt; Option&lt;B&gt;;
+    fn continue_value(self) -&gt; Option&lt;C&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="traits-for-controlflow"><a class="header" href="#traits-for-controlflow">Traits for <code>ControlFlow</code></a></h2>
+<p><code>ControlFlow</code> derives a variety of traits where they have obvious behaviour.  It does not, however, derive <code>PartialOrd</code>/<code>Ord</code>.  They're left out as it's unclear which order, if any, makes sense between the variants.</p>
+<p>For <code>Option</code>s, <code>None &lt; Some(_)</code>, but for <code>Result</code>s, <code>Ok(_) &lt; Err(_)</code>.  So there's no definition for <code>ControlFlow</code> that's consistent with the isomorphism to both types.</p>
+<p>Leaving it out also leaves us free to change the ordering of the variants in the definition in case doing so can allow us to optimize the <code>?</code> operator.  (For a similar previous experiment, see <a href="https://github.com/rust-lang/rust/pull/49499">PR #49499</a>.)</p>
+<h2 id="naming-the-variants-on-controlflow"><a class="header" href="#naming-the-variants-on-controlflow">Naming the variants on <code>ControlFlow</code></a></h2>
+<p>The variants are given those names as they serve the same purpose as the corresponding keywords when used in <code>Iterator::try_fold</code> or <code>Iterator::try_for_each</code>.</p>
+<!-- https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=f10bc2eab9db91273601c9e806989f7e -->
+<p>For example, this (admittedly contrived) loop</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut sum = 0;
+for x in iter {
+    if x % 2 == 0 { continue }
+    sum += x;
+    if sum &gt; 100 { break }
+    continue
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>can be written as</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut sum = 0;
+iter.try_for_each(|x| {
+    if x % 2 == 0 { return ControlFlow::Continue(()) }
+    sum += x;
+    if sum &gt; 100 { return ControlFlow::Break(()) }
+    ControlFlow::Continue(())
+});
+<span class="boring">}
+</span></code></pre></pre>
+<p>(Of course, one wouldn't normally use the <code>continue</code> keyword at the end of a <code>for</code> loop like that, but I've included it here to emphasize that even the <code>ControlFlow::Continue(())</code> as the final expression of the block it ends up working like the keyword would.)</p>
+<h2 id="why-controlflow-has-c--"><a class="header" href="#why-controlflow-has-c--">Why <code>ControlFlow</code> has <code>C = ()</code></a></h2>
+<p>The type that eventually became <code>ControlFlow</code> was originally added way back in 2017 as <a href="https://github.com/rust-lang/rust/commit/b32267f2c1344d37c4aa30eccd5a9ab77642b3e6#diff-6f95fa6b66f447d11bb7507f832027237ee240310c159c74495a2363c82e76d7R357-R376">the internal-only type <code>LoopState</code></a> used to make some default implementations in <code>Iterator</code> easier to read.  It had no type parameter defaults.</p>
+<p><a href="https://github.com/rust-lang/rust/issues/75744">Issue #75744</a> in 2020 started the process of exposing it, coming out of the <a href="https://github.com/rust-itertools/itertools/issues/469">observation</a> that <code>Iterator::try_fold</code> isn't a great replacement for the deprecated-at-the-time <code>Itertools::fold_while</code> since using <code>Err</code> for a conceptual success makes code hard to read.</p>
+<p>The compiler actually had <a href="https://github.com/rust-lang/rust/blob/515c9fa505e18a65d7f61bc3e9eb833b79a68618/src/librustc_data_structures/graph/iterate/mod.rs#L91-L94">its own version of the type</a> in <code>librustc_data_structures</code> at the time:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum ControlFlow&lt;T&gt; {
+    Break(T),
+    Continue,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The compiler was moved over to the newly-exposed type, and that inspired the creation of <a href="https://github.com/rust-lang/compiler-team/issues/374">MCP#374</a>, TypeVisitor: use ops::ControlFlow instead of bool.  Experience from that lead to flipping the type arguments in <a href="https://github.com/rust-lang/rust/pull/76614">PR#76614</a> -- which also helped the original use cases in <code>Iterator</code>, where things like default implementation of <code>find</code> also want <code>C = ()</code>.  And these were so successful that it lead to <a href="https://github.com/rust-lang/compiler-team/issues/383">MCP#383</a>, TypeVisitor: do not hard-code a <code>ControlFlow&lt;()&gt;</code> result, having the visitors use <code>ControlFlow&lt;Self::BreakTy&gt;</code>.</p>
+<p>As an additional anecdote that <code>C = ()</code> is particularly common, <a href="https://discord.com/channels/530598289813536771/530603542138847242/807920021728264193">Hytak mentioned the following</a> on Discord in response to seeing a draft of this RFC:</p>
+<blockquote>
+<p>i didn't read your proposal in depth, but this reminds me of a recursive search function i experimented with a few days ago. It used a Result type as output, where Err(value) meant that it found the value and Ok(()) meant that it didn't find the value. That way i could use the <code>?</code> to exit early</p>
+</blockquote>
+<p>So when thinking about <code>ControlFlow</code>, it's often best to think of it not like <code>Result</code>, but like an <code>Option</code> which short-circuits the other variant.  While it <em>can</em> flow a <code>Continue</code> value, that seems to be a fairly uncommon use in practice.</p>
+<h2 id="was-this-considered-last-time"><a class="header" href="#was-this-considered-last-time">Was this considered last time?</a></h2>
+<p>Interestingly, a <a href="https://github.com/rust-lang/rfcs/blob/f89568b1fe5db4d01c4668e0d334d4a5abb023d8/text/0000-try-trait.md#using-an-associated-type-for-the-success-value">previous version</a> of RFC #1859 <em>did</em> actually mention a two-trait solution, splitting the &quot;associated type for ok&quot; and &quot;generic type for error&quot; like is done here.  It's no longer  mentioned in the version that was merged.  To speculate, it may have been unpopular due to a thought that an extra traits just for the associated type wasn't worth it.</p>
+<p>Current desires for the solution, however, have more requirements than were included in the RFC at the time of that version.  Notably, the stabilized <code>Iterator::try_fold</code> method depends on being able to create a <code>Try</code> type from the accumulator.  Including such a constructor on the trait with the associated type helps that separate trait provide value.</p>
+<p>Also, ok-wrapping was decided <a href="https://github.com/rust-lang/rust/issues/70941">in #70941</a>, which needs such a constructor, making this <a href="https://github.com/rust-lang/rust/issues/42327#issuecomment-379882998">&quot;much more appealing&quot;</a>.</p>
+<h2 id="why-not-make-the-output-a-generic-type"><a class="header" href="#why-not-make-the-output-a-generic-type">Why not make the output a generic type?</a></h2>
+<p>It's helpful that type information can flow both ways through <code>?</code>.</p>
+<ul>
+<li>In the forward direction, not needing a contextual type means that <code>println!(&quot;{}&quot;, x?)</code> works instead of needing a type annotation.  (It's also just less confusing to have <code>?</code> on the same type always produce the same type.)</li>
+<li>In the reverse direction, it allows things like <code>let x: i32 = s.parse()?;</code> to infer the requested type from that annotation, rather than requiring it be specified again.</li>
+</ul>
+<p>Similar scenarios exist for <code>try</code>, though of course they're not yet stable:</p>
+<ul>
+<li><code>let y: anyhow::Result&lt;_&gt; = try { x };</code> doesn't need to repeat the type of <code>x</code>.</li>
+<li><code>let x: i16 = { 4 };</code> works for infallible code, so for consistency it's good for <code>let x: anyhow::Result&lt;i16&gt; = try { 4 };</code> to also work (rather than default the literal to <code>i32</code> and fail).</li>
+</ul>
+<h2 id="why-does-fromresidual-take-a-generic-type"><a class="header" href="#why-does-fromresidual-take-a-generic-type">Why does <code>FromResidual</code> take a generic type?</a></h2>
+<p>The simplest case is that the already-stable error conversions require a generic <em>somewhere</em> in the error path in the desugaring.  In the RFC #1859 implementation, that generic comes from using <code>From::from</code> in the desugaring.</p>
+<p>However, more experience with trying to use <code>Try</code> for scenarios other than &quot;the early exit is an error&quot; have shown that <em>forcing</em> this on everything is inappropriate.  <code>ControlFlow</code>, for example, would rather not have it, for the same kinds of reasons that <code>return</code> and <code>break</code>-from-<code>loop</code> don't implicitly call it.  <code>Option</code> may not care, as it only ever gets applied for <code>None</code>⇒<code>None</code>, but that's not really a glowing endorsement.</p>
+<p>But even for the error path, forcing <code>From</code> causes problems, notably because of its identity impl.  <a href="https://lib.rs/crates/anyhow"><code>anyhow</code></a>'s <code>Error</code> type, for example, doesn't implement <code>std::error::Error</code> because that would prevent it from being <code>From</code>-convertible from any <code>E: std::error::Error</code> type.  The <a href="https://blog.rust-lang.org/inside-rust/2020/09/18/error-handling-wg-announcement.html">error handling project group</a> under libs has experimented with a prototype toolchain with this RFC implemented, and is <a href="https://rust-lang.zulipchat.com/#narrow/stream/257204-project-error-handling/topic/separating.20From.3CE.3A.20Error.3E.20from.20Box.3Cdyn.20Error.3E">excited</a> at the possibilities that could come from being free of this restriction:</p>
+<blockquote>
+<p>my mind is exploding, the possibility of all error types implementing error the way they actually should has such massive implications for the rest of the error reporting stuff we've been working on</p>
+</blockquote>
+<p>As a bonus, moving conversion (if any) into the <code>FromResidual</code> implementation may actually speed up the compiler -- the simpler desugar means generating less HIR, and thus less work for everything thereafter (up to LLVM optimizations, at least).  The <code>serde</code> crate has <a href="https://github.com/serde-rs/serde/blob/b0c99ed761d638f2ca2f0437522e6c35ad254d93/serde_derive/src/try.rs#L3-L6">their own macro</a> for error propagation which omits <code>From</code>-conversion as they see a &quot;significant improvement&quot; from doing so.</p>
+<h2 id="why-not-merge-try-and-fromresidual"><a class="header" href="#why-not-merge-try-and-fromresidual">Why not merge <code>Try</code> and <code>FromResidual</code>?</a></h2>
+<p>This RFC treats them as conceptually the same trait -- there are no types proposed here to implement <code>FromResidual&lt;_&gt;</code> which don't also implement <code>Try</code> -- so one might wonder why they're not merged into one <code>Try&lt;R&gt;</code>.  After all, that would seem to remove the duplication between the associated type and the generic type, as something like</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Try&lt;Residual&gt; {
+    type Output;
+    fn branch(self) -&gt; ControlFlow&lt;Residual, Self::Output&gt;;
+    fn from_residual(r: Residual) -&gt; Self;
+    fn from_output(x: Self::Output) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This, however, is technically too much freedom.  Looking at the error propagation case, it would end up calling both <code>Try&lt;?R1&gt;::branch</code> and <code>Try&lt;?R2&gt;::from_residual</code>.  With the implementation for <code>Result</code>, where those inference variables go through <code>From</code>, there's no way to pick what they should be, similar to how <code>.into().into()</code> doesn't compile.  And even outside the desugaring, this would make <code>Try::from_output(x)</code> no longer work, since the compiler would (correctly) insist that the desired residual type be specified.</p>
+<p>And even for a human, it's not clear that this freedom is helpful.  While any trait can be implemented weirdly, one good part of RFC #1859 that this one hopes to retain is that one doesn't need to know contextual information to understand what comes out of <code>?</code>.  Whereas any design that puts <code>branch</code> on a generic trait would mean it'd be possible for <code>?</code> to return different things depending on that generic type parameter -- unless the associated type were split out into a separate trait, but that just reopens the &quot;why are they different traits&quot; conversation again, without solving the other issues.</p>
+<h2 id="naming-the--related-traits-and-associated-types"><a class="header" href="#naming-the--related-traits-and-associated-types">Naming the <code>?</code>-related traits and associated types</a></h2>
+<p>This RFC introduces the <em>residual</em> concept as it was helpful to have a name to talk about in the guide section.  (A previous version proved unclear, perhaps in part due to it being difficult to discuss something without naming it.)  But the <code>fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt;</code> API is not necessarily obvious.</p>
+<p>A different scheme might be clearer for people.  For example, there's some elegance to matching the variant names by using <code>fn branch(self) -&gt; ControlFlow&lt;Self::Break, Self::Continue&gt;</code>.  Or perhaps there are more descriptive names, like <code>KeepGoing</code>/<code>ShortCircuit</code>.</p>
+<p>As a sketch, one of those alternatives might look something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Try: FromBreak {
+    type Break;
+    type Continue;
+    fn branch(self) -&gt; ControlFlow&lt;Self::Break, Self::Continue&gt;;
+    fn from_continue(c: Self::Continue) -&gt; Self;
+}
+trait FromBreak&lt;B = &lt;Self as Try&gt;::Break&gt; {
+    fn from_break(b: B) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>However the &quot;boring&quot; <code>Output</code> name does have the advantage that one doesn't need to remember a special name, as it's the same as the other operator traits.  (For precedent, it's <code>Add::Output</code> and <code>Div::Output</code> even if one could argue that <code>Add::Sum</code> or <code>Div::Quotient</code> would be more &quot;correct&quot;, in a sense.)</p>
+<blockquote>
+<p>ℹ Per feedback from T-libs, this is left as an unresolved question for the RFC, to be resolved in nightly.</p>
+</blockquote>
+<h2 id="splitting-up-try-more"><a class="header" href="#splitting-up-try-more">Splitting up <code>Try</code> more</a></h2>
+<p>This RFC encourages one to think of a <code>Try</code> type holistically, as something that supports all three of the core operations, with expected rules between them.</p>
+<p>That's not necessarily the way it should go.  It could be different, like there's no guarantee that <code>Add</code> and <code>AddAssign</code> work consistently, nor that <code>Add</code> and <code>Sub</code> are inverses.</p>
+<p>Notably, the this proposal has both an <em>introduction</em> rule (<code>Try::from_output</code>) and <em>elimination</em> rule (<code>Try::branch</code>), in the <a href="https://en.wikipedia.org/wiki/Natural_deduction#Introduction_and_elimination">Gentzian sense</a>, on the same trait.  That means that an implementor will need to support both, which could restrict the set of type with which <code>?</code> (and <code>try</code> and <code>yeet</code>) could be used.</p>
+<p>One unknown question here is whether this is important for any FFI scenarios.  Often error APIs come in pairs (like Win32's <a href="https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror"><code>GetLastError</code></a> and <a href="https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror"><code>SetLastError</code></a>), but some libraries may only give them out without allowing updating them to a custom value.  It's unclear whether such a thing would want to be exposed as <code>?</code> on some ZST, and thus would need a trait split to work, or whether it would be sufficient to load such things into a <code>?</code>-supporting type where supporting <code>from_residual</code> would be simple.</p>
+<p>In pure rust, one could also imagine types where it might be interesting to allow <em>introduction</em> rules but not <em>elimination</em> rules.  With <code>try</code> blocks, one could perhaps have something like</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let _: IgnoreAllErrors = try {
+    foo()?;
+    bar()?;
+    qux()?;
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>which works by allowing <code>from_residual</code> from any <code>Result&lt;_, _&gt;::Residual</code>, as well as <code>from_output</code> from <code>()</code>.  On such a type there's no real <em>use</em> in allowing <code>?</code> on the result, but at the same time it wouldn't be a hardship to offer it.</p>
+<p>The split currently in the proposal, though it's there for other reasons, would allow a small version of this: it would be possible to add an implementation like <code>impl FromResidual&lt;Result&lt;!, !&gt;&gt; for ()</code>, which would allow code like <code>u64::try_from(123_u16)?</code> even in a method that returns unit.  That has a number of issues, however, like only supporting <code>-&gt; ()</code> and not other things like <code>-&gt; i32</code> where one would probably also expect it to work, and it could not be a generic implementation without some form of specialization, as it would conflict with the desired implementation on <code>Result</code>.  And even if it did work, it's not clear that allowing <code>?</code> here is the clearest option -- other options <a href="https://github.com/rust-lang/rfcs/issues/1723">such as an <code>always_ok</code> method on <code>Result&lt;T, !&gt;</code></a> might be superior anyway.</p>
+<p>Another downside of the flexibility is that the structure of the traits would be somewhat more complicated.</p>
+<p>The simplest split would just move each method to its own trait,</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Branch {
+    type Output;
+    type Residual;
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt;;
+}
+trait FromOutput {
+    type Output;
+    fn from_output(x: Self::Output) -&gt; Self;
+}
+trait FromResidual&lt;R&gt; {
+    fn from_residual(x: R) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>but that loses the desired property that the returned-by-<code>?</code> and expected-by-<code>try</code> types match for types which <em>do</em> implement both.</p>
+<p>One way to fix that would be to add another trait for that associated type, perhaps something like</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait TryBase {
+    type Output;
+}
+trait Branch: TryBase {
+    type Residual;
+    fn branch(self) -&gt; ControlFlow&lt;Self::Residual, Self::Output&gt;;
+}
+trait FromOutput: TryBase {
+    fn from_output(x: Self::Output) -&gt; Self;
+}
+trait FromResidual&lt;R&gt; {
+    fn from_residual(x: R) -&gt; Self;
+}
+
+<span class="boring">}
+</span></code></pre></pre>
+<p>But this has still lost the simplicity of the <code>R: Try</code> bound for use in simple cases like <code>try_fold</code>.  (And, in fact, all designs that allow types to choose them independently have that issue.)  That may mean that it would also be useful to add yet another item, a trait alias to tie everything together in the &quot;usual&quot; way again.  Perhaps it would look something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Try = Branch + FromOutput + FromResidual&lt;&lt;Self as Branch&gt;::Residual&gt;;
+<span class="boring">}
+</span></code></pre></pre>
+<p>There are probably also useful intermediary designs here.  Perhaps the <code>IgnoreAllErrors</code> example above suggests that <em>introduction</em> on its own is reasonable, but <em>elimination</em> should require that both be supported.  That's also the direction that would make sense for <code>?</code> in infallible functions: it's absolutely undesirable for <code>()?????</code> to compile, but it might be fine for all return types to support something like <code>T: FromResidual&lt;!&gt;</code> eventually.</p>
+<blockquote>
+<p>ℹ Per feedback from T-libs, this is left as an unresolved question for the RFC, to be resolved in nightly.</p>
+</blockquote>
+<h2 id="why-a-residual-type-is-better-than-an-error-type"><a class="header" href="#why-a-residual-type-is-better-than-an-error-type">Why a &quot;residual&quot; type is better than an &quot;error&quot; type</a></h2>
+<p>Most importantly, for any type generic in its &quot;output type&quot; it's easy to produce a residual type using an uninhabited type.  That works for <code>Option</code> -- no <code>NoneError</code> residual type needed -- as well as for the <code>StrandFail&lt;T&gt;</code> type from the experience report.  And thanks to enum layout optimizations, there's no space overhead to doing this: <code>Option&lt;!&gt;</code> is a ZST, and <code>Result&lt;!, E&gt;</code> is no larger than <code>E</code> itself.  So most of the time one will not need to define anything additional.</p>
+<p>In those cases where a separate type <em>is</em> needed, it's still easier to make a residual type because they're transient and thus can be opaque: there's no point at which a user is expected to <em>do</em> anything with a residual type other than convert it back into a known <code>Try</code> type.  This is different from the previous design, where less-restrictive interconversion meant that anything could be exposed via a <code>Result</code>.  That has lead to requests, <a href="https://github.com/rust-lang/rust/issues/46871#issuecomment-618186642">such as for <code>NoneError</code> to implement <code>Error</code></a>, that are perfectly understandable given that the instances are exposed in <code>Result</code>s.  As residual types aren't ever exposed like that, it would be fine for them to implement nothing but <code>FromResidual</code> (and probably <code>Debug</code>), making them cheap to define and maintain.</p>
+<h2 id="use-of-"><a class="header" href="#use-of-">Use of <code>!</code></a></h2>
+<p>This RFC uses <code>!</code> to be concise.  It would work fine with <code>convert::Infallible</code> instead if <code>!</code> has not yet stabilized, though a few more match arms would be needed in the implementations.  (For example, <code>Option::from_residual</code> would need <code>Some(c) =&gt; match c {}</code>.)</p>
+<h2 id="why-fromresidual-is-the-supertrait"><a class="header" href="#why-fromresidual-is-the-supertrait">Why <code>FromResidual</code> is the supertrait</a></h2>
+<p>It's nicer for <code>try_fold</code> implementations to just mention the simpler <code>Try</code> name.  It being the subtrait means that code needing only the basic scenario can just bound on <code>Try</code> and know that both <code>from_output</code> and <code>from_residual</code> are available.</p>
+<h2 id="default-residual-on-fromresidual"><a class="header" href="#default-residual-on-fromresidual">Default <code>Residual</code> on <code>FromResidual</code></a></h2>
+<p>The default here is provided to make the basic case simple.  It means that when implementing the trait, the simple case (like in <code>Option</code>) doesn't need to think about it -- similar to how you can <code>impl Add for Foo</code> for the homogeneous case even though that trait also has a generic parameter.</p>
+<h2 id="fromresidualfrom_residual-vs-residualinto_try"><a class="header" href="#fromresidualfrom_residual-vs-residualinto_try"><code>FromResidual::from_residual</code> vs <code>Residual::into_try</code></a></h2>
+<p>Either of these directions could be made to work.  Indeed, an early experiment while drafting this had a method on a required trait for the residual that created the type implementing <code>Try</code> (not just the associated type).  However that method was removed as unnecessary once <code>from_residual</code> was added, and then the whole trait was moved to future work in order to descope the RFC, as it proved unnecessary for the essential <code>?</code>/<code>try_fold</code> functionality.</p>
+<p>A major advantage of the <code>FromResidual::from_residual</code> direction is that it's more flexible with coherence when it comes to allowing other things to be converted into a new type being defined.  That does come at the cost of higher restriction on allowing the new type to be converted into other things, but reusing a residual can also be used for that scenario.</p>
+<p>Converting a known residual into a generic <code>Try</code> type seems impossible (unless it's uninhabited), but consuming arbitrary residuals could work -- imagine something like</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;R: std::fmt::Debug&gt; FromResidual&lt;R&gt; for LogAndIgnoreErrors {
+    fn from_residual(h: H) -&gt; Self {
+        dbg!(h);
+        Self
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>(Not that that's necessarily a good idea -- it's plausibly <em>too</em> generic.  This RFC definitely isn't proposing it for the standard library.)</p>
+<p>And, ignoring the coherence implications, a major difference between the two sides is that the target type is typically typed out visibly (in a return type) whereas the source type (going into the <code>?</code>) is often the result of some called function.  So it's preferable for any behaviour extensions to be on the type that can more easily be seen in the code.</p>
+<h2 id="can-we-just-remove-the-accidental-interconversions"><a class="header" href="#can-we-just-remove-the-accidental-interconversions">Can we just remove the accidental interconversions?</a></h2>
+<p>This depends on how we choose to read the rules around breaking changes.</p>
+<p>A <a href="https://github.com/rust-lang/rust/pull/82322#issuecomment-792299734">crater run on a prototype implementation</a> found that some people are doing this.  PRs have been sent to the places that broke, and generally it was agreed that removing the mixing improved the code:</p>
+<blockquote>
+<p>Definitely a good change.</p>
+</blockquote>
+<blockquote>
+<p>Thanks for spotting that, that was indeed a confusing mix</p>
+</blockquote>
+<p>However another instance is in an abandoned project where the repository has been archived, so will not be fixed.  And of course if it happened 3 times, there might be more instances in the wild.</p>
+<p>The interesting pattern boils down to this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>.map(|v| Ok(something_returning_option(v)?))
+<span class="boring">}
+</span></code></pre></pre>
+<p>That means it's using <code>?</code> on an <code>Option</code>, but the closure ends up returning <code>Result&lt;_, NoneError&gt;</code> without needing to name the type as trait resolution discovers that it's the only possibility.  It seems reasonable that this could happen accidentally while refactoring.  That does mean, however, that the breakage could also be considered &quot;allowed&quot; as an inference change, and hypothetically additional implementations could make it ambiguous in the future.  (It's like the normal <code>AsRef</code> breakage, and fits the pattern of &quot;there's a way it could be written that works before and after&quot;, though in this case the disambiguated form requires naming an unstable type.)</p>
+<p>This RFC thus proposes removing the accidental interconversions.</p>
+<h3 id="compatibility-with-accidental-interconversions-if-needed"><a class="header" href="#compatibility-with-accidental-interconversions-if-needed">Compatibility with accidental interconversions (if needed)</a></h3>
+<p>If something happens that turns out they need to be supported, the following approach can work.</p>
+<p>This would take a multi-step approach:</p>
+<ul>
+<li>Add a new never-stable <code>FromResidualLegacy</code> trait</li>
+<li>Have a blanket implementation so that users interact only with <code>FromResidual</code></li>
+<li>Add implementations for the accidental interconversions</li>
+<li>Use <code>FromResidualLegacy</code> in the desugaring, <a href="https://github.com/scottmcm/rust/commit/do-or-do-not-edition">perhaps only for old editions</a></li>
+</ul>
+<p>This keeps them from being visible in the trait system on stable, as <code>FromResidual</code> (the only form that would ever stabilize, or even be mentionable) would not include them.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod sadness {
+    use super::*;
+
+    /// This includes all of the [`ops::FromResidual`] conversions, but
+    /// also adds the two interconversions that work in 2015 &amp; 2018.
+    /// It will never be stable.
+    pub trait FromResidualLegacy&lt;R&gt; {
+        fn from_residual_legacy(r: R) -&gt; Self;
+    }
+
+    impl&lt;T: ops::FromResidual&lt;R&gt;, R&gt; FromResidualLegacy&lt;R&gt; for T {
+        fn from_residual_legacy(r: R) -&gt; Self {
+            &lt;Self as ops::FromResidual&lt;R&gt;&gt;::from_residual(r)
+        }
+    }
+
+    /// This is a remnant of the old `NoneError` which is never going to be stabilized.
+    /// It's here as a snapshot of an oversight that allowed this to work in the past,
+    /// so we're stuck supporting it even though we'd really rather not.
+    /// This will never be stabilized; use [`Option::ok_or`] to mix `Option` and `Result`.
+    #[derive(Clone, Copy, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
+    pub struct LegacyNoneError;
+
+    impl&lt;T, E&gt; ops::FromResidual&lt;Option&lt;!&gt;&gt; for Result&lt;T, E&gt;
+    where
+        E: From&lt;LegacyNoneError&gt;,
+    {
+        fn from_residual(x: Option&lt;!&gt;) -&gt; Self {
+            match x {
+                None =&gt; Err(From::from(LegacyNoneError)),
+            }
+        }
+    }
+
+
+    #[unstable(feature = &quot;try_trait_v2&quot;, issue = &quot;42327&quot;)]
+    impl&lt;T&gt; FromResidualLegacy&lt;Result&lt;!, LegacyNoneError&gt;&gt; for Option&lt;T&gt;
+    {
+        fn from_residual_legacy(_: Result&lt;!, LegacyNoneError&gt;) -&gt; Self {
+            None
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+- Why is this design the best in the space of possible designs?
+- What other designs have been considered and what is the rationale for not choosing them?
+- What is the impact of not doing this?
+-->
+<h1 id="prior-art"><a class="header" href="#prior-art">Prior art</a></h1>
+<p>Previous approaches used on nightly</p>
+<ul>
+<li>The original <a href="https://doc.rust-lang.org/1.16.0/core/ops/trait.Carrier.html"><code>Carrier</code> trait</a></li>
+<li>The next design with a <a href="https://doc.rust-lang.org/1.32.0/core/ops/trait.Try.html"><code>Try</code> trait</a> (different from the one here)</li>
+</ul>
+<p>This is definitely <em>monadic</em>.  One can define the basic monad operations for the <code>Maybe</code> monad as</p>
+<pre><pre class="playground"><code class="language-rust">use std::ops::Try;
+
+fn monad_unit&lt;T: Try&gt;(x: &lt;T as Try&gt;::Ok) -&gt; T {
+    T::from_output(x)
+}
+
+fn monad_bind&lt;T1: Try&lt;Residual = R&gt;, T2: Try&lt;Residual = R&gt;, R&gt;(mx: T1, f: impl FnOnce(&lt;T1 as Try&gt;::Ok) -&gt; T2) -&gt; T2 {
+    let x = mx?;
+    f(x)
+}
+
+fn main() {
+    let mx: Option&lt;i32&gt; = monad_unit(1);
+    let my = monad_bind(mx, |x| Some(x + 1));
+    let mz = monad_bind(my, |x| Some(-x));
+    assert_eq!(mz, Some(-2));
+}
+</code></pre></pre>
+<p>However, <a href="https://twitter.com/withoutboats/status/1027702535707090944">like boats described for <code>async.await</code></a>, using monads directly isn't a great fit for rust.  <code>?</code> desugaring to a <code>return</code> (rather than closures) mixes better with the other control flow constructs, such as <code>break</code> and <code>continue</code>, that don't work through closures.  And while the definitions above work fine for <code>Option</code>, they don't allow the error-conversion that's already stable with <code>Result</code>, so any monad-based implementation of <code>?</code> wouldn't be able to be the normal monad structure regardless.</p>
+<!--
+Discuss prior art, both the good and the bad, in relation to this proposal.
+A few examples of what this can include are:
+
+- For language, library, cargo, tools, and compiler proposals: Does this feature exist in other programming languages and what experience have their community had?
+- For community proposals: Is this done by some other community and what were their experiences with it?
+- For other teams: What lessons can we learn from what other communities have done here?
+- Papers: Are there any published papers or great posts that discuss this? If you have some relevant papers to refer to, this can serve as a more detailed theoretical background.
+
+This section is intended to encourage you as an author to think about the lessons from other languages, provide readers of your RFC with a fuller picture.
+If there is no prior art, that is fine - your ideas are interesting to us whether they are brand new or if it is an adaptation from other languages.
+
+Note that while precedent set by other languages is some motivation, it does not on its own motivate an RFC.
+Please also take into consideration that rust sometimes intentionally diverges from common language features.
+-->
+<h1 id="unresolved-questions"><a class="header" href="#unresolved-questions">Unresolved questions</a></h1>
+<p>Questions from T-libs to be resolved in nightly:</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+What vocabulary should <code>Try</code> use in the associated types/traits?  Output+residual, continue+break, or something else entirely?</li>
+<li><input disabled="" type="checkbox"/>
+Is it ok for the two traits to be tied together closely, as outlined here, or should they be split up further to allow types that can be only-created or only-destructured?</li>
+</ul>
+<h2 id="implementation-and-stabilization-sequencing"><a class="header" href="#implementation-and-stabilization-sequencing">Implementation and Stabilization Sequencing</a></h2>
+<ul>
+<li><code>ControlFlow</code> is implemented in nightly already.</li>
+<li>The traits and desugaring could go into nightly immediately.</li>
+<li>That would allow <code>ControlFlow</code> to be considered for stabilizating, as the new desugaring would keep from stabilizing any unwanted interconversions.</li>
+<li>Beta testing might result in reports requiring that the accidental interconversions be added back in old editions, due to crater-invisible code.</li>
+<li>Then the unresolved naming &amp; structure questions need to be addressed before <code>Try</code> could stabilize.</li>
+</ul>
+<!--
+- What parts of the design do you expect to resolve through the RFC process before this gets merged?
+- What parts of the design do you expect to resolve through the implementation of this feature before stabilization?
+- What related issues do you consider out of scope for this RFC that could be addressed in the future independently of the solution that comes out of this RFC?
+-->
+<h1 id="future-possibilities"><a class="header" href="#future-possibilities">Future possibilities</a></h1>
+<p>While it isn't directly used in this RFC, a particular residual type can be used to define a &quot;family&quot; of types which all share that residual.</p>
+<p>For example, one could define a trait like this one:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait GetCorrespondingTryType&lt;TryOutputType&gt;: Sized {
+    /// The type from the original type constructor that also has this residual type,
+    /// but has the specified Output type.
+    type TryType: Try&lt;Output = TryOutputType, Residual = Self&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>With corresponding simple implementations like these:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;T&gt; GetCorrespondingTryType&lt;T&gt; for Option&lt;!&gt; {
+    type TryType = Option&lt;T&gt;;
+}
+
+impl&lt;C, B&gt; ops::GetCorrespondingTryType&lt;C&gt; for ControlFlow&lt;B, !&gt; {
+    type TryType = ControlFlow&lt;B, C&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>And thus allow code to put whatever value they want into the appropriate type from the same family.</p>
+<p>This can be thought of as the type-level inverse of <code>Try</code>'s associated types: It splits them apart, and this puts them back together again.</p>
+<p>(Why is this not written using Generic Associated Types (GATs)?  Because it allows implementations to work with only specific types, or with generic-but-bounded types.  Anything using it can bound to just the specific types needed for that method.)</p>
+<p>A previous version of this RFC included a trait along these lines, but it wasn't needed for the stable-at-time-of-writing scenarios.  Furthermore, some experiments demonstrated that having a bound in <code>Try</code> requiring it (something like <code>where Self::Residual: GetCorrespondingTryType&lt;Self::Output&gt;</code>) wasn't actually even helpful for unstable scenarios, so there was no need to include it in normative section of the RFC.</p>
+<h2 id="possibilities-for-try_find"><a class="header" href="#possibilities-for-try_find">Possibilities for <code>try_find</code></a></h2>
+<p>Various library methods, such as <code>try_map</code> for arrays (<a href="https://github.com/rust-lang/rust/pull/79713#issuecomment-739075171">PR #79713</a>), would like to be able to do HKT-like things to produce their result types.  For example, <code>Iterator::try_find</code> wants to be able to return a <code>Foo&lt;Option&lt;Item&gt;&gt;</code> from a predicate that returned a <code>Foo&lt;bool&gt;</code>.</p>
+<p>That could be done with an implementation such as the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn try_find&lt;F, R&gt;(
+    &amp;mut self,
+    f: F,
+) -&gt; &lt;R::Residual as ops::GetCorrespondingTryType&lt;Option&lt;Self::Item&gt;&gt;&gt;::TryType
+where
+    Self: Sized,
+    F: FnMut(&amp;Self::Item) -&gt; R,
+    R: ops::Try&lt;Output = bool&gt;,
+    R::Residual: ops::GetCorrespondingTryType&lt;Option&lt;Self::Item&gt;&gt;,
+{
+    #[inline]
+    fn check&lt;F, T, R&gt;(mut f: F) -&gt; impl FnMut((), T) -&gt; ControlFlow&lt;Result&lt;T, R::Residual&gt;&gt;
+    where
+        F: FnMut(&amp;T) -&gt; R,
+        R: Try&lt;Output = bool&gt;,
+    {
+        move |(), x| match f(&amp;x).branch() {
+            ControlFlow::Continue(false) =&gt; ControlFlow::Continue(()),
+            ControlFlow::Continue(true) =&gt; ControlFlow::Break(Ok(x)),
+            ControlFlow::Break(r) =&gt; ControlFlow::Break(Err(r)),
+        }
+    }
+
+    match self.try_fold((), check(f)) {
+        ControlFlow::Continue(()) =&gt; Try::from_output(None),
+        ControlFlow::Break(Ok(x)) =&gt; Try::from_output(Some(x)),
+        ControlFlow::Break(Err(r)) =&gt; &lt;_&gt;::from_residual(r),
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Similarly, it could allow <code>Try</code> to automatically provide an appropriate <code>map</code> method:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn map&lt;T&gt;(self, f: impl FnOnce(Self::Output) -&gt; T) -&gt; &lt;Self::Residual as GetCorrespondingTryType&lt;T&gt;&gt;::TryType
+where
+    Self::Residual: GetCorrespondingTryType&lt;T&gt;,
+{
+    match self.branch() {
+        ControlFlow::Continue(c) =&gt; Try::from_output(f(c)),
+        ControlFlow::Break(r) =&gt; FromResidual::from_residual(r),
+    }
+}
+
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="possibilities-for-try"><a class="header" href="#possibilities-for-try">Possibilities for <code>try{}</code></a></h2>
+<p>A core problem with <a href="https://doc.rust-lang.org/nightly/unstable-book/language-features/try-blocks.html">try blocks</a> as implemented in nightly, is that they require their contextual type to be known.</p>
+<p>That is, the following never compiles, no matter the types of <code>x</code> and <code>y</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let _ = try {
+    foo(x?);
+    bar(y?);
+    z
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>This usually isn't a problem on stable, as the <code>?</code> usually has a contextual type from its function, but can still happen there in closures.</p>
+<p>But with something like <code>GetCorrespondingTryType</code>, an alternative desugaring becomes available which takes advantage of how the residual type preserves the &quot;result-ness&quot; (or whatever-ness) of the original value.  That might turn the block above into something like the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn helper&lt;C, R: GetCorrespondingTryType&lt;C&gt;&gt;(r: R) -&gt; &lt;R as GetCorrespondingTryType&lt;C&gt;&gt;::TryType
+{
+    FromResidual::from_residual(h)
+}
+
+'block: {
+    foo(match Try::branch(x) {
+        ControlFlow::Continue(c) =&gt; c,
+        ControlFlow::Break(r) =&gt; break 'block helper(r),
+    });
+    bar(match Try::branch(y) {
+        ControlFlow::Continue(c) =&gt; c,
+        ControlFlow::Break(r) =&gt; break 'block helper(r),
+    });
+    Try::from_output(z)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>(It's untested whether the inference engine is smart enough to pick the appropriate <code>C</code> with just that -- the <code>Output</code> associated type is constrained to have a <code>Continue</code> type matching the generic parameter, and that <code>Continue</code> type needs to match that of <code>z</code>, so it's possible.  But hopefully this communicates the idea, even if an actual implementation might need to more specifically introduce type variables or something.)</p>
+<p>That way it could compile so long as the <code>TryType</code>s of the residuals matched.  For example, <a href="https://github.com/rust-lang/rust/blob/7cf205610e1310897f43b35713a42459e8b40c64/compiler/rustc_codegen_ssa/src/back/linker.rs#L529-L573">these uses in rustc</a> would work without the extra annotation.</p>
+<p>Now, of course that wouldn't cover anything.  It wouldn't work with anything needing error conversion, for example, but annotation is also unavoidable in those cases -- there's no reasonable way for the compiler to pick &quot;the&quot; type into which all the errors are convertible.</p>
+<p>So a future RFC could define a way (syntax, code inspection, heuristics, who knows) to pick which of the desugarings would be best.  (As a strawman, one could say that <code>try { ... }</code> uses the &quot;same family&quot; desugaring whereas <code>try as anyhow::Result&lt;_&gt; { ... }</code> uses the contextual desugaring.)  This RFC declines to debate those possibilities, however.</p>
+<p><em>Note that the <code>?</code> desugaring in nightly is already different depending whether it's inside a <code>try {}</code> (since it needs to block-break instead of <code>return</code>), so making it slightly more different shouldn't have excessive implementation cost.</em></p>
+<h2 id="possibilities-for-yeet"><a class="header" href="#possibilities-for-yeet">Possibilities for <code>yeet</code></a></h2>
+<p>As previously mentioned, this RFC neither defines nor proposes a <code>yeet</code> operator.  However, like the previous design could support one with its <code>Try::from_error</code>, it's important that this design would be sufficient to support it.</p>
+<p><em><code>yeet</code> is a <a href="https://twitter.com/josh_triplett/status/1248658754976927750">bikeshed-avoidance</a> name for <code>throw</code>/<code>fail</code>/<code>raise</code>/etc, used because it definitely won't be the final keyword.</em></p>
+<p>Because this &quot;residual&quot; design carries along the &quot;result-ness&quot; or &quot;option-ness&quot; or similar, it means there are two possibilities for a desugaring.</p>
+<ul>
+<li>It could directly take the residual type, so <code>yeet e</code> would desugar directly to <code>FromResidual::from_residual(e)</code>.</li>
+<li>It could put the argument into a special residual type, so <code>yeet e</code> would desugar to something like <code>FromResidual::from_residual(Yeeted(e))</code>.</li>
+</ul>
+<p>These have various implications -- like <code>yeet None</code>/<code>yeet</code>, <code>yeet Err(ErrorKind::NotFound)</code>/<code>yeet ErrorKind::NotFound.into()</code>, etc -- but thankfully this RFC doesn't need to discuss those.  (And please don't do so in the GitHub comments either, to keep things focused, though feel free to start an IRLO or Zulip thread if you're so inspired.)</p>
+<!--
+Think about what the natural extension and evolution of your proposal would
+be and how it would affect the language and project as a whole in a holistic
+way. Try to use this section as a tool to more fully consider all possible
+interactions with the project and language in your proposal.
+Also consider how this all fits into the roadmap for the project
+and of the relevant sub-team.
+
+This is also a good place to "dump ideas", if they are out of scope for the
+RFC you are writing but otherwise related.
+
+If you have tried and cannot think of any future possibilities,
+you may simply state that you cannot think of anything.
+
+Note that having something written down in the future-possibilities section
+is not a reason to accept the current or a future RFC; such notes should be
+in the section on motivation or rationale in this or subsequent RFCs.
+The section merely provides additional information.
+-->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="3052-optional-authors-field.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="3085-edition-2021.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="3052-optional-authors-field.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="3085-edition-2021.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
