@@ -3,7 +3,7 @@
 - RFC PR: https://github.com/rust-lang/rfcs/pull/2580
 - Rust Issue: https://github.com/rust-lang/rust/issues/81513
 
-# Summary
+## Summary
 [summary]: #summary
 
 Add generic APIs that allow manipulating the metadata of fat pointers:
@@ -17,7 +17,7 @@ This RFC does *not* propose a mechanism for defining custom dynamically-sized ty
 but tries to stay compatible with future proposals that do.
 
 
-# Background
+## Background
 [background]: #background
 
 Typical high-level code doesn’t need to worry about fat pointers,
@@ -31,7 +31,7 @@ from the standard library.
 as it was guaranteed to have the same memory layout.
 This was replaced with more specific and less wildly unsafe
 `std::slice::from_raw_parts` and `std::slice::from_raw_parts_mut` functions,
-together with `as_ptr` and `len` methods that extract each fat pointer component separatly.
+together with `as_ptr` and `len` methods that extract each fat pointer component separately.
 
 For trait objects, where we still have an unstable `std::raw::TraitObject` type
 that can only be used with `transmute`:
@@ -46,10 +46,10 @@ pub struct TraitObject {
 
 [`std::raw::Repr`]: https://doc.rust-lang.org/1.10.0/std/raw/trait.Repr.html
 [`std::raw::Slice`]: https://doc.rust-lang.org/1.10.0/std/raw/struct.Slice.html
-[`std::raw::TraitObjet`]: https://doc.rust-lang.org/1.30.0/std/raw/struct.TraitObject.html
+[`std::raw::TraitObject`]: https://doc.rust-lang.org/1.30.0/std/raw/struct.TraitObject.html
 
 
-# Motivation
+## Motivation
 [motivation]: #motivation
 
 We now have APIs in Stable Rust to let unsafe code freely and reliably manipulate slices,
@@ -70,7 +70,7 @@ because there was previously no way to express pointer-thinness in generic code.
 [lib]: https://play.rust-lang.org/?version=nightly&mode=debug&edition=2015&gist=bbeecccc025f5a7a0ad06086678e13f3
 
 
-# Guide-level explanation
+## Guide-level explanation
 [guide-level-explanation]: #guide-level-explanation
 
 
@@ -100,7 +100,7 @@ struct WithMeta<T: ?Sized> {
 Since [unsized rvalues] are not implemented yet,
 our constructor is going to “unsize” from a concrete type that implements our trait.
 The `Unsize` bound ensures we can cast from `&S` to a `&Dyn` trait object
-and construct the appopriate metadata.
+and construct the appropriate metadata.
 
 [unsized rvalues]: https://github.com/rust-lang/rust/issues/48055
 
@@ -164,7 +164,7 @@ impl<Dyn: ?Sized + DynTrait> Drop for ThinBox<Dyn> {
 ```
 
 
-# Reference-level explanation
+## Reference-level explanation
 [reference-level-explanation]: #reference-level-explanation
 
 The APIs whose full definition is found below
@@ -325,7 +325,7 @@ impl<DynTrait: ?Sized> DynMetadata<DynTrait> {
 ```
 
 
-# Rationale and alternatives
+## Rationale and alternatives
 [rationale-and-alternatives]: #rationale-and-alternatives
 
 The status quo is that code (such as linked in [Motivation]) that requires this functionality
@@ -350,7 +350,7 @@ possibly like `(DynMetadata<dyn Trait>, DynMetadata<dyn OtherTrait>)`.)
 [2579]: https://github.com/rust-lang/rfcs/pull/2579
 
 
-# Prior art
+## Prior art
 [prior-art]: #prior-art
 
 A previous [Custom Dynamically-Sized Types][cdst] RFC was postponed.
@@ -362,7 +362,7 @@ Except for `DynMetadata`’s methods, this RFC proposes a subset of what that th
 [6663]: https://internals.rust-lang.org/t/pre-erfc-lets-fix-dsts/6663
 
 
-# Unresolved questions
+## Unresolved questions
 [unresolved-questions]: #unresolved-questions
 
 * The name of `Pointee`. [Internals thread #6663][6663] used `Referent`.
@@ -373,7 +373,7 @@ Except for `DynMetadata`’s methods, this RFC proposes a subset of what that th
   This might reduce monomorphization cost,
   but would force that the size, alignment, and destruction pointers
   be in the same location (offset) for every vtable.
-  But keeping them in the same location is probaly desirable anyway to keep code size small.
+  But keeping them in the same location is probably desirable anyway to keep code size small.
 
 * The name of `Thin`.
   This name is short and sweet but `T: Thin` suggests that `T` itself is thin,
@@ -385,7 +385,7 @@ Except for `DynMetadata`’s methods, this RFC proposes a subset of what that th
   Or could it ever make sense to have fat pointers to statically-sized types?
 
 * Are there other generic standard library APIs like `ptr::null()`
-  that have an (implicit) `T: Sized` bound that unneccesarily excludes extern types?
+  that have an (implicit) `T: Sized` bound that unnecessarily excludes extern types?
 
 * Should `<*mut _>::from_raw_parts` and friends be `unsafe fn`s?
 

@@ -3,7 +3,7 @@
 - RFC PR: [rust-lang/rfcs#2959](https://github.com/rust-lang/rfcs/pull/2959)
 - Rust Issue: [rust-lang/rust#78251](https://github.com/rust-lang/rust/issues/78251)
 
-# Summary
+## Summary
 [summary]: #summary
 
 Promote the Arm aarch64-unknown-linux-gnu Rust target to Tier-1.
@@ -19,7 +19,7 @@ The next section provides a justification for the promotion.
    * An approval from the Release Team that supporting the target in question is viable in the long term.
 
 
-# Motivation
+## Motivation
 [motivation]: #motivation
 
 The Arm aarch64-unknown-linux-gnu target is [currently a Tier-2 Rust target](https://forge.rust-lang.org/release/platform-support.html#tier-2), in accordance with the target tier policy articulated [here](https://rust-lang.github.io/compiler-team/minutes/design-meeting/2019-09-20-target-tier-policy/).
@@ -40,7 +40,7 @@ Please note that the narrative here doesn't always match the RFC template so som
 
 Please also note, by way of wilful disclosure, that this RFC's author is an employee of Arm.
 
-# Guide-level explanation
+## Guide-level explanation
 [guide-level-explanation]: #guide-level-explanation
 
 1. **In essence, the target tier policy for a Tier-1 target aims to obtain the following technical and tangible assurances:**
@@ -73,7 +73,7 @@ The following section details how points 1 and 2 of the above assurances have ei
 
 As mentioned in the [summary](#Summary), items in 3 above are **required next steps.**
 
-# Reference-level explanation
+## Reference-level explanation
 [reference-level-explanation]: #reference-level-explanation
 
 **1.a. The Rust compiler and compiler tests must all build and pass reliably for the target in question.**
@@ -107,7 +107,7 @@ As mentioned in the [summary](#Summary), items in 3 above are **required next st
 
  - The evidence to that effect is too numerous to quote but generally easy to verify openly. 
 
- - It is fair to state that this is an ongoing reality which is unlikely to stop trending upwards and sidewards for the forseeable future.
+ - It is fair to state that this is an ongoing reality which is unlikely to stop trending upwards and sidewards for the foreseeable future.
 
  - Software stacks built for those domains predominantly use an AArch64 Linux kernel build.
 
@@ -141,7 +141,7 @@ As mentioned in the [summary](#Summary), items in 3 above are **required next st
 
  - It is hard to concretely quantify this aspect.
 
- - Most major Arm software ecosystem partners are either already using Rust extensively, or are building up to extensive use. A few publically known examples are Microsoft, Google and Amazon. There are many more.
+ - Most major Arm software ecosystem partners are either already using Rust extensively, or are building up to extensive use. A few publicly known examples are Microsoft, Google and Amazon. There are many more.
 
  - Arm itself recognises Rust as an important component to consider in a broader horizontal safety and security foundation across multiple processor portfolios. 
 
@@ -151,12 +151,12 @@ As mentioned in the [summary](#Summary), items in 3 above are **required next st
 
 Points 3.a through 3.c from the [Guide-level explanation](#Guide-level-explanation) section above are addressed in the [Unresolved questions](#unresolved-questions) section below.
 
-# Drawbacks
+## Drawbacks
 [drawbacks]: #drawbacks
 
 **There is no drawback envisioned in promoting the Rust aarch64-unknown-linux-gnu to Tier-1.**
 
-# Rationale and alternatives
+## Rationale and alternatives
 [rationale-and-alternatives]: #rationale-and-alternatives
 
 Given the narrative above, it is the opinion of the author that it would now be tactically sound to promote aarch64-unknown-linux-gnu to Tier-1.
@@ -167,7 +167,7 @@ Given the narrative above, it is the opinion of the author that it would now be 
 
 As such **there is no substantially robust reason to not proceed with promoting aarch64-unknown-linux-gnu to Tier-1.**
 
-# Prior art
+## Prior art
 [prior-art]: #prior-art
 
 - Existing Tier-1 targets represent prior-art.
@@ -178,12 +178,12 @@ As such **there is no substantially robust reason to not proceed with promoting 
 
 However, as emphasised in the narrative thus far, **the aarch64-unknown-linux-gnu target now exhibits the properties required by a Tier-1 target as per the target tier policy.**
 
-# Unresolved questions
+## Unresolved questions
 [unresolved-questions]: #unresolved-questions
 
 No unresolved questions or issues remain.
 
-# Future possibilities
+## Future possibilities
 [future-possibilities]: #future-possibilities
 
 As the first non i686 and non x86_64 target to be considered for promotion to Tier-1, the aarch64-unknown-linux-gnu target will likely set a precedent for other AArch64 and non-AArch64 targets to follow in the future.
